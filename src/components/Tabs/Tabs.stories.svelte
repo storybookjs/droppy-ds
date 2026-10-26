@@ -127,7 +127,8 @@
 
 <!-- Item `disabled` keeps a tab focusable but never lets it activate. -->
 <Story
-  name="DisabledTab"
+  exportName="DisabledTab"
+  name="Disabled Tab"
   tags={['api-ref']}
   argTypes={hide('value', 'onValueChange', 'class')}
   args={{ tabs: [TABS[0], { ...TABS[1], disabled: true }, TABS[2]] }}
@@ -135,7 +136,8 @@
 
 <!-- `defaultValue` picks the starting tab without making Tabs controlled. -->
 <Story
-  name="DefaultValue"
+  exportName="DefaultValue"
+  name="Default Value"
   tags={['api-ref']}
   argTypes={hide('value', 'onValueChange', 'class')}
   args={{ defaultValue: 'settings' }}
@@ -143,7 +145,8 @@
 
 <!-- `value` and `onValueChange` hand the active tab to the caller's state. -->
 <Story
-  name="ControlledValue"
+  exportName="ControlledValue"
+  name="Controlled Value"
   tags={['api-ref', 'highlight']}
   argTypes={hide('defaultValue', 'class')}
   args={{ defaultValue: undefined, value: 'items', onValueChange: fn() }}
@@ -154,7 +157,8 @@
   The demo class adds a margin, visible as the gap inside the bordered parent.
 -->
 <Story
-  name="ClassName"
+  exportName="ClassName"
+  name="Class Name"
   tags={['api-ref']}
   argTypes={hide('value', 'onValueChange')}
   args={{ class: 'tabs-demo-inset' }}
@@ -169,7 +173,8 @@
   committing. Only Enter, Space, or a click activates.
 -->
 <Story
-  name="FocusDoesNotActivate"
+  exportName="FocusDoesNotActivate"
+  name="Focus Does Not Activate"
   tags={['highlight']}
   argTypes={hide('value', 'onValueChange', 'class')}
   play={async ({ canvas }) => {
@@ -189,7 +194,8 @@
   do change when the active tab changes.
 -->
 <Story
-  name="AnimatedIndicator"
+  exportName="AnimatedIndicator"
+  name="Animated Indicator"
   tags={['animation']}
   argTypes={hide('value', 'onValueChange', 'class')}
   play={async ({ canvas, canvasElement }) => {
@@ -245,7 +251,8 @@
 
 <!-- DropBoard's order queue, split by where each order has got to. -->
 <Story
-  name="DropBoardOrderQueue"
+  exportName="DropBoardOrderQueue"
+  name="Drop Board Order Queue"
   tags={['examples']}
   argTypes={hide('tabs', 'value', 'defaultValue', 'onValueChange', 'class')}
 >
@@ -270,7 +277,8 @@
 <!-- tests — assertions only, one behaviour each -->
 
 <Story
-  name="TestClickActivates"
+  exportName="TestClickActivates"
+  name="Test Click Activates"
   tags={['tests']}
   play={async ({ canvas }) => {
     const tab1 = canvas.getByRole('tab', { name: 'Overview' })
@@ -285,7 +293,8 @@
 />
 
 <Story
-  name="TestKeyboardFocusDoesNotActivate"
+  exportName="TestKeyboardFocusDoesNotActivate"
+  name="Test Keyboard Focus Does Not Activate"
   tags={['tests']}
   play={async ({ canvas }) => {
     const tab1 = canvas.getByRole('tab', { name: 'Overview' })
@@ -301,7 +310,8 @@
 />
 
 <Story
-  name="TestDisabledTabNeverActivates"
+  exportName="TestDisabledTabNeverActivates"
+  name="Test Disabled Tab Never Activates"
   tags={['tests']}
   args={{ tabs: [TABS[0], { ...TABS[1], disabled: true }, TABS[2]] }}
   play={async ({ canvas }) => {
@@ -316,7 +326,8 @@
 />
 
 <Story
-  name="TestControlledValueHoldsItsTab"
+  exportName="TestControlledValueHoldsItsTab"
+  name="Test Controlled Value Holds Its Tab"
   tags={['tests']}
   args={{ defaultValue: undefined, value: 'items', onValueChange: fn() }}
   play={async ({ args, canvas }) => {

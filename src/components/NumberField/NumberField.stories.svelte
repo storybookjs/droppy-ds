@@ -73,7 +73,8 @@
 
 <!-- `defaultValue` seeds the field without making it controlled. -->
 <Story
-  name="DefaultValue"
+  exportName="DefaultValue"
+  name="Default Value"
   tags={['api-ref']}
   argTypes={hide('value', 'format', 'class')}
   args={{ defaultValue: 5 }}
@@ -81,7 +82,8 @@
 
 <!-- `min` and `max` bound the range; the buttons disable at each end. -->
 <Story
-  name="MinAndMax"
+  exportName="MinAndMax"
+  name="Min And Max"
   tags={['api-ref']}
   argTypes={hide('value', 'format', 'class')}
   args={{ defaultValue: 9, min: 0, max: 10 }}
@@ -121,7 +123,8 @@
   The demo class adds a margin, visible as the gap inside the bordered parent.
 -->
 <Story
-  name="ClassName"
+  exportName="ClassName"
+  name="Class Name"
   tags={['api-ref']}
   argTypes={hide('value', 'format')}
   args={{ class: 'numberfield-demo-inset' }}
@@ -136,7 +139,8 @@
   separates this from `QuantityStepper`, which only does tap-tap increments.
 -->
 <Story
-  name="ThreeWaysToChangeTheValue"
+  exportName="ThreeWaysToChangeTheValue"
+  name="Three Ways To Change The Value"
   tags={['highlight']}
   argTypes={hide('value', 'format', 'class')}
   args={{ defaultValue: 100 }}
@@ -180,7 +184,7 @@
 <!-- examples — Mealdrop / DropBoard compositions -->
 
 <!-- DropBoard's menu-item price and prep-time fields. -->
-<Story name="DropBoardPriceEditor" tags={['examples']}>
+<Story exportName="DropBoardPriceEditor" name="Drop Board Price Editor" tags={['examples']}>
   {#snippet template()}
     <DropBoardPriceEditor />
   {/snippet}
@@ -189,7 +193,8 @@
 <!-- tests — assertions only, one behaviour each -->
 
 <Story
-  name="TestTypingReportsAParsedNumber"
+  exportName="TestTypingReportsAParsedNumber"
+  name="Test Typing Reports A Parsed Number"
   tags={['tests']}
   args={{ defaultValue: undefined }}
   play={async ({ args, canvas }) => {
@@ -204,7 +209,8 @@
 />
 
 <Story
-  name="TestIncrementAndDecrement"
+  exportName="TestIncrementAndDecrement"
+  name="Test Increment And Decrement"
   tags={['tests']}
   args={{ defaultValue: 5 }}
   play={async ({ canvas }) => {
@@ -220,7 +226,8 @@
 />
 
 <Story
-  name="TestButtonsDisableAtBounds"
+  exportName="TestButtonsDisableAtBounds"
+  name="Test Buttons Disable At Bounds"
   tags={['tests']}
   args={{ defaultValue: 9, min: 0, max: 10 }}
   play={async ({ canvas }) => {
@@ -234,7 +241,8 @@
 />
 
 <Story
-  name="TestDisabledBlocksEverything"
+  exportName="TestDisabledBlocksEverything"
+  name="Test Disabled Blocks Everything"
   tags={['tests']}
   args={{ defaultValue: 3, disabled: true }}
   play={async ({ canvas }) => {
@@ -244,7 +252,8 @@
 />
 
 <Story
-  name="TestScrubbingTheLabel"
+  exportName="TestScrubbingTheLabel"
+  name="Test Scrubbing The Label"
   tags={['tests']}
   args={{ defaultValue: 100 }}
   play={async ({ canvasElement }) => {

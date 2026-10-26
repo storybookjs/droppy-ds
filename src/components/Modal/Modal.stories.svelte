@@ -81,7 +81,8 @@
 
 <!-- `isOpen` drives everything — the component holds no open state of its own. -->
 <Story
-  name="IsOpen"
+  exportName="IsOpen"
+  name="Is Open"
   tags={['api-ref']}
   argTypes={hide('container', 'class')}
   args={{ isOpen: false }}
@@ -125,7 +126,8 @@
   The demo class adds a margin, visible as the gap inside the bordered parent.
 -->
 <Story
-  name="ClassName"
+  exportName="ClassName"
+  name="Class Name"
   tags={['api-ref']}
   argTypes={hide('container')}
   args={{ isOpen: true, class: 'modal-demo-inset', container: '#modal-classname-demo' }}
@@ -154,7 +156,8 @@
   leave. Tab still reaches the close button first.
 -->
 <Story
-  name="InitialFocusIsThePopup"
+  exportName="InitialFocusIsThePopup"
+  name="Initial Focus Is The Popup"
   tags={['highlight']}
   argTypes={hide('container', 'class')}
   args={{ isOpen: true }}
@@ -169,7 +172,8 @@
   runs before it disappears.
 -->
 <Story
-  name="OpenCloseTransition"
+  exportName="OpenCloseTransition"
+  name="Open Close Transition"
   tags={['animation']}
   argTypes={hide('container', 'class')}
   args={{ isOpen: true }}
@@ -225,7 +229,8 @@
 
 <!-- Mealdrop's food-item modal, opened from a dish on the menu. -->
 <Story
-  name="MealdropFoodItemModal"
+  exportName="MealdropFoodItemModal"
+  name="Mealdrop Food Item Modal"
   tags={['examples']}
   argTypes={hide('isOpen', 'onClose', 'container', 'aria-label', 'children', 'class')}
   play={async ({ canvas }) => {
@@ -242,7 +247,8 @@
 <!-- tests — assertions only, one behaviour each -->
 
 <Story
-  name="TestOpensAndCloses"
+  exportName="TestOpensAndCloses"
+  name="Test Opens And Closes"
   tags={['tests']}
   play={async ({ args, canvas, canvasElement }) => {
     const doc = within(canvasElement.ownerDocument.body)
@@ -257,7 +263,8 @@
 />
 
 <Story
-  name="TestEscapeDismisses"
+  exportName="TestEscapeDismisses"
+  name="Test Escape Dismisses"
   tags={['tests']}
   play={async ({ args, canvas, canvasElement }) => {
     const doc = within(canvasElement.ownerDocument.body)
@@ -272,7 +279,8 @@
 />
 
 <Story
-  name="TestDialogIsNamed"
+  exportName="TestDialogIsNamed"
+  name="Test Dialog Is Named"
   tags={['tests']}
   args={{ isOpen: true, 'aria-label': 'Remove from cart' }}
   play={async ({ canvasElement }) => {
@@ -283,7 +291,8 @@
 />
 
 <Story
-  name="TestContainerPortalsWhereAsked"
+  exportName="TestContainerPortalsWhereAsked"
+  name="Test Container Portals Where Asked"
   tags={['tests']}
   args={{ isOpen: true, container: '#modal-portal-test' }}
   play={async ({ canvas }) => {

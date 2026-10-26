@@ -100,7 +100,8 @@
 
 <!-- `isOpen` drives everything — the component holds no open state of its own. -->
 <Story
-  name="IsOpen"
+  exportName="IsOpen"
+  name="Is Open"
   tags={['api-ref']}
   argTypes={hide('container', 'class')}
   args={{ isOpen: false }}
@@ -147,7 +148,8 @@
   The demo class adds a margin, visible as the gap inside the bordered parent.
 -->
 <Story
-  name="ClassName"
+  exportName="ClassName"
+  name="Class Name"
   tags={['api-ref']}
   argTypes={hide('container')}
   args={{ isOpen: true, class: 'sidebar-demo-inset', container: '#sidebar-classname-demo' }}
@@ -162,7 +164,8 @@
 
 <!-- Below the mobile breakpoint the panel takes the full width. -->
 <Story
-  name="FullWidthOnMobile"
+  exportName="FullWidthOnMobile"
+  name="Full Width On Mobile"
   tags={['highlight']}
   argTypes={hide('container', 'class')}
   args={{ isOpen: true }}
@@ -174,7 +177,8 @@
   pushes the checkout button out of reach.
 -->
 <Story
-  name="PinnedFooterWithScrollingContent"
+  exportName="PinnedFooterWithScrollingContent"
+  name="Pinned Footer With Scrolling Content"
   tags={['highlight']}
   argTypes={hide('container', 'class')}
   args={{ isOpen: true, children: longOrder, footer: checkoutLong }}
@@ -188,7 +192,8 @@
   animation runs before it leaves the DOM.
 -->
 <Story
-  name="SlideTransition"
+  exportName="SlideTransition"
+  name="Slide Transition"
   tags={['animation']}
   argTypes={hide('container', 'class')}
   args={{ isOpen: true }}
@@ -248,7 +253,8 @@
 
 <!-- Mealdrop's cart panel, opened from the header's cart button. -->
 <Story
-  name="MealdropCartPanel"
+  exportName="MealdropCartPanel"
+  name="Mealdrop Cart Panel"
   tags={['examples']}
   argTypes={hide('isOpen', 'title', 'onClose', 'footer', 'container', 'children', 'class')}
   play={async ({ canvas }) => {
@@ -265,7 +271,8 @@
 <!-- tests — assertions only, one behaviour each -->
 
 <Story
-  name="TestOpensAndCloses"
+  exportName="TestOpensAndCloses"
+  name="Test Opens And Closes"
   tags={['tests']}
   play={async ({ args, canvas, canvasElement }) => {
     const doc = within(canvasElement.ownerDocument.body)
@@ -284,7 +291,8 @@
 />
 
 <Story
-  name="TestTitleNamesTheDialog"
+  exportName="TestTitleNamesTheDialog"
+  name="Test Title Names The Dialog"
   tags={['tests']}
   args={{ isOpen: true }}
   play={async ({ canvasElement }) => {
@@ -295,7 +303,8 @@
 />
 
 <Story
-  name="TestFooterIsOptional"
+  exportName="TestFooterIsOptional"
+  name="Test Footer Is Optional"
   tags={['tests']}
   args={{ isOpen: true, footer: undefined }}
   play={async ({ canvasElement }) => {
@@ -309,7 +318,8 @@
 />
 
 <Story
-  name="TestContainerPortalsWhereAsked"
+  exportName="TestContainerPortalsWhereAsked"
+  name="Test Container Portals Where Asked"
   tags={['tests']}
   args={{ isOpen: true, container: '#sidebar-portal-test' }}
   play={async ({ canvas }) => {

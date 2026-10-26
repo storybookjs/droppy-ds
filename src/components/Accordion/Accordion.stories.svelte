@@ -203,7 +203,8 @@
 
 <!-- Giving each item an explicit `value` decouples the open state from list order. -->
 <Story
-  name="ItemValues"
+  exportName="ItemValues"
+  name="Item Values"
   tags={['api-ref']}
   argTypes={hide('value', 'openMultiple', 'onValueChange', 'class')}
   args={{ defaultValue: ['order-changes'] }}
@@ -214,7 +215,8 @@
   badge, and content can be any markup.
 -->
 <Story
-  name="RichContent"
+  exportName="RichContent"
+  name="Rich Content"
   tags={['api-ref', 'highlight']}
   argTypes={hide('items', 'value', 'openMultiple', 'onValueChange', 'class')}
   args={{ defaultValue: ['loyalty'] }}
@@ -250,7 +252,8 @@
 
 <!-- A disabled item's trigger stays focusable, but never toggles its panel. -->
 <Story
-  name="DisabledItem"
+  exportName="DisabledItem"
+  name="Disabled Item"
   tags={['api-ref']}
   argTypes={hide('value', 'defaultValue', 'openMultiple', 'onValueChange', 'class')}
   args={{
@@ -260,7 +263,8 @@
 
 <!-- `openMultiple` lets several panels stay open at once. -->
 <Story
-  name="OpenMultiple"
+  exportName="OpenMultiple"
+  name="Open Multiple"
   tags={['api-ref']}
   argTypes={hide('value', 'onValueChange', 'class')}
   args={{ openMultiple: true, defaultValue: ['delivery-time', 'delivery-area'] }}
@@ -268,7 +272,8 @@
 
 <!-- `defaultValue` seeds the open items without making the accordion controlled. -->
 <Story
-  name="DefaultValue"
+  exportName="DefaultValue"
+  name="Default Value"
   tags={['api-ref']}
   argTypes={hide('value', 'openMultiple', 'onValueChange', 'class')}
   args={{ defaultValue: ['delivery-area'] }}
@@ -281,7 +286,8 @@
   a controlled value.
 -->
 <Story
-  name="ControlledValue"
+  exportName="ControlledValue"
+  name="Controlled Value"
   tags={['api-ref', 'highlight']}
   argTypes={hide('defaultValue', 'class')}
 >
@@ -295,7 +301,8 @@
   The demo class adds a margin, visible as the gap inside the bordered parent.
 -->
 <Story
-  name="ClassName"
+  exportName="ClassName"
+  name="Class Name"
   tags={['api-ref']}
   argTypes={hide('value', 'defaultValue', 'openMultiple', 'onValueChange')}
   args={{ class: 'accordion-demo-inset' }}
@@ -365,7 +372,8 @@
   list never grows past one panel's worth of height.
 -->
 <Story
-  name="SingleOpenReplaces"
+  exportName="SingleOpenReplaces"
+  name="Single Open Replaces"
   tags={['highlight']}
   argTypes={hide('value', 'defaultValue', 'onValueChange', 'class')}
   play={async ({ canvas }) => {
@@ -384,7 +392,8 @@
   height — rather than trusting the visible sweep.
 -->
 <Story
-  name="PanelHeightTransition"
+  exportName="PanelHeightTransition"
+  name="Panel Height Transition"
   tags={['animation']}
   argTypes={hide(...ALL_BUT_ITEMS)}
   play={async ({ canvas, canvasElement }) => {
@@ -419,7 +428,8 @@
   seeds `openMultiple`/`defaultValue`, which args still override.
 -->
 <Story
-  name="DropBoardOrders"
+  exportName="DropBoardOrders"
+  name="Drop Board Orders"
   tags={['examples']}
   argTypes={hide('items', 'value', 'class')}
   args={{ items: undefined, defaultValue: undefined, openMultiple: undefined }}
@@ -475,7 +485,8 @@
 <!-- tests — assertions only, one behaviour each -->
 
 <Story
-  name="TestSingleOpen"
+  exportName="TestSingleOpen"
+  name="Test Single Open"
   tags={['tests']}
   argTypes={hide(...ALL_BUT_ITEMS)}
   play={async ({ canvas }) => {
@@ -496,7 +507,8 @@
 />
 
 <Story
-  name="TestOpenMultiple"
+  exportName="TestOpenMultiple"
+  name="Test Open Multiple"
   tags={['tests']}
   argTypes={hide(...ALL_BUT_ITEMS)}
   args={{ openMultiple: true }}
@@ -515,7 +527,8 @@
 />
 
 <Story
-  name="TestDisabledItem"
+  exportName="TestDisabledItem"
+  name="Test Disabled Item"
   tags={['tests']}
   argTypes={hide(...ALL_BUT_ITEMS)}
   args={{
@@ -534,7 +547,8 @@
 />
 
 <Story
-  name="TestControlledValue"
+  exportName="TestControlledValue"
+  name="Test Controlled Value"
   tags={['tests']}
   argTypes={hide(...ALL_BUT_ITEMS)}
   play={async ({ args, canvas }) => {
@@ -562,7 +576,8 @@
   order moves focus between triggers, and Space toggles the focused one.
 -->
 <Story
-  name="TestKeyboardTabFlow"
+  exportName="TestKeyboardTabFlow"
+  name="Test Keyboard Tab Flow"
   tags={['tests']}
   argTypes={hide(...ALL_BUT_ITEMS)}
   play={async ({ canvas }) => {

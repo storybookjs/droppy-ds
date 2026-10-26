@@ -84,7 +84,8 @@
   The demo class adds a margin, visible as the gap inside the bordered parent.
 -->
 <Story
-  name="ClassName"
+  exportName="ClassName"
+  name="Class Name"
   tags={['api-ref']}
   args={{ class: 'select-demo-inset' }}
   decorators={[inBorderedBox]}
@@ -97,7 +98,12 @@
   caller never parses the value first — and a non-numeric option is never
   turned into `NaN`, which is what Mealdrop's blanket `Number()` did.
 -->
-<Story name="ValueCoercion" tags={['highlight']} argTypes={hide('options', 'value', 'class')}>
+<Story
+  exportName="ValueCoercion"
+  name="Value Coercion"
+  tags={['highlight']}
+  argTypes={hide('options', 'value', 'class')}
+>
   {#snippet template(args)}
     <div style="display: grid; gap: 1rem">
       <Select {...args} label="servings" options={[1, 2, 3]} value={2} />
@@ -111,7 +117,12 @@
   platform picker, which no scripted listbox matches for accessibility or
   muscle memory — Droppy only restyles it and supplies its own chevron.
 -->
-<Story name="NativeControl" tags={['highlight']} argTypes={hide('class')} />
+<Story
+  exportName="NativeControl"
+  name="Native Control"
+  tags={['highlight']}
+  argTypes={hide('class')}
+/>
 
 <!-- anatomy — the rendered part tree -->
 
@@ -140,7 +151,8 @@
 
 <!-- Choosing up to two extras for a customisable burger. -->
 <Story
-  name="MealdropBurgerExtras"
+  exportName="MealdropBurgerExtras"
+  name="Mealdrop Burger Extras"
   tags={['examples']}
   argTypes={hide('label', 'options', 'value', 'onChange', 'disabled', 'class')}
 >
@@ -152,7 +164,8 @@
 <!-- tests — assertions only, one behaviour each -->
 
 <Story
-  name="TestReportsNumericValues"
+  exportName="TestReportsNumericValues"
+  name="Test Reports Numeric Values"
   tags={['tests']}
   play={async ({ args, canvas }) => {
     await userEvent.selectOptions(canvas.getByLabelText('servings'), '4')
@@ -162,7 +175,8 @@
 />
 
 <Story
-  name="TestReportsTextValues"
+  exportName="TestReportsTextValues"
+  name="Test Reports Text Values"
   tags={['tests']}
   args={{
     label: 'delivery window',
@@ -178,7 +192,8 @@
 />
 
 <Story
-  name="TestLabelNamesTheControl"
+  exportName="TestLabelNamesTheControl"
+  name="Test Label Names The Control"
   tags={['tests']}
   play={async ({ canvas }) => {
     await expect(canvas.getByLabelText('servings').tagName).toBe('SELECT')

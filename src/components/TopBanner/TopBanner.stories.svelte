@@ -94,7 +94,8 @@
 
 <!-- `photoUrl` sets the background and switches the heading to its on-photo treatment. -->
 <Story
-  name="PhotoUrl"
+  exportName="PhotoUrl"
+  name="Photo Url"
   tags={['api-ref']}
   argTypes={hide('level', 'onBackClick', 'class')}
   args={{ photoUrl: PHOTO_DATA_URI }}
@@ -106,7 +107,8 @@
   renders a control, so the callback never fires.
 -->
 <Story
-  name="OnBackClick"
+  exportName="OnBackClick"
+  name="On Back Click"
   tags={['api-ref']}
   argTypes={hide('level', 'photoUrl', 'class')}
   args={{ onBackClick: () => {}, photoUrl: undefined }}
@@ -117,7 +119,8 @@
   The demo class adds a margin, visible as the gap inside the bordered parent.
 -->
 <Story
-  name="ClassName"
+  exportName="ClassName"
+  name="Class Name"
   tags={['api-ref']}
   argTypes={hide('level', 'onBackClick')}
   args={{ class: 'topbanner-demo-inset' }}
@@ -132,7 +135,8 @@
   token underneath.
 -->
 <Story
-  name="HeadingOverPhoto"
+  exportName="HeadingOverPhoto"
+  name="Heading Over Photo"
   tags={['highlight']}
   argTypes={hide('level', 'onBackClick', 'class')}
 >
@@ -173,7 +177,8 @@
 
 <!-- The restaurant detail page header. -->
 <Story
-  name="MealdropRestaurantHeader"
+  exportName="MealdropRestaurantHeader"
+  name="Mealdrop Restaurant Header"
   tags={['examples']}
   argTypes={hide('title', 'level', 'photoUrl', 'onBackClick', 'class')}
   parameters={{ layout: 'fullscreen' }}
@@ -198,7 +203,8 @@
 <!-- tests — assertions only, one behaviour each -->
 
 <Story
-  name="TestRendersTitleAsHeading"
+  exportName="TestRendersTitleAsHeading"
+  name="Test Renders Title As Heading"
   tags={['tests']}
   play={async ({ canvas }) => {
     await expect(canvas.getByRole('heading', { level: 1, name: 'Categories' })).toBeInTheDocument()
@@ -206,7 +212,8 @@
 />
 
 <Story
-  name="TestLevelSetsHeadingLevel"
+  exportName="TestLevelSetsHeadingLevel"
+  name="Test Level Sets Heading Level"
   tags={['tests']}
   args={{ level: 3 }}
   play={async ({ canvas }) => {
@@ -215,7 +222,8 @@
 />
 
 <Story
-  name="TestPhotoBecomesBackground"
+  exportName="TestPhotoBecomesBackground"
+  name="Test Photo Becomes Background"
   tags={['tests']}
   args={{ photoUrl: PHOTO_DATA_URI }}
   play={async ({ canvas }) => {
@@ -226,7 +234,8 @@
 />
 
 <Story
-  name="TestTitleIsOptional"
+  exportName="TestTitleIsOptional"
+  name="Test Title Is Optional"
   tags={['tests']}
   args={{ title: undefined }}
   play={async ({ canvas }) => {

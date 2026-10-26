@@ -91,7 +91,8 @@
   The demo class adds a margin, visible as the gap inside the bordered parent.
 -->
 <Story
-  name="ClassName"
+  exportName="ClassName"
+  name="Class Name"
   tags={['api-ref']}
   argTypes={hide('orientation')}
   args={{ class: 'separator-demo-inset' }}
@@ -131,7 +132,8 @@
 
 <!-- Dividers in Mealdrop's order summary. -->
 <Story
-  name="MealdropOrderSummaryDividers"
+  exportName="MealdropOrderSummaryDividers"
+  name="Mealdrop Order Summary Dividers"
   tags={['examples']}
   argTypes={hide('orientation', 'style', 'class')}
 >
@@ -166,7 +168,8 @@
 <!-- tests — assertions only, one behaviour each -->
 
 <Story
-  name="TestHorizontalAttributes"
+  exportName="TestHorizontalAttributes"
+  name="Test Horizontal Attributes"
   tags={['tests']}
   play={async ({ canvas }) => {
     const separator = canvas.getByRole('separator')
@@ -177,7 +180,8 @@
 />
 
 <Story
-  name="TestVerticalAttributes"
+  exportName="TestVerticalAttributes"
+  name="Test Vertical Attributes"
   tags={['tests']}
   args={{ orientation: 'vertical' }}
   play={async ({ canvas }) => {
@@ -189,7 +193,8 @@
 />
 
 <Story
-  name="TestIsNotFocusable"
+  exportName="TestIsNotFocusable"
+  name="Test Is Not Focusable"
   tags={['tests']}
   play={async ({ canvas }) => {
     // Structural, not the interactive "range" variant the ARIA spec also

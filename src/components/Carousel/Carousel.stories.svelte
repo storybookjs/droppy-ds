@@ -142,7 +142,8 @@
 
 <!-- `itemsPerView` sets how many fit per breakpoint. Fractions show a sliver of the next. -->
 <Story
-  name="ItemsPerView"
+  exportName="ItemsPerView"
+  name="Items Per View"
   tags={['api-ref']}
   argTypes={hide('slidesToScroll', 'class')}
   args={{ itemsPerView: { mobile: 1, tablet: 2, desktop: 3 } }}
@@ -150,7 +151,8 @@
 
 <!-- `slidesToScroll` advances more than one item per arrow click. -->
 <Story
-  name="SlidesToScroll"
+  exportName="SlidesToScroll"
+  name="Slides To Scroll"
   tags={['api-ref']}
   argTypes={hide('class')}
   args={{ slidesToScroll: { desktop: 4 } }}
@@ -161,7 +163,8 @@
   The demo class adds a margin, visible as the gap inside the bordered parent.
 -->
 <Story
-  name="ClassName"
+  exportName="ClassName"
+  name="Class Name"
   tags={['api-ref']}
   argTypes={hide('slidesToScroll')}
   args={{ class: 'carousel-demo-inset' }}
@@ -176,7 +179,8 @@
   smaller screens scroll by dragging or by horizontal wheel gesture.
 -->
 <Story
-  name="ArrowsOnlyWhenThereIsSomewhereToGo"
+  exportName="ArrowsOnlyWhenThereIsSomewhereToGo"
+  name="Arrows Only When There Is Somewhere To Go"
   tags={['highlight']}
   argTypes={hide('slidesToScroll', 'class')}
   args={{ items: TILES.slice(0, 2) }}
@@ -187,7 +191,8 @@
   row signals there is more to reach rather than looking clipped.
 -->
 <Story
-  name="OffscreenSlidesDim"
+  exportName="OffscreenSlidesDim"
+  name="Offscreen Slides Dim"
   tags={['highlight']}
   argTypes={hide('slidesToScroll', 'class')}
   args={{ itemsPerView: { mobile: 1.2, tablet: 2.5, desktop: 3.5 } }}
@@ -229,7 +234,8 @@
 
 <!-- The 'Restaurants near you' rail. -->
 <Story
-  name="MealdropRestaurantRail"
+  exportName="MealdropRestaurantRail"
+  name="Mealdrop Restaurant Rail"
   tags={['examples']}
   argTypes={hide('items', 'slide', 'itemsPerView', 'slidesToScroll', 'class')}
 >
@@ -263,7 +269,8 @@
 <!-- tests — assertions only, one behaviour each -->
 
 <Story
-  name="TestRendersEverySlide"
+  exportName="TestRendersEverySlide"
+  name="Test Renders Every Slide"
   tags={['tests']}
   play={async ({ canvas, canvasElement }) => {
     await expect(canvas.getByText('Item 1')).toBeInTheDocument()
@@ -277,7 +284,8 @@
   still scroll in a narrow canvas, where only ~1 item fits.
 -->
 <Story
-  name="TestNoArrowsWithNothingToScroll"
+  exportName="TestNoArrowsWithNothingToScroll"
+  name="Test No Arrows With Nothing To Scroll"
   tags={['tests']}
   args={{ items: TILES.slice(0, 1), itemsPerView: { mobile: 1, tablet: 2, desktop: 2 } }}
   play={async ({ canvas }) => {
@@ -289,7 +297,8 @@
 />
 
 <Story
-  name="TestItemsPerViewReachesCss"
+  exportName="TestItemsPerViewReachesCss"
+  name="Test Items Per View Reaches Css"
   tags={['tests']}
   play={async ({ canvasElement }) => {
     const root = canvasElement.querySelector('.droppy-Carousel') as HTMLElement

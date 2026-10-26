@@ -87,7 +87,8 @@
   The demo class adds a margin, visible as the gap inside the bordered parent.
 -->
 <Story
-  name="ClassName"
+  exportName="ClassName"
+  name="Class Name"
   tags={['api-ref']}
   argTypes={hide('style')}
   args={{ class: 'skeleton-demo-inset', width: 200, height: 24 }}
@@ -113,7 +114,12 @@
   in for, so the layout doesn't jump once the real copy arrives. The loading
   container owns the announcement — the placeholders underneath are hidden.
 -->
-<Story name="TextBlock" tags={['highlight']} argTypes={hide('width', 'height', 'class', 'style')}>
+<Story
+  exportName="TextBlock"
+  name="Text Block"
+  tags={['highlight']}
+  argTypes={hide('width', 'height', 'class', 'style')}
+>
   {#snippet template(args)}
     <div role="status" aria-label="Loading restaurant details" style="max-width: 320px">
       <div aria-hidden="true">
@@ -137,7 +143,8 @@
   it holds still, so nothing is lost by stopping it.
 -->
 <Story
-  name="ShimmerAnimation"
+  exportName="ShimmerAnimation"
+  name="Shimmer Animation"
   tags={['animation']}
   argTypes={hide('width', 'height', 'class', 'style')}
   play={async ({ canvasElement }) => {
@@ -175,7 +182,8 @@
 
 <!-- A restaurant tile loading, beside the tile it becomes. -->
 <Story
-  name="MealdropRestaurantCardLoading"
+  exportName="MealdropRestaurantCardLoading"
+  name="Mealdrop Restaurant Card Loading"
   tags={['examples']}
   argTypes={hide('width', 'height', 'class', 'style')}
 >
@@ -219,7 +227,8 @@
 <!-- tests — assertions only, one behaviour each -->
 
 <Story
-  name="TestHiddenFromAssistiveTech"
+  exportName="TestHiddenFromAssistiveTech"
+  name="Test Hidden From Assistive Tech"
   tags={['tests']}
   play={async ({ canvasElement }) => {
     await expect(canvasElement.querySelector('.droppy-Skeleton')).toHaveAttribute(
@@ -230,7 +239,8 @@
 />
 
 <Story
-  name="TestNumbersBecomePixels"
+  exportName="TestNumbersBecomePixels"
+  name="Test Numbers Become Pixels"
   tags={['tests']}
   args={{ width: 120, height: 40 }}
   play={async ({ canvasElement }) => {
@@ -242,7 +252,8 @@
 />
 
 <Story
-  name="TestStringsPassThrough"
+  exportName="TestStringsPassThrough"
+  name="Test Strings Pass Through"
   tags={['tests']}
   args={{ width: '50%', height: '2rem' }}
   play={async ({ canvasElement }) => {

@@ -64,7 +64,8 @@
 
 <!-- `topButtonLabel` adds a `clear` Button beside the title. -->
 <Story
-  name="TopButtonLabel"
+  exportName="TopButtonLabel"
+  name="Top Button Label"
   tags={['api-ref']}
   argTypes={hide('class')}
   args={{ topButtonLabel: 'View all categories', onTopButtonClick: fn() }}
@@ -92,7 +93,8 @@
   The demo class adds a margin, visible as the gap inside the bordered parent.
 -->
 <Story
-  name="ClassName"
+  exportName="ClassName"
+  name="Class Name"
   tags={['api-ref']}
   argTypes={hide('topButtonLabel')}
   args={{ class: 'pagesection-demo-inset' }}
@@ -105,7 +107,12 @@
   The action is optional and renders nothing at all when `topButtonLabel` is
   absent — the title row doesn't reserve space for a button that isn't there.
 -->
-<Story name="ActionIsOptional" tags={['highlight']} argTypes={hide('class')}>
+<Story
+  exportName="ActionIsOptional"
+  name="Action Is Optional"
+  tags={['highlight']}
+  argTypes={hide('class')}
+>
   {#snippet template(args)}
     <PageSection {...args} title="With an action" topButtonLabel="View all" />
     <PageSection {...args} title="Without one" topButtonLabel={undefined} />
@@ -143,7 +150,8 @@
 <!-- tests — assertions only, one behaviour each -->
 
 <Story
-  name="TestTitleIsALevelTwoHeading"
+  exportName="TestTitleIsALevelTwoHeading"
+  name="Test Title Is A Level Two Heading"
   tags={['tests']}
   args={{ topButtonLabel: undefined }}
   play={async ({ canvas }) => {
@@ -152,7 +160,8 @@
 />
 
 <Story
-  name="TestNoActionWithoutALabel"
+  exportName="TestNoActionWithoutALabel"
+  name="Test No Action Without A Label"
   tags={['tests']}
   args={{ topButtonLabel: undefined }}
   play={async ({ canvas }) => {
@@ -161,7 +170,8 @@
 />
 
 <Story
-  name="TestActionFiresItsCallback"
+  exportName="TestActionFiresItsCallback"
+  name="Test Action Fires Its Callback"
   tags={['tests']}
   args={{ topButtonLabel: 'View all categories', onTopButtonClick: fn() }}
   play={async ({ args, canvas }) => {

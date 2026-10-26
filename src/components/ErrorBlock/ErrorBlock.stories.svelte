@@ -83,7 +83,8 @@
 
 <!-- `buttonText` and `onButtonClick` are the single recovery action. -->
 <Story
-  name="ButtonText"
+  exportName="ButtonText"
+  name="Button Text"
   tags={['api-ref']}
   argTypes={hide('illustration', 'class')}
   args={{ buttonText: 'Back to restaurants', onButtonClick: fn() }}
@@ -102,7 +103,8 @@
   The demo class adds a margin, visible as the gap inside the bordered parent.
 -->
 <Story
-  name="ClassName"
+  exportName="ClassName"
+  name="Class Name"
   tags={['api-ref']}
   argTypes={hide('illustration')}
   args={{ class: 'errorblock-demo-inset' }}
@@ -116,7 +118,8 @@
   title, body, and action carry the whole message on their own.
 -->
 <Story
-  name="WithoutIllustration"
+  exportName="WithoutIllustration"
+  name="Without Illustration"
   tags={['highlight']}
   argTypes={hide('class')}
   args={{ illustration: undefined }}
@@ -151,7 +154,8 @@
 
 <!-- A category with nothing in it. -->
 <Story
-  name="MealdropEmptyCategory"
+  exportName="MealdropEmptyCategory"
+  name="Mealdrop Empty Category"
   tags={['examples']}
   argTypes={hide('title', 'illustration', 'body', 'buttonText', 'onButtonClick', 'class')}
 >
@@ -169,7 +173,8 @@
 
 <!-- A restaurant that isn't there. -->
 <Story
-  name="MealdropNotFound"
+  exportName="MealdropNotFound"
+  name="Mealdrop Not Found"
   tags={['examples']}
   argTypes={hide('title', 'illustration', 'body', 'buttonText', 'onButtonClick', 'class')}
 >
@@ -188,7 +193,8 @@
 <!-- tests — assertions only, one behaviour each -->
 
 <Story
-  name="TestTitleIsALevelTwoHeading"
+  exportName="TestTitleIsALevelTwoHeading"
+  name="Test Title Is A Level Two Heading"
   tags={['tests']}
   play={async ({ canvas }) => {
     await expect(
@@ -198,7 +204,8 @@
 />
 
 <Story
-  name="TestActionFiresItsCallback"
+  exportName="TestActionFiresItsCallback"
+  name="Test Action Fires Its Callback"
   tags={['tests']}
   play={async ({ args, canvas }) => {
     await userEvent.click(canvas.getByRole('button', { name: 'See all restaurants' }))
@@ -208,7 +215,8 @@
 />
 
 <Story
-  name="TestIllustrationIsOptional"
+  exportName="TestIllustrationIsOptional"
+  name="Test Illustration Is Optional"
   tags={['tests']}
   args={{ illustration: undefined }}
   play={async ({ canvas, canvasElement }) => {

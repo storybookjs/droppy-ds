@@ -93,7 +93,8 @@
   The demo class adds a margin, visible as the gap inside the bordered parent.
 -->
 <Story
-  name="ClassName"
+  exportName="ClassName"
+  name="Class Name"
   tags={['api-ref']}
   argTypes={hide('color')}
   args={{ class: 'icon-demo-inset', size: '2rem' }}
@@ -107,7 +108,12 @@
   they never reach the accessibility tree. The control an icon sits inside is
   what carries the accessible name — see `IconButton`'s `aria-label`.
 -->
-<Story name="DecorativeByDefault" tags={['highlight']} argTypes={hide('color', 'class')}>
+<Story
+  exportName="DecorativeByDefault"
+  name="Decorative By Default"
+  tags={['highlight']}
+  argTypes={hide('color', 'class')}
+>
   {#snippet template(args)}
     <button type="button" aria-label="Add to cart" style="padding: 0.5rem">
       <Icon {...args} />
@@ -146,7 +152,8 @@
   port, not a lookalike.
 -->
 <Story
-  name="MealdropHeader"
+  exportName="MealdropHeader"
+  name="Mealdrop Header"
   tags={['examples']}
   argTypes={hide('name', 'color', 'size')}
   parameters={{ layout: 'fullscreen' }}
@@ -175,7 +182,8 @@
 <!-- tests — assertions only, one behaviour each -->
 
 <Story
-  name="TestIsDecorative"
+  exportName="TestIsDecorative"
+  name="Test Is Decorative"
   tags={['tests']}
   play={async ({ canvasElement }) => {
     const icon = canvasElement.querySelector('.droppy-Icon')
@@ -186,7 +194,8 @@
 />
 
 <Story
-  name="TestSizeAppliesToBothAxes"
+  exportName="TestSizeAppliesToBothAxes"
+  name="Test Size Applies To Both Axes"
   tags={['tests']}
   args={{ size: '2rem' }}
   play={async ({ canvasElement }) => {
@@ -200,7 +209,8 @@
 />
 
 <Story
-  name="TestColorOverridesStroke"
+  exportName="TestColorOverridesStroke"
+  name="Test Color Overrides Stroke"
   tags={['tests']}
   args={{ color: 'rgb(183, 28, 28)' }}
   play={async ({ canvasElement }) => {

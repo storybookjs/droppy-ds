@@ -94,7 +94,8 @@
   The demo class adds a margin, visible as the gap inside the bordered parent.
 -->
 <Story
-  name="ClassName"
+  exportName="ClassName"
+  name="Class Name"
   tags={['api-ref']}
   argTypes={hide('header', 'footer')}
   args={{ class: 'pagetemplate-demo-inset' }}
@@ -107,7 +108,12 @@
   The content area carries a minimum height, so a short page's footer still
   lands at the bottom of the viewport instead of riding up under the fold.
 -->
-<Story name="ShortPageKeepsFooterDown" tags={['highlight']} argTypes={hide('class')}>
+<Story
+  exportName="ShortPageKeepsFooterDown"
+  name="Short Page Keeps Footer Down"
+  tags={['highlight']}
+  argTypes={hide('class')}
+>
   {#snippet template(args)}
     <PageTemplate {...args}>
       <div style="padding: 1rem">One line of content.</div>
@@ -139,7 +145,8 @@
 <!-- tests — assertions only, one behaviour each -->
 
 <Story
-  name="TestRendersAllThreeSlots"
+  exportName="TestRendersAllThreeSlots"
+  name="Test Renders All Three Slots"
   tags={['tests']}
   play={async ({ canvas }) => {
     await expect(canvas.getByText('Site header')).toBeInTheDocument()
@@ -149,7 +156,8 @@
 />
 
 <Story
-  name="TestContentIsTheMainLandmark"
+  exportName="TestContentIsTheMainLandmark"
+  name="Test Content Is The Main Landmark"
   tags={['tests']}
   play={async ({ canvas }) => {
     const main = canvas.getByRole('main')
@@ -162,7 +170,8 @@
 />
 
 <Story
-  name="TestSlotsAreOptional"
+  exportName="TestSlotsAreOptional"
+  name="Test Slots Are Optional"
   tags={['tests']}
   args={{ header: undefined, footer: undefined }}
   play={async ({ canvas }) => {

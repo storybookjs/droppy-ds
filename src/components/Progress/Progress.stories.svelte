@@ -79,7 +79,7 @@
 />
 
 <!-- `showValue` renders the formatted value beside the label. -->
-<Story name="ShowValue" tags={['api-ref']} argTypes={hide('class')}>
+<Story exportName="ShowValue" name="Show Value" tags={['api-ref']} argTypes={hide('class')}>
   {#snippet template(args)}
     <div style="display: grid; gap: 1rem">
       <Progress {...args} showValue />
@@ -93,7 +93,8 @@
   The demo class adds a margin, visible as the gap inside the bordered parent.
 -->
 <Story
-  name="ClassName"
+  exportName="ClassName"
+  name="Class Name"
   tags={['api-ref']}
   args={{ class: 'progress-demo-inset' }}
   decorators={[inBorderedBox]}
@@ -148,7 +149,8 @@
 
 <!-- DropBoard's menu-photo uploader, determinate then indeterminate. -->
 <Story
-  name="DropBoardPhotoUpload"
+  exportName="DropBoardPhotoUpload"
+  name="Drop Board Photo Upload"
   tags={['examples']}
   argTypes={hide('value', 'max', 'label', 'showValue', 'class')}
 >
@@ -174,7 +176,8 @@
 <!-- tests — assertions only, one behaviour each -->
 
 <Story
-  name="TestReportsItsRange"
+  exportName="TestReportsItsRange"
+  name="Test Reports Its Range"
   tags={['tests']}
   play={async ({ canvas }) => {
     const progressbar = canvas.getByRole('progressbar', { name: 'Uploading files' })
@@ -187,7 +190,8 @@
 />
 
 <Story
-  name="TestIndeterminateDropsValueNow"
+  exportName="TestIndeterminateDropsValueNow"
+  name="Test Indeterminate Drops Value Now"
   tags={['tests']}
   args={{ value: null, showValue: false }}
   play={async ({ canvas }) => {
@@ -199,7 +203,8 @@
 />
 
 <Story
-  name="TestCompleteState"
+  exportName="TestCompleteState"
+  name="Test Complete State"
   tags={['tests']}
   args={{ value: 100 }}
   play={async ({ canvas }) => {
@@ -211,7 +216,8 @@
 />
 
 <Story
-  name="TestCustomMaxRescalesPercentage"
+  exportName="TestCustomMaxRescalesPercentage"
+  name="Test Custom Max Rescales Percentage"
   tags={['tests']}
   args={{ value: 30, max: 40 }}
   play={async ({ canvas }) => {

@@ -101,7 +101,8 @@
   The demo class adds a margin, visible as the gap inside the bordered parent.
 -->
 <Story
-  name="ClassName"
+  exportName="ClassName"
+  name="Class Name"
   tags={['api-ref']}
   argTypes={hide('error')}
   args={{ class: 'input-demo-inset' }}
@@ -114,7 +115,12 @@
   The error slot keeps its height whether or not a message is showing, so
   validating one field never shifts the ones below it.
 -->
-<Story name="ErrorDoesNotShiftLayout" tags={['highlight']} argTypes={hide('error', 'class')}>
+<Story
+  exportName="ErrorDoesNotShiftLayout"
+  name="Error Does Not Shift Layout"
+  tags={['highlight']}
+  argTypes={hide('error', 'class')}
+>
   {#snippet template(args)}
     <Input {...args} label="Street" error="Enter a street" />
     <Input {...args} label="City" />
@@ -152,7 +158,12 @@
 <!-- examples — Mealdrop / DropBoard compositions -->
 
 <!-- Mealdrop's checkout form, with two fields in error. -->
-<Story name="MealdropCheckoutForm" tags={['examples']} argTypes={hide('label', 'error')}>
+<Story
+  exportName="MealdropCheckoutForm"
+  name="Mealdrop Checkout Form"
+  tags={['examples']}
+  argTypes={hide('label', 'error')}
+>
   {#snippet template()}
     <form style="display: grid; gap: 1.5rem; max-width: 30rem">
       <section style="display: grid; gap: 0.5rem">
@@ -175,7 +186,8 @@
 <!-- tests — assertions only, one behaviour each -->
 
 <Story
-  name="TestLabelNamesTheControl"
+  exportName="TestLabelNamesTheControl"
+  name="Test Label Names The Control"
   tags={['tests']}
   play={async ({ canvas }) => {
     const field = canvas.getByLabelText('Full name')
@@ -187,7 +199,8 @@
 />
 
 <Story
-  name="TestErrorSlotIsAlwaysMounted"
+  exportName="TestErrorSlotIsAlwaysMounted"
+  name="Test Error Slot Is Always Mounted"
   tags={['tests']}
   play={async ({ canvasElement }) => {
     // No error passed, yet the slot exists — that reservation is what keeps
@@ -197,7 +210,8 @@
 />
 
 <Story
-  name="TestErrorIsAnnounced"
+  exportName="TestErrorIsAnnounced"
+  name="Test Error Is Announced"
   tags={['tests']}
   args={{ error: 'Enter your full name' }}
   play={async ({ canvas }) => {

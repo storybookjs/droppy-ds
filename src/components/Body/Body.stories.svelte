@@ -103,7 +103,12 @@
 </Story>
 
 <!-- `type` picks which element is rendered — all four share the same styling. -->
-<Story name="ElementChoice" tags={['api-ref']} argTypes={hide('type', 'color', 'class')}>
+<Story
+  exportName="ElementChoice"
+  name="Element Choice"
+  tags={['api-ref']}
+  argTypes={hide('type', 'color', 'class')}
+>
   {#snippet template(args)}
     {@const rest = withoutChildren(args)}
     <Body {...rest} type="p">p</Body>
@@ -115,7 +120,8 @@
 
 <!-- `color` overrides the text token inline, for the cases the scale doesn't cover. -->
 <Story
-  name="ColorOverride"
+  exportName="ColorOverride"
+  name="Color Override"
   tags={['api-ref']}
   argTypes={hide('size', 'fontWeight', 'class')}
   args={{ color: 'var(--ds-color-text-error)', children: 'Delivery unavailable at this address.' }}
@@ -126,7 +132,8 @@
   The demo class adds a margin, visible as the gap inside the bordered parent.
 -->
 <Story
-  name="ClassName"
+  exportName="ClassName"
+  name="Class Name"
   tags={['api-ref']}
   argTypes={hide('size', 'fontWeight', 'color')}
   args={{ class: 'body-demo-inset' }}
@@ -140,7 +147,8 @@
   `<label>` that can be associated with a control.
 -->
 <Story
-  name="RendersMatchingTag"
+  exportName="RendersMatchingTag"
+  name="Renders Matching Tag"
   tags={['highlight']}
   argTypes={hide('size', 'fontWeight', 'color', 'class')}
   args={{ type: 'label', children: 'Delivery address' }}
@@ -171,7 +179,8 @@
 
 <!-- The text column of a restaurant tile. -->
 <Story
-  name="MealdropRestaurantCardText"
+  exportName="MealdropRestaurantCardText"
+  name="Mealdrop Restaurant Card Text"
   tags={['examples']}
   argTypes={hide('children', 'size', 'fontWeight', 'type', 'color', 'class')}
 >
@@ -192,7 +201,8 @@
 <!-- tests — assertions only, one behaviour each -->
 
 <Story
-  name="TestRendersMatchingTag"
+  exportName="TestRendersMatchingTag"
+  name="Test Renders Matching Tag"
   tags={['tests']}
   args={{ type: 'label', children: 'Delivery address' }}
   play={async ({ canvas }) => {
@@ -201,7 +211,8 @@
 />
 
 <Story
-  name="TestSizeAndWeightAreIndependent"
+  exportName="TestSizeAndWeightAreIndependent"
+  name="Test Size And Weight Are Independent"
   tags={['tests']}
   play={async ({ canvas }) => {
     const regular = canvas.getByText('Small regular')
@@ -218,7 +229,8 @@
 </Story>
 
 <Story
-  name="TestColorOverridesToken"
+  exportName="TestColorOverridesToken"
+  name="Test Color Overrides Token"
   tags={['tests']}
   args={{ color: 'rgb(10, 125, 50)', children: 'Delivered' }}
   play={async ({ canvas }) => {

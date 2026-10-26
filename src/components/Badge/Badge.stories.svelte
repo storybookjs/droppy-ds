@@ -97,7 +97,8 @@
   The demo class adds a margin, visible as the gap inside the bordered parent.
 -->
 <Story
-  name="ClassName"
+  exportName="ClassName"
+  name="Class Name"
   tags={['api-ref']}
   argTypes={hide('variant')}
   args={{ class: 'badge-demo-inset' }}
@@ -108,7 +109,8 @@
 
 <!-- The pill grows with its content — there's no truncation or fixed width. -->
 <Story
-  name="LongerText"
+  exportName="LongerText"
+  name="Longer Text"
   tags={['highlight']}
   argTypes={hide('class')}
   args={{ text: 'contains nuts and dairy' }}
@@ -137,7 +139,12 @@
 <!-- examples — Mealdrop / DropBoard compositions -->
 
 <!-- Category tags and a new flag on a restaurant tile. -->
-<Story name="MealdropRestaurantTags" tags={['examples']} argTypes={hide('text', 'variant', 'class')}>
+<Story
+  exportName="MealdropRestaurantTags"
+  name="Mealdrop Restaurant Tags"
+  tags={['examples']}
+  argTypes={hide('text', 'variant', 'class')}
+>
   {#snippet template()}
     <div style="display: flex; flex-wrap: wrap; gap: 1.5rem">
       {#each LISTINGS as listing (listing.name)}
@@ -173,7 +180,8 @@
 <!-- tests — assertions only, one behaviour each -->
 
 <Story
-  name="TestCapitalizesText"
+  exportName="TestCapitalizesText"
+  name="Test Capitalizes Text"
   tags={['tests']}
   args={{ text: 'vegan' }}
   play={async ({ canvas }) => {
@@ -182,7 +190,8 @@
 />
 
 <Story
-  name="TestVariantSwapsTokens"
+  exportName="TestVariantSwapsTokens"
+  name="Test Variant Swaps Tokens"
   tags={['tests']}
   play={async ({ canvas }) => {
     const neutral = canvas.getByText('vegan')
@@ -205,7 +214,8 @@
 </Story>
 
 <Story
-  name="TestMergesClassName"
+  exportName="TestMergesClassName"
+  name="Test Merges Class Name"
   tags={['tests']}
   args={{ class: 'badge-demo-custom' }}
   play={async ({ canvas }) => {

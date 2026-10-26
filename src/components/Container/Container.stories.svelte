@@ -69,7 +69,8 @@
 
 <!-- `desktopOnly` defers the constraint until the desktop breakpoint. -->
 <Story
-  name="DesktopOnly"
+  exportName="DesktopOnly"
+  name="Desktop Only"
   tags={['api-ref']}
   argTypes={hide('children', 'class')}
   args={{ desktopOnly: true }}
@@ -84,7 +85,8 @@
   The demo class adds a margin, visible as the gap inside the bordered parent.
 -->
 <Story
-  name="ClassName"
+  exportName="ClassName"
+  name="Class Name"
   tags={['api-ref']}
   argTypes={hide('desktopOnly', 'children')}
   args={{ class: 'container-demo-inset' }}
@@ -122,7 +124,8 @@
 <!-- tests — assertions only, one behaviour each -->
 
 <Story
-  name="TestBoundsPageWidth"
+  exportName="TestBoundsPageWidth"
+  name="Test Bounds Page Width"
   tags={['tests']}
   play={async ({ canvas }) => {
     await expect(getComputedStyle(canvas.getByText('Page content')).maxWidth).toBe('1600px')
@@ -130,7 +133,8 @@
 />
 
 <Story
-  name="TestMergesClassName"
+  exportName="TestMergesClassName"
+  name="Test Merges Class Name"
   tags={['tests']}
   args={{ class: 'container-demo-custom' }}
   play={async ({ canvas }) => {

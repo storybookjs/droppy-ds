@@ -89,7 +89,8 @@
   The demo class adds a margin, visible as the gap inside the bordered parent.
 -->
 <Story
-  name="ClassName"
+  exportName="ClassName"
+  name="Class Name"
   tags={['api-ref']}
   argTypes={hide('small')}
   args={{ class: 'iconbutton-demo-inset' }}
@@ -103,7 +104,12 @@
   reads against arbitrary imagery. Only the radius and focus ring are tokens,
   and the glyph colour is hard-coded rather than following the icon token.
 -->
-<Story name="StaysLightOnAnySurface" tags={['highlight']} argTypes={hide('small', 'class')}>
+<Story
+  exportName="StaysLightOnAnySurface"
+  name="Stays Light On Any Surface"
+  tags={['highlight']}
+  argTypes={hide('small', 'class')}
+>
   {#snippet template(args)}
     <div
       style="display: flex; gap: 1rem; padding: 1.5rem; background: linear-gradient(135deg, #1a1a1a, #4cc8c0); border-radius: 0.5rem"
@@ -143,7 +149,8 @@
 
 <!-- Carousel arrows floating over restaurant photos. -->
 <Story
-  name="MealdropCarouselArrows"
+  exportName="MealdropCarouselArrows"
+  name="Mealdrop Carousel Arrows"
   tags={['examples']}
   argTypes={hide('name', 'small', 'onclick')}
 >
@@ -178,7 +185,8 @@
 <!-- tests — assertions only, one behaviour each -->
 
 <Story
-  name="TestClickHandling"
+  exportName="TestClickHandling"
+  name="Test Click Handling"
   tags={['tests']}
   play={async ({ args, canvas }) => {
     await userEvent.click(canvas.getByRole('button', { name: 'next' }))
@@ -188,7 +196,8 @@
 />
 
 <Story
-  name="TestNamedByAriaLabel"
+  exportName="TestNamedByAriaLabel"
+  name="Test Named By Aria Label"
   tags={['tests']}
   play={async ({ canvas }) => {
     // Icon-only: the glyph is aria-hidden, so the label is the only name.
@@ -197,7 +206,8 @@
 />
 
 <Story
-  name="TestSmallShrinksGlyph"
+  exportName="TestSmallShrinksGlyph"
+  name="Test Small Shrinks Glyph"
   tags={['tests']}
   play={async ({ canvas }) => {
     const regular = canvas.getByRole('button', { name: 'regular' }).querySelector('svg')

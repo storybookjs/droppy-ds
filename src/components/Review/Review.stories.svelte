@@ -84,7 +84,8 @@
   The demo class adds a margin, visible as the gap inside the bordered parent.
 -->
 <Story
-  name="ClassName"
+  exportName="ClassName"
+  name="Class Name"
   tags={['api-ref']}
   argTypes={hide('color')}
   args={{ class: 'review-demo-inset' }}
@@ -98,7 +99,12 @@
   good", and exactly 5 "Excellent". The number is always shown to one decimal,
   so 4 and 4.0 read the same.
 -->
-<Story name="RatingBands" tags={['highlight']} argTypes={hide('rating', 'color', 'class')}>
+<Story
+  exportName="RatingBands"
+  name="Rating Bands"
+  tags={['highlight']}
+  argTypes={hide('rating', 'color', 'class')}
+>
   {#snippet template(args)}
     {@render ratingList(args, BAND_RATINGS, false)}
   {/snippet}
@@ -106,7 +112,8 @@
 
 <!-- No rating renders a plain fallback line instead of a zero-star score. -->
 <Story
-  name="NoReviews"
+  exportName="NoReviews"
+  name="No Reviews"
   tags={['highlight']}
   argTypes={hide('color', 'class')}
   args={{ rating: undefined }}
@@ -137,7 +144,8 @@
 
 <!-- Rated and unrated restaurant tiles. -->
 <Story
-  name="MealdropRestaurantScores"
+  exportName="MealdropRestaurantScores"
+  name="Mealdrop Restaurant Scores"
   tags={['examples']}
   argTypes={hide('rating', 'color', 'class')}
 >
@@ -169,7 +177,8 @@
 <!-- tests — assertions only, one behaviour each -->
 
 <Story
-  name="TestFormatsTheScoreLine"
+  exportName="TestFormatsTheScoreLine"
+  name="Test Formats The Score Line"
   tags={['tests']}
   play={async ({ canvas }) => {
     await expect(canvas.getByText('★ 4.5 Very good')).toBeInTheDocument()
@@ -177,7 +186,8 @@
 />
 
 <Story
-  name="TestBandBoundaries"
+  exportName="TestBandBoundaries"
+  name="Test Band Boundaries"
   tags={['tests']}
   play={async ({ canvas }) => {
     await expect(canvas.getByText('★ 1.9 Very poor')).toBeInTheDocument()
@@ -197,7 +207,8 @@
 </Story>
 
 <Story
-  name="TestNoReviewsFallback"
+  exportName="TestNoReviewsFallback"
+  name="Test No Reviews Fallback"
   tags={['tests']}
   args={{ rating: undefined }}
   play={async ({ canvas }) => {

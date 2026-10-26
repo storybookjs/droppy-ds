@@ -93,7 +93,8 @@
   The demo class adds a margin, visible as the gap inside the bordered parent.
 -->
 <Story
-  name="ClassName"
+  exportName="ClassName"
+  name="Class Name"
   tags={['api-ref']}
   args={{ class: 'progressbar-demo-inset' }}
   decorators={[inBorderedBox]}
@@ -107,7 +108,8 @@
   one — and `aria-valuenow` reports the clamped number, not the raw one.
 -->
 <Story
-  name="OverMaxClamps"
+  exportName="OverMaxClamps"
+  name="Over Max Clamps"
   tags={['highlight']}
   argTypes={hide('class')}
   args={{ value: 9, max: 3 }}
@@ -143,7 +145,8 @@
 
 <!-- Mealdrop's checkout step indicator. -->
 <Story
-  name="MealdropCheckoutSteps"
+  exportName="MealdropCheckoutSteps"
+  name="Mealdrop Checkout Steps"
   tags={['examples']}
   argTypes={hide('value', 'max', 'label', 'class')}
 >
@@ -155,7 +158,8 @@
 <!-- tests — assertions only, one behaviour each -->
 
 <Story
-  name="TestReportsItsRange"
+  exportName="TestReportsItsRange"
+  name="Test Reports Its Range"
   tags={['tests']}
   play={async ({ canvas }) => {
     const bar = canvas.getByRole('progressbar', { name: 'Checkout progress' })
@@ -167,7 +171,8 @@
 />
 
 <Story
-  name="TestClampsOverMax"
+  exportName="TestClampsOverMax"
+  name="Test Clamps Over Max"
   tags={['tests']}
   args={{ value: 9 }}
   play={async ({ canvas, canvasElement }) => {
@@ -180,7 +185,8 @@
 />
 
 <Story
-  name="TestClampsBelowZero"
+  exportName="TestClampsBelowZero"
+  name="Test Clamps Below Zero"
   tags={['tests']}
   args={{ value: -4 }}
   play={async ({ canvas, canvasElement }) => {
@@ -193,7 +199,8 @@
 />
 
 <Story
-  name="TestFillIsNotAnnounced"
+  exportName="TestFillIsNotAnnounced"
+  name="Test Fill Is Not Announced"
   tags={['tests']}
   play={async ({ canvas, canvasElement }) => {
     // Exactly one progressbar in the tree: the fill is a plain div.

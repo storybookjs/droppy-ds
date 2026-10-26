@@ -80,7 +80,8 @@
   The demo class adds a margin, visible as the gap inside the bordered parent.
 -->
 <Story
-  name="ClassName"
+  exportName="ClassName"
+  name="Class Name"
   tags={['api-ref']}
   args={{ class: 'quantitystepper-demo-inset' }}
   decorators={[inBorderedBox]}
@@ -95,7 +96,8 @@
   group gives.
 -->
 <Story
-  name="BoundsDisableRatherThanClamp"
+  exportName="BoundsDisableRatherThanClamp"
+  name="Bounds Disable Rather Than Clamp"
   tags={['highlight']}
   argTypes={hide('class')}
   args={{ value: 1, min: 1, max: 2 }}
@@ -132,7 +134,8 @@
 
 <!-- Cart lines with per-dish quantity steppers. -->
 <Story
-  name="MealdropCartLine"
+  exportName="MealdropCartLine"
+  name="Mealdrop Cart Line"
   tags={['examples']}
   argTypes={hide('value', 'onChange', 'min', 'max', 'aria-label', 'class')}
 >
@@ -144,7 +147,8 @@
 <!-- tests — assertions only, one behaviour each -->
 
 <Story
-  name="TestDisablesAtMin"
+  exportName="TestDisablesAtMin"
+  name="Test Disables At Min"
   tags={['tests']}
   args={{ value: 1 }}
   play={async ({ canvas }) => {
@@ -156,7 +160,8 @@
 />
 
 <Story
-  name="TestDisablesAtMax"
+  exportName="TestDisablesAtMax"
+  name="Test Disables At Max"
   tags={['tests']}
   args={{ value: 10 }}
   play={async ({ canvas }) => {
@@ -168,7 +173,8 @@
 />
 
 <Story
-  name="TestReportsEachChange"
+  exportName="TestReportsEachChange"
+  name="Test Reports Each Change"
   tags={['tests']}
   args={{ value: 1, max: 2 }}
   play={async ({ args, canvas }) => {
@@ -186,7 +192,8 @@
 />
 
 <Story
-  name="TestGroupIsNamed"
+  exportName="TestGroupIsNamed"
+  name="Test Group Is Named"
   tags={['tests']}
   args={{ 'aria-label': 'Cheeseburger quantity' }}
   play={async ({ canvas }) => {

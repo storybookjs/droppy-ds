@@ -107,7 +107,8 @@
   The demo class adds a margin, visible as the gap inside the bordered parent.
 -->
 <Story
-  name="ClassName"
+  exportName="ClassName"
+  name="Class Name"
   tags={['api-ref']}
   argTypes={hide('interactive', 'padded')}
   args={{ class: 'card-demo-inset', children: 'Card content', padded: true }}
@@ -118,7 +119,8 @@
 
 <!-- An edge-to-edge image clips to the card's own corner radius instead of squaring off past it. -->
 <Story
-  name="WithImage"
+  exportName="WithImage"
+  name="With Image"
   tags={['highlight']}
   argTypes={hide('children', 'interactive', 'padded', 'class')}
 >
@@ -159,7 +161,8 @@
 
 <!-- A restaurant listing tile: photo, name, rating, specialty, categories. -->
 <Story
-  name="MealdropRestaurantTile"
+  exportName="MealdropRestaurantTile"
+  name="Mealdrop Restaurant Tile"
   tags={['examples']}
   argTypes={hide('children', 'interactive', 'padded', 'class')}
 >
@@ -185,7 +188,8 @@
 
 <!-- A category tile: round photo and a single label, on the same shell. -->
 <Story
-  name="MealdropCategoryTile"
+  exportName="MealdropCategoryTile"
+  name="Mealdrop Category Tile"
   tags={['examples']}
   argTypes={hide('children', 'interactive', 'padded', 'class')}
 >
@@ -208,7 +212,8 @@
 <!-- tests — assertions only, one behaviour each -->
 
 <Story
-  name="TestRoundedAndRaised"
+  exportName="TestRoundedAndRaised"
+  name="Test Rounded And Raised"
   tags={['tests']}
   play={async ({ canvas }) => {
     const card = canvas.getByText('Card content')
@@ -220,7 +225,8 @@
 />
 
 <Story
-  name="TestClipsOverflow"
+  exportName="TestClipsOverflow"
+  name="Test Clips Overflow"
   tags={['tests']}
   play={async ({ canvasElement }) => {
     const card = canvasElement.querySelector('.droppy-Card') as HTMLElement
@@ -236,7 +242,8 @@
 </Story>
 
 <Story
-  name="TestInteractiveIsAppearanceOnly"
+  exportName="TestInteractiveIsAppearanceOnly"
+  name="Test Interactive Is Appearance Only"
   tags={['tests']}
   args={{ interactive: true }}
   play={async ({ canvas, canvasElement }) => {

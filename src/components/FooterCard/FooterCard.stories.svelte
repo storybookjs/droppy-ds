@@ -97,7 +97,8 @@
 
 <!-- Item `external` opens in a new tab with `rel="noopener noreferrer"`. -->
 <Story
-  name="ExternalLinks"
+  exportName="ExternalLinks"
+  name="External Links"
   tags={['api-ref', 'highlight']}
   argTypes={hide('children', 'class')}
   args={{
@@ -110,7 +111,12 @@
 />
 
 <!-- Item `render` swaps the default `<a>` for a router-aware link, per item. -->
-<Story name="ItemRender" tags={['api-ref', 'highlight']} argTypes={hide('children', 'class')}>
+<Story
+  exportName="ItemRender"
+  name="Item Render"
+  tags={['api-ref', 'highlight']}
+  argTypes={hide('children', 'class')}
+>
   {#snippet template(args)}
     <FooterCard
       {...args}
@@ -142,7 +148,8 @@
   The demo class adds a margin, visible as the gap inside the bordered parent.
 -->
 <Story
-  name="ClassName"
+  exportName="ClassName"
+  name="Class Name"
   tags={['api-ref']}
   argTypes={hide('links', 'children')}
   args={{ class: 'footercard-demo-inset' }}
@@ -177,7 +184,8 @@
 
 <!-- Mealdrop's footer link columns. -->
 <Story
-  name="MealdropFooterRow"
+  exportName="MealdropFooterRow"
+  name="Mealdrop Footer Row"
   tags={['examples']}
   argTypes={hide('title', 'links', 'children', 'class')}
 >
@@ -212,7 +220,8 @@
 <!-- tests — assertions only, one behaviour each -->
 
 <Story
-  name="TestLinksResolve"
+  exportName="TestLinksResolve"
+  name="Test Links Resolve"
   tags={['tests']}
   play={async ({ canvas }) => {
     await expect(canvas.getByRole('link', { name: 'Categories' })).toHaveAttribute(
@@ -223,7 +232,8 @@
 />
 
 <Story
-  name="TestExternalLinksAreSafe"
+  exportName="TestExternalLinksAreSafe"
+  name="Test External Links Are Safe"
   tags={['tests']}
   args={{ links: [{ name: 'Facebook', href: 'https://facebook.com', external: true }] }}
   play={async ({ canvas }) => {
@@ -235,7 +245,8 @@
 />
 
 <Story
-  name="TestEmptyLinksRendersNoList"
+  exportName="TestEmptyLinksRendersNoList"
+  name="Test Empty Links Renders No List"
   tags={['tests']}
   args={{ links: [] }}
   play={async ({ canvas }) => {
@@ -245,7 +256,8 @@
 />
 
 <Story
-  name="TestItemRenderKeepsItsDestination"
+  exportName="TestItemRenderKeepsItsDestination"
+  name="Test Item Render Keeps Its Destination"
   tags={['tests']}
   play={async ({ canvasElement }) => {
     const link = canvasElement.querySelector('[data-router-link]')

@@ -19,6 +19,12 @@ importers:
 
   .:
     dependencies:
+      '@internationalized/date':
+        specifier: ^3.12.4
+        version: 3.12.4
+      bits-ui:
+        specifier: ^2.20.2
+        version: 2.20.2(@internationalized/date@3.12.4)(svelte@5.57.2(@typescript-eslint/types@8.67.0))
       embla-carousel:
         specifier: ^8.6.0
         version: 8.6.0
@@ -89,9 +95,6 @@ importers:
       '@vitest/coverage-v8':
         specifier: ^4.1.10
         version: 4.1.10(@vitest/browser@4.1.10)(vitest@4.1.10)
-      bits-ui:
-        specifier: ^2.20.0
-        version: 2.20.2(@internationalized/date@3.12.4)(svelte@5.57.2(@typescript-eslint/types@8.67.0))
       chromatic:
         specifier: ^18.2.0
         version: 18.2.0

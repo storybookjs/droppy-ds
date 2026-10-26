@@ -54,7 +54,8 @@
   The demo class adds a margin, visible as the gap inside the bordered parent.
 -->
 <Story
-  name="ClassName"
+  exportName="ClassName"
+  name="Class Name"
   tags={['api-ref']}
   argTypes={hide('label')}
   args={{ class: 'spinner-demo-inset' }}
@@ -69,7 +70,8 @@
   content the way a button or heading does.
 -->
 <Story
-  name="AccessibleName"
+  exportName="AccessibleName"
+  name="Accessible Name"
   tags={['highlight']}
   argTypes={hide('class')}
   args={{ label: 'Finding restaurants near you' }}
@@ -84,7 +86,8 @@
   leave a static graphic that says nothing.
 -->
 <Story
-  name="SpinAnimation"
+  exportName="SpinAnimation"
+  name="Spin Animation"
   tags={['animation']}
   argTypes={hide('label', 'class')}
   play={async ({ canvasElement }) => {
@@ -131,7 +134,12 @@
 <!-- examples — Mealdrop / DropBoard compositions -->
 
 <!-- DropBoard's payouts panel while the figures load. -->
-<Story name="DropBoardPayoutsLoading" tags={['examples']} argTypes={hide('label', 'class')}>
+<Story
+  exportName="DropBoardPayoutsLoading"
+  name="Drop Board Payouts Loading"
+  tags={['examples']}
+  argTypes={hide('label', 'class')}
+>
   {#snippet template()}
     <Card padded style="width: 20rem">
       <Heading level={3} size={4}>Payouts</Heading>
@@ -145,7 +153,8 @@
 <!-- tests — assertions only, one behaviour each -->
 
 <Story
-  name="TestAnnouncesLoading"
+  exportName="TestAnnouncesLoading"
+  name="Test Announces Loading"
   tags={['tests']}
   play={async ({ canvas }) => {
     await expect(canvas.getByRole('status', { name: 'Loading' })).toBeInTheDocument()
@@ -153,7 +162,8 @@
 />
 
 <Story
-  name="TestGraphicIsDecorative"
+  exportName="TestGraphicIsDecorative"
+  name="Test Graphic Is Decorative"
   tags={['tests']}
   play={async ({ canvasElement }) => {
     const graphic = canvasElement.querySelector('.droppy-Spinner-graphic')
@@ -164,7 +174,8 @@
 />
 
 <Story
-  name="TestLabelOverridesName"
+  exportName="TestLabelOverridesName"
+  name="Test Label Overrides Name"
   tags={['tests']}
   args={{ label: 'Loading your order' }}
   play={async ({ canvas }) => {

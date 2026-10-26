@@ -101,14 +101,21 @@
 />
 
 <!-- `sideOffset` is the gap between trigger and tip. -->
-<Story name="SideOffset" tags={['api-ref']} argTypes={hide('class')} args={{ sideOffset: 24 }} />
+<Story
+  exportName="SideOffset"
+  name="Side Offset"
+  tags={['api-ref']}
+  argTypes={hide('class')}
+  args={{ sideOffset: 24 }}
+/>
 
 <!--
   `className` merges with the component's own class rather than replacing it.
   The demo class adds a margin, visible as the gap inside the bordered parent.
 -->
 <Story
-  name="ClassName"
+  exportName="ClassName"
+  name="Class Name"
   tags={['api-ref']}
   args={{ class: 'tooltip-demo-inset' }}
   decorators={[inBorderedBox]}
@@ -122,7 +129,12 @@
   that doesn't hover, so anything only said here is said to nobody. Give the
   trigger its own `aria-label` as well, as the demo does.
 -->
-<Story name="NeverTheOnlyLabel" tags={['highlight']} argTypes={hide('class')} />
+<Story
+  exportName="NeverTheOnlyLabel"
+  name="Never The Only Label"
+  tags={['highlight']}
+  argTypes={hide('class')}
+/>
 
 <!-- animation — the motion contract -->
 
@@ -132,7 +144,8 @@
   before it leaves the DOM.
 -->
 <Story
-  name="OpenCloseTransition"
+  exportName="OpenCloseTransition"
+  name="Open Close Transition"
   tags={['animation']}
   argTypes={hide('class')}
   play={async ({ canvasElement }) => {
@@ -180,7 +193,8 @@
 
 <!-- Tips on Mealdrop's two icon-only header controls. -->
 <Story
-  name="MealdropHeaderTips"
+  exportName="MealdropHeaderTips"
+  name="Mealdrop Header Tips"
   tags={['examples']}
   argTypes={hide('label', 'children', 'trigger', 'sideOffset', 'class')}
   play={async ({ canvasElement }) => {
@@ -221,7 +235,8 @@
 <!-- tests — assertions only, one behaviour each -->
 
 <Story
-  name="TestShowsOnHover"
+  exportName="TestShowsOnHover"
+  name="Test Shows On Hover"
   tags={['tests']}
   play={async ({ canvas, canvasElement }) => {
     // Chromatic's capture sends synthetic pointer events, which the hover
@@ -237,7 +252,8 @@
 />
 
 <Story
-  name="TestShowsOnFocus"
+  exportName="TestShowsOnFocus"
+  name="Test Shows On Focus"
   tags={['tests']}
   play={async ({ canvasElement }) => {
     const doc = within(canvasElement.ownerDocument.body)
@@ -249,7 +265,8 @@
 />
 
 <Story
-  name="TestTriggerKeepsItsOwnName"
+  exportName="TestTriggerKeepsItsOwnName"
+  name="Test Trigger Keeps Its Own Name"
   tags={['tests']}
   play={async ({ canvas }) => {
     // The trigger is the child itself, not a wrapper, and it carries its own

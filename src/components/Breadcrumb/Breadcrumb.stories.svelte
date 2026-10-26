@@ -75,7 +75,8 @@
 
 <!-- A single crumb is the current page on its own — no separator is rendered. -->
 <Story
-  name="SingleCrumb"
+  exportName="SingleCrumb"
+  name="Single Crumb"
   tags={['api-ref']}
   argTypes={hide('class')}
   args={{ items: [{ label: 'restaurants' }] }}
@@ -85,7 +86,12 @@
   Item `render` swaps the default `<a>` for a router-aware link, cloned with
   the crumb's class and — on the last item — `aria-current`.
 -->
-<Story name="ItemRender" tags={['api-ref', 'highlight']} argTypes={hide('class')}>
+<Story
+  exportName="ItemRender"
+  name="Item Render"
+  tags={['api-ref', 'highlight']}
+  argTypes={hide('class')}
+>
   {#snippet template({ items: _items, ...args })}
     <Breadcrumb
       {...args}
@@ -102,7 +108,8 @@
   The demo class adds a margin, visible as the gap inside the bordered parent.
 -->
 <Story
-  name="ClassName"
+  exportName="ClassName"
+  name="Class Name"
   tags={['api-ref']}
   args={{ class: 'breadcrumb-demo-inset' }}
   decorators={[inBorderedBox]}
@@ -116,7 +123,8 @@
   landmark — the semantics Mealdrop's `div`/`p` version had none of.
 -->
 <Story
-  name="CurrentPageIsMarked"
+  exportName="CurrentPageIsMarked"
+  name="Current Page Is Marked"
   tags={['highlight']}
   argTypes={hide('class')}
   args={{
@@ -164,7 +172,8 @@
 
 <!-- The trail under a category page banner. -->
 <Story
-  name="MealdropCategoryTrail"
+  exportName="MealdropCategoryTrail"
+  name="Mealdrop Category Trail"
   tags={['examples']}
   argTypes={hide('items', 'class')}
   parameters={{ layout: 'fullscreen' }}
@@ -191,7 +200,8 @@
 <!-- tests — assertions only, one behaviour each -->
 
 <Story
-  name="TestCurrentPageIsMarked"
+  exportName="TestCurrentPageIsMarked"
+  name="Test Current Page Is Marked"
   tags={['tests']}
   play={async ({ canvas }) => {
     await expect(canvas.getByText('sushi')).toHaveAttribute('aria-current', 'page')
@@ -200,7 +210,8 @@
 />
 
 <Story
-  name="TestLandmarkIsLabelled"
+  exportName="TestLandmarkIsLabelled"
+  name="Test Landmark Is Labelled"
   tags={['tests']}
   play={async ({ canvas }) => {
     await expect(canvas.getByRole('navigation', { name: 'breadcrumb' })).toBeInTheDocument()
@@ -208,7 +219,8 @@
 />
 
 <Story
-  name="TestRenderKeepsItsOwnDestination"
+  exportName="TestRenderKeepsItsOwnDestination"
+  name="Test Render Keeps Its Own Destination"
   tags={['tests']}
   play={async ({ canvas, canvasElement }) => {
     await expect(canvasElement.querySelectorAll('[data-router-link]')).toHaveLength(2)
@@ -227,7 +239,8 @@
 </Story>
 
 <Story
-  name="TestSeparatorIsNotAnnounced"
+  exportName="TestSeparatorIsNotAnnounced"
+  name="Test Separator Is Not Announced"
   tags={['tests']}
   play={async ({ canvasElement }) => {
     const separator = canvasElement.querySelector('.droppy-Breadcrumb-separator')

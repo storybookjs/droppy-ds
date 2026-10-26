@@ -97,7 +97,8 @@
   The demo class adds a margin, visible as the gap inside the bordered parent.
 -->
 <Story
-  name="ClassName"
+  exportName="ClassName"
+  name="Class Name"
   tags={['api-ref']}
   argTypes={hide('render')}
   args={{ class: 'link-demo-inset' }}
@@ -119,7 +120,12 @@
   On a dark surface, `Link` inherits `currentColor` from the wrapping context
   rather than fighting it with a hard-coded light-mode token.
 -->
-<Story name="OnDarkSurface" tags={['highlight']} argTypes={hide('render', 'class')}>
+<Story
+  exportName="OnDarkSurface"
+  name="On Dark Surface"
+  tags={['highlight']}
+  argTypes={hide('render', 'class')}
+>
   {#snippet template(args)}
     <div style="background: #1a1a1a; color: #fff; padding: 1.5rem; border-radius: 0.5rem">
       <Link {...args} style="color: inherit" />
@@ -151,7 +157,8 @@
 
 <!-- An order-confirmation paragraph with an inline link. -->
 <Story
-  name="MealdropOrderConfirmationLink"
+  exportName="MealdropOrderConfirmationLink"
+  name="Mealdrop Order Confirmation Link"
   tags={['examples']}
   argTypes={hide('href', 'render', 'children', 'class')}
 >
@@ -180,7 +187,8 @@
 <!-- tests — assertions only, one behaviour each -->
 
 <Story
-  name="TestRendersAnAnchor"
+  exportName="TestRendersAnAnchor"
+  name="Test Renders An Anchor"
   tags={['tests']}
   play={async ({ canvas }) => {
     await expect(canvas.getByRole('link', { name: 'Order again' })).toHaveAttribute(
@@ -191,7 +199,8 @@
 />
 
 <Story
-  name="TestRenderKeepsItsOwnDestination"
+  exportName="TestRenderKeepsItsOwnDestination"
+  name="Test Render Keeps Its Own Destination"
   tags={['tests']}
   play={async ({ canvasElement }) => {
     const link = canvasElement.querySelector('[data-router-link]')
@@ -211,7 +220,8 @@
 </Story>
 
 <Story
-  name="TestMergesClassName"
+  exportName="TestMergesClassName"
+  name="Test Merges Class Name"
   tags={['tests']}
   args={{ class: 'link-demo-custom' }}
   play={async ({ canvas }) => {

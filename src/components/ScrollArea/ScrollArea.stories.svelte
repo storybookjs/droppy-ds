@@ -134,7 +134,8 @@
   The demo class adds a margin, visible as the gap inside the bordered parent.
 -->
 <Story
-  name="ClassName"
+  exportName="ClassName"
+  name="Class Name"
   tags={['api-ref']}
   argTypes={hide('orientation')}
   args={{ class: 'scrollarea-demo-inset' }}
@@ -149,7 +150,8 @@
   overlapping at the meeting point.
 -->
 <Story
-  name="BothAxes"
+  exportName="BothAxes"
+  name="Both Axes"
   tags={['highlight']}
   argTypes={hide('class')}
   args={{ orientation: 'both', children: wideGrid }}
@@ -189,7 +191,8 @@
 
 <!-- A long Mealdrop order scrolling above a pinned total. -->
 <Story
-  name="MealdropCartScroll"
+  exportName="MealdropCartScroll"
+  name="Mealdrop Cart Scroll"
   tags={['examples']}
   argTypes={hide('children', 'orientation', 'class')}
 >
@@ -228,7 +231,8 @@
 <!-- tests — assertions only, one behaviour each -->
 
 <Story
-  name="TestVerticalScrollbarAppears"
+  exportName="TestVerticalScrollbarAppears"
+  name="Test Vertical Scrollbar Appears"
   tags={['tests']}
   play={async ({ canvasElement }) => {
     // The scrollbar mounts after Bits UI's overflow measurement effect runs,
@@ -240,7 +244,8 @@
 />
 
 <Story
-  name="TestBothAxesRenderTwoScrollbars"
+  exportName="TestBothAxesRenderTwoScrollbars"
+  name="Test Both Axes Render Two Scrollbars"
   tags={['tests']}
   args={{ orientation: 'both', children: wideGrid }}
   play={async ({ canvasElement }) => {
@@ -254,7 +259,8 @@
 />
 
 <Story
-  name="TestHorizontalOnlyOmitsVertical"
+  exportName="TestHorizontalOnlyOmitsVertical"
+  name="Test Horizontal Only Omits Vertical"
   tags={['tests']}
   args={{ orientation: 'horizontal', children: plainCardRow }}
   play={async ({ canvasElement }) => {

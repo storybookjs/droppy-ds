@@ -124,7 +124,8 @@
   The demo class adds a margin, visible as the gap inside the bordered parent.
 -->
 <Story
-  name="ClassName"
+  exportName="ClassName"
+  name="Class Name"
   tags={['api-ref']}
   argTypes={hide('container')}
   args={{ class: 'toast-demo-inset', container: '#toast-classname-demo', timeout: 0 }}
@@ -146,7 +147,8 @@
   attention. Hover the stack to reveal it.
 -->
 <Story
-  name="CloseAppearsOnHover"
+  exportName="CloseAppearsOnHover"
+  name="Close Appears On Hover"
   tags={['highlight']}
   argTypes={hide('container', 'class')}
   args={{ timeout: 0 }}
@@ -161,7 +163,8 @@
   rather than fading in place.
 -->
 <Story
-  name="EnterExitTransition"
+  exportName="EnterExitTransition"
+  name="Enter Exit Transition"
   tags={['animation']}
   argTypes={hide('container', 'class')}
   args={{ timeout: 0 }}
@@ -231,7 +234,8 @@
 
 <!-- Adding to a cart, and saving a menu. -->
 <Story
-  name="MealdropAddedToCart"
+  exportName="MealdropAddedToCart"
+  name="Mealdrop Added To Cart"
   tags={['examples']}
   argTypes={hide('children', 'container', 'timeout', 'limit', 'class')}
   play={async ({ canvas }) => {
@@ -250,7 +254,8 @@
 <!-- tests — assertions only, one behaviour each -->
 
 <Story
-  name="TestAppearsOnDemand"
+  exportName="TestAppearsOnDemand"
+  name="Test Appears On Demand"
   tags={['tests']}
   play={async ({ canvas, canvasElement }) => {
     const doc = within(canvasElement.ownerDocument.body)
@@ -263,7 +268,8 @@
 />
 
 <Story
-  name="TestDismissesOnClose"
+  exportName="TestDismissesOnClose"
+  name="Test Dismisses On Close"
   tags={['tests']}
   play={async ({ canvas, canvasElement }) => {
     const doc = within(canvasElement.ownerDocument.body)
@@ -285,7 +291,8 @@
 />
 
 <Story
-  name="TestContainerPortalsWhereAsked"
+  exportName="TestContainerPortalsWhereAsked"
+  name="Test Container Portals Where Asked"
   tags={['tests']}
   args={{ container: '#toast-portal-test', timeout: 0 }}
   play={async ({ canvas }) => {

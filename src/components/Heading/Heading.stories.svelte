@@ -91,7 +91,8 @@
   The demo class adds a margin, visible as the gap inside the bordered parent.
 -->
 <Story
-  name="ClassName"
+  exportName="ClassName"
+  name="Class Name"
   tags={['api-ref']}
   argTypes={hide('level', 'size')}
   args={{ class: 'heading-demo-inset' }}
@@ -106,7 +107,8 @@
   you'd reach for a wrong `level` and break the document outline.
 -->
 <Story
-  name="SizeDecoupledFromLevel"
+  exportName="SizeDecoupledFromLevel"
+  name="Size Decoupled From Level"
   tags={['highlight']}
   argTypes={hide('class')}
   args={{ level: 2, size: 4 }}
@@ -136,7 +138,8 @@
 
 <!-- The heading ladder on a restaurant detail page. -->
 <Story
-  name="MealdropHeadingLadder"
+  exportName="MealdropHeadingLadder"
+  name="Mealdrop Heading Ladder"
   tags={['examples']}
   argTypes={hide('children', 'level', 'size', 'class')}
 >
@@ -162,7 +165,8 @@
 <!-- tests — assertions only, one behaviour each -->
 
 <Story
-  name="TestRendersMatchingTag"
+  exportName="TestRendersMatchingTag"
+  name="Test Renders Matching Tag"
   tags={['tests']}
   args={{ level: 3 }}
   play={async ({ canvas }) => {
@@ -171,7 +175,8 @@
 />
 
 <Story
-  name="TestSizeDoesNotChangeTag"
+  exportName="TestSizeDoesNotChangeTag"
+  name="Test Size Does Not Change Tag"
   tags={['tests']}
   args={{ level: 2, size: 4 }}
   play={async ({ canvas }) => {
@@ -183,7 +188,8 @@
 />
 
 <Story
-  name="TestForwardsRefAndProps"
+  exportName="TestForwardsRefAndProps"
+  name="Test Forwards Ref And Props"
   tags={['tests']}
   args={{ id: 'heading-demo-id', level: 2 }}
   play={async ({ canvas }) => {

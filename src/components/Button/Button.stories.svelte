@@ -109,7 +109,12 @@
 />
 
 <!-- `iconSize` overrides the glyph size without touching the button's padding. -->
-<Story name="IconSize" tags={['api-ref']} argTypes={hide('clear', 'large', 'round', 'class')}>
+<Story
+  exportName="IconSize"
+  name="Icon Size"
+  tags={['api-ref']}
+  argTypes={hide('clear', 'large', 'round', 'class')}
+>
   {#snippet template(args)}
     <div style="display: flex; gap: 1rem; align-items: center">
       <Button {...args} icon="cart" />
@@ -131,7 +136,8 @@
   The demo class adds a margin, visible as the gap inside the bordered parent.
 -->
 <Story
-  name="ClassName"
+  exportName="ClassName"
+  name="Class Name"
   tags={['api-ref']}
   argTypes={hide('clear', 'large', 'round', 'icon', 'iconSize')}
   args={{ class: 'button-demo-inset' }}
@@ -145,7 +151,8 @@
   from `aria-label`. Drop the label without one and the control is unnamed.
 -->
 <Story
-  name="IconOnlyNeedsALabel"
+  exportName="IconOnlyNeedsALabel"
+  name="Icon Only Needs A Label"
   tags={['highlight']}
   argTypes={hide('iconSize', 'class')}
   args={{ icon: 'cross', round: true, clear: true, children: undefined, 'aria-label': 'close' }}
@@ -199,7 +206,8 @@
 
 <!-- The action stack in Mealdrop's cart panel. -->
 <Story
-  name="MealdropCheckoutActions"
+  exportName="MealdropCheckoutActions"
+  name="Mealdrop Checkout Actions"
   tags={['examples']}
   argTypes={hide('children', 'clear', 'round', 'large', 'icon', 'iconSize', 'disabled', 'onclick')}
 >
@@ -233,7 +241,8 @@
 <!-- tests — assertions only, one behaviour each -->
 
 <Story
-  name="TestClickHandling"
+  exportName="TestClickHandling"
+  name="Test Click Handling"
   tags={['tests']}
   play={async ({ args, canvas }) => {
     await userEvent.click(canvas.getByRole('button', { name: 'Order now' }))
@@ -243,7 +252,8 @@
 />
 
 <Story
-  name="TestDisabledSwallowsClicks"
+  exportName="TestDisabledSwallowsClicks"
+  name="Test Disabled Swallows Clicks"
   tags={['tests']}
   args={{ disabled: true }}
   play={async ({ args, canvas }) => {
@@ -256,7 +266,8 @@
 />
 
 <Story
-  name="TestIconOnlyIsNamedByAriaLabel"
+  exportName="TestIconOnlyIsNamedByAriaLabel"
+  name="Test Icon Only Is Named By Aria Label"
   tags={['tests']}
   args={{ icon: 'cross', round: true, clear: true, children: undefined, 'aria-label': 'close' }}
   play={async ({ canvas }) => {
@@ -267,7 +278,8 @@
 />
 
 <Story
-  name="TestDefaultsToTypeButton"
+  exportName="TestDefaultsToTypeButton"
+  name="Test Defaults To Type Button"
   tags={['tests']}
   play={async ({ canvas }) => {
     // Without this a button inside a form would submit it by default.
