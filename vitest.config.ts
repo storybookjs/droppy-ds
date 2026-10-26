@@ -1,5 +1,6 @@
 import { fileURLToPath } from 'node:url'
 
+import { svelte } from '@sveltejs/vite-plugin-svelte'
 import { storybookTest } from '@storybook/addon-vitest/vitest-plugin'
 import { playwright } from '@vitest/browser-playwright'
 import { defineConfig } from 'vitest/config'
@@ -9,7 +10,12 @@ import { defineConfig } from 'vitest/config'
 // turns accessibility violations into failures — so there is nothing to keep
 // in sync with the stories.
 export default defineConfig({
-  plugins: [storybookTest({ configDir: fileURLToPath(new URL('.storybook', import.meta.url)) })],
+  plugins: [
+    // vitest.config.ts replaces vite.config.ts here, so Svelte compilation is
+    // registered again for the story suite.
+    svelte(),
+    storybookTest({ configDir: fileURLToPath(new URL('.storybook', import.meta.url)) }),
+  ],
   optimizeDeps: {
     // react-dom is CJS and only imported from the addon-vitest setup file,
     // which Vite's dependency scanner skips — without pre-bundling, its named

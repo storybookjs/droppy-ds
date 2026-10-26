@@ -1,6 +1,6 @@
 import { Anatomy } from '@component-anatomy/storybook/blocks'
 import { Meta, Canvas, ArgTypes } from '@storybook/addon-docs/blocks'
-import * as PageTemplateStories from './PageTemplate.stories'
+import * as PageTemplateStories from './PageTemplate.stories.svelte'
 
 <Meta of={PageTemplateStories} />
 
@@ -11,8 +11,10 @@ import * as PageTemplateStories from './PageTemplate.stories'
 The page shell: header, a `<main>` content area, and footer — the top-level layout every routed
 page sits inside.
 
-```tsx
-import { PageTemplate } from '@droppy/design-system'
+```svelte
+<script lang="ts">
+  import { PageTemplate } from '@droppy/design-system'
+</script>
 ```
 
 <Canvas of={PageTemplateStories.Default} />
@@ -26,7 +28,7 @@ import { PageTemplate } from '@droppy/design-system'
 - The content area carries `min-height: calc(100vh - 200px)`, a literal allowance for a typical
   header + footer height, so a short page's footer still lands at the bottom of the viewport
   instead of riding up under the fold.
-- Merges any incoming `className` with its own `droppy-PageTemplate` class.
+- Merges any incoming `class` with its own `droppy-PageTemplate` class.
 
 {/* END: general */}
 
@@ -123,7 +125,7 @@ the viewport instead of riding up under the fold.
 | `100vh - 200px` (literal) | Minimum height of the content area |
 
 No color or spacing tokens apply directly — `PageTemplate` is a layout shell; header, footer, and
-content styling come from whatever is passed into its slots. `className` merges with the
+content styling come from whatever is passed into its slots. `class` merges with the
 component's own `droppy-PageTemplate` class.
 
 {/* END: styling */}
@@ -152,7 +154,7 @@ The page content — the only part inside `<main>`.
 
 <Canvas of={PageTemplateStories.Children} />
 
-### `className`
+### `class`
 
 Merged onto the root alongside the component's own `droppy-PageTemplate` class.
 
@@ -167,6 +169,8 @@ Merged onto the root alongside the component's own `droppy-PageTemplate` class.
 - **2021**: the logo-only template dropped its footer — not every page wants one — and the three exports later merged back into a single `PageTemplate` switched by a `type` prop, the direct ancestor of Droppy's one-component API ([footer removed](https://github.com/yannbf/mealdrop/commit/db8312485efa8f7d79131aa835377a40d2a1dbe1), [templates merged](https://github.com/yannbf/mealdrop/commit/d73285877d84155f506da777aa7cb9e11c5ef969)).
 - **2026-08**: Droppy rebuilt the template as a pure slot shell: the closed `type` enum and the baked-in app Header/Footer went away in favour of opaque `header`/`footer` ReactNode slots — the parity doc excludes Header as "routing, cart state and a logo — an application component" — and a real `<main>` landmark replaced Mealdrop's plain div; the 2020 min-height literal was kept, documented in the stylesheet as an offset no token models ([initial commit](https://github.com/yannbf/droppy-ds/commit/00b19b5a1be01ae266251a71bd074e28ad8cd267), [Mealdrop parity doc](https://github.com/yannbf/droppy-ds/blob/main/docs/MEALDROP-PARITY.md)).
 - **Built on a plain `<div>` wrapping a `<main>` element.** Droppy supplies the props, the theme classes, and the copy around it.
+
+- **2026-10**: Ported to Svelte 5 (runes) on plain elements; stories are native Svelte CSF in `.stories.svelte`, compositions inlined as story templates.
 
 {/* END: history */}
 

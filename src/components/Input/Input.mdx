@@ -1,6 +1,6 @@
 import { Anatomy } from '@component-anatomy/storybook/blocks'
 import { Meta, Canvas, ArgTypes } from '@storybook/addon-docs/blocks'
-import * as InputStories from './Input.stories'
+import * as InputStories from './Input.stories.svelte'
 
 <Meta of={InputStories} />
 
@@ -10,19 +10,21 @@ import * as InputStories from './Input.stories'
 
 A labelled text field with a reserved slot for its validation message.
 
-```tsx
-import { Input } from '@droppy/design-system'
+```svelte
+<script lang="ts">
+  import { Input } from '@droppy/design-system'
+</script>
 ```
 
 <Canvas of={InputStories.Default} />
 
 ## Features
 
-- **Label, control, and error message are wired together automatically** — Field's `for`/`id` and `aria-describedby` association, so you never generate or pass an id yourself.
+- **Label, control, and error message are wired together automatically** — the component's own `for`/`id` and `aria-describedby` association, so you never generate or pass an id yourself.
 - **The error slot is always reserved**, whether or not a message is showing, so validating one field never shifts the fields below it.
 - **Accepts every native `<input>` prop** (`type`, `placeholder`, `autoComplete`, and the rest), so email, tel, and plain text fields are all the same component.
-- **No `aria-label` layered on top of the visible label.** Field's association already gives the input its accessible name, so what a screen reader announces always matches what's on screen.
-- **`className` merges onto the underlying input**, so wrapping it in `styled()` or adding utility classes composes instead of replacing Droppy's own styling.
+- **No `aria-label` layered on top of the visible label.** The `<label>` association already gives the input its accessible name, so what a screen reader announces always matches what's on screen.
+- **`class` merges onto the underlying input**, so adding utility classes composes instead of replacing Droppy's own styling.
 
 {/* END: general */}
 
@@ -36,7 +38,7 @@ import { Input } from '@droppy/design-system'
 ## When not to use
 
 - To let someone pick from a short, known list rather than type a value, use [Select](?path=/docs/forms-input-select--docs) instead — a select can't return a value the list doesn't contain, which is often what you want.
-- For multi-line content, `Input` renders a single `<input>` and has no multi-line mode — reach for Base UI's `Field.Control render={<textarea />}` directly instead of stretching this component past a single line.
+- For multi-line content, `Input` renders a single `<input>` and has no multi-line mode — reach for a native `<textarea>` with the theme's `FieldTextarea` class instead of stretching this component past a single line.
 
 {/* END: when-to-use */}
 
@@ -49,7 +51,7 @@ shifts the ones below it.
 
 <Canvas of={InputStories.ErrorDoesNotShiftLayout} />
 
-Base UI's `Field` wires the label, the control and the error together — `for`/`id` and
+The component wires the label, the control and the error together — `for`/`id` and
 `aria-describedby` — so the caller never does it by hand. That is also why the component sets no
 `aria-label` of its own: an `aria-label` on top of a real `<label>` overrides the visible text,
 leaving what a screen reader announces disagreeing with what the page shows.
@@ -65,12 +67,12 @@ leaving what a screen reader announces disagreeing with what the page shows.
 
 <span className="sb-sr-only">
 
-| Part    | `data-part` | Renders   | Purpose                                                          |
-| :------ | :---------- | :-------- | :--------------------------------------------------------------- |
-| Root    | `root`      | `<div>`   | Base UI's `Field.Root`, wiring label, control and error together |
-| Label   | `label`     | `<label>` | Absent when `label` is empty                                     |
-| Control | `control`   | `<input>` | The control itself; `className` lands here                       |
-| Error   | `error`     | `<div>`   | Always mounted, so showing a message never moves the layout      |
+| Part    | `data-part` | Renders   | Purpose                                                     |
+| :------ | :---------- | :-------- | :---------------------------------------------------------- |
+| Root    | `root`      | `<div>`   | The field wrapper, wiring label, control and error together |
+| Label   | `label`     | `<label>` | Absent when `label` is empty                                |
+| Control | `control`   | `<input>` | The control itself; `class` lands here                      |
+| Error   | `error`     | `<div>`   | Always mounted, so showing a message never moves the layout |
 
 </span>
 
@@ -137,7 +139,7 @@ leaving what a screen reader announces disagreeing with what the page shows.
 | `--ds-type-family-heading` | Entered-value font, so typed text reads distinctly from the label |
 | `--ds-type-size-2xs`       | Error message font size                                           |
 
-Everything else — colors, borders, radius, focus ring — comes from the theme layer's own `Field`/`Input` classes; `Input.css` only overrides the pieces specific to Droppy's variant (the placeholder border is removed, since validity is communicated by the error message rather than a border color). `className` is merged onto the rendered input, composing with rather than replacing that layer.
+Everything else — colors, borders, radius, focus ring — comes from the theme layer's own `Field`/`Input` classes; `Input.css` only overrides the pieces specific to Droppy's variant (the placeholder border is removed, since validity is communicated by the error message rather than a border color). `class` is merged onto the rendered input, composing with rather than replacing that layer.
 
 {/* END: styling */}
 
@@ -177,7 +179,7 @@ A hint, never a substitute for the label.
 
 <Canvas of={InputStories.Placeholder} />
 
-### `className`
+### `class`
 
 Merged onto the **control**, not the field root, alongside the component's own `droppy-Input`
 class.
@@ -193,7 +195,9 @@ class.
 - **2026-07**: Input was rebuilt on Base UI Field.Root + Field.Label with real data-focused label wiring and aria-describedby pointing at the fixed-height error slot ([forms commit](https://github.com/yannbf/mealdrop/commit/0b4027271b30a4e31360eadaf41f5e1ea46a5f55)).
 - **2026-07**: the redundant `aria-label` mirroring the visible label was dropped — Field associates the real `<label htmlFor>` with the control, and an aria-label on top makes screen readers announce something other than what the page shows; the error message size also snapped from 12px to the `--ds-type-size-2xs` token (11.52px), making the type scale the source of truth ([drop aria-label](https://github.com/yannbf/mealdrop/commit/cf8f08e765c4fd56216e97dde3f2d5c198162307), [Mealdrop parity doc](https://github.com/yannbf/droppy-ds/blob/main/docs/MEALDROP-PARITY.md)).
 - **2026-07**: the theme's Hind body font was judged right for buttons but wrong for input text: Mealdrop scoped its inputs back to Montserrat as an explicitly documented app-level typographic choice (labels deliberately stay Hind, the override later simplified to styled(DsInput)), and the theme's transparent input border was dropped by the consumer because validation speaks through the error message, not a border ([input font commit](https://github.com/yannbf/mealdrop/commit/8ccfa4fe54c8b8841648eadc09e24e9e7f501f63), [label font follow-up](https://github.com/yannbf/mealdrop/commit/dc0cfc9e1040131de6ecf8f7913c3d787049469b)).
-- **Built on Base UI [`Field`](https://base-ui.com/react/components/field) and [`Input`](https://base-ui.com/react/components/input).** Droppy supplies the props, the theme classes, and the copy around it.
+- **Built on native `<label>`, `<input>` and error elements** (the React build used Base UI [`Field`](https://base-ui.com/react/components/field) and [`Input`](https://base-ui.com/react/components/input)). Droppy supplies the props, the theme classes, and the copy around it.
+
+- **2026-10**: Ported to Svelte 5 (runes) on native elements (`<label>`, `<input>`, with ids from `$props.id()`); stories are native Svelte CSF in `.stories.svelte`, compositions inlined as story templates.
 
 {/* END: history */}
 
@@ -201,11 +205,11 @@ class.
 
 ## Known issues & open questions
 
-- [#80](https://github.com/yannbf/droppy-ds/issues/80): field-computed validation messages are permanently suppressed; inside a Base UI Form, submit is blocked with no visible feedback. **Workaround:** validate in app state and pass messages via the `error` prop (mirroring `e.target.validationMessage` if constraints stay); restore a visible invalid border with app CSS using a full `border` shorthand.
-- [#81](https://github.com/yannbf/droppy-ds/issues/81): ref never reaches the &lt;input&gt; on React 18 — silently breaks react-hook-form register() and imperative focus. **Workaround:** on React 18 wrap in your own element and query the inner input (or use react-hook-form's Controller instead of register()); React 19 works as-is.
+- [#80](https://github.com/yannbf/droppy-ds/issues/80): field-computed validation messages are permanently suppressed; inside a Base UI Form, submit is blocked with no visible feedback. **Workaround:** validate in app state and pass messages via the `error` prop (mirroring `e.target.validationMessage` if constraints stay); restore a visible invalid border with app CSS using a full `border` shorthand. _(React build only — does not apply to the Svelte port.)_
+- [#81](https://github.com/yannbf/droppy-ds/issues/81): ref never reaches the &lt;input&gt; on React 18 — silently breaks react-hook-form register() and imperative focus. **Workaround:** on React 18 wrap in your own element and query the inner input (or use react-hook-form's Controller instead of register()); React 19 works as-is. _(React build only — does not apply to the Svelte port.)_
 - [#83](https://github.com/yannbf/droppy-ds/issues/83): undocumented autoComplete="off" default suppresses browser autofill on exactly the fields the docs recommend it for. **Workaround:** pass an explicit autoComplete token on every field (consumer props win over the hardcoded default).
 - [#85](https://github.com/yannbf/droppy-ds/issues/85): the error prop displays a message without marking the field invalid — no aria-invalid, no data-invalid, and no announcement to screen readers. **Workaround:** pass aria-invalid alongside error (it forwards through rest), and add your own role="alert" live region or focus management for announcements.
-- [#87](https://github.com/yannbf/droppy-ds/issues/87): every prop targets the inner &lt;input&gt;; the Field.Root wrapper is unreachable, so layout props silently do nothing and Base UI's field-level API is inaccessible. **Workaround** (partial): wrap in your own element for layout or target the global .droppy-Field class; for field-level Base UI APIs, compose Base UI Field parts directly instead of this component.
+- [#87](https://github.com/yannbf/droppy-ds/issues/87): every prop targets the inner &lt;input&gt;; the Field.Root wrapper is unreachable, so layout props silently do nothing and field-level APIs are inaccessible. **Workaround** (partial): wrap in your own element for layout or target the global .droppy-Field class; for field-level behaviour, compose the theme's `FieldRoot`/`FieldLabel`/`Input` classes on native elements instead of this component.
 - [#89](https://github.com/yannbf/droppy-ds/issues/89): disabled renders with zero visual difference — enabled colors everywhere and the hover focus-glow still lights up. **Workaround:** app CSS on .droppy-Input:disabled (opacity, hover box-shadow: none) plus a :has(input:disabled) rule for the label; avoid combining error with disabled.
 - [#91](https://github.com/yannbf/droppy-ds/issues/91): the "error slot never shifts layout" guarantee only holds for one short line — wrapping messages push fields down, unbroken tokens overflow horizontally. **Workaround:** keep messages to one short line, or app CSS raising min-height and adding overflow-wrap: anywhere on .droppy-Field-error.
 - [#129](https://github.com/yannbf/droppy-ds/issues/129): focus indicators are box-shadow-only with `outline: none`, so they vanish entirely in Windows High Contrast mode.

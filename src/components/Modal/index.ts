@@ -1,2 +1,1 @@
-export { Modal } from './Modal'
-export type { ModalProps } from './Modal'
+export { default as Modal, type ModalProps } from './Modal.svelte'

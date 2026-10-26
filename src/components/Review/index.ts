@@ -1,2 +1,1 @@
-export { Review } from './Review'
-export type { ReviewProps } from './Review'
+export { default as Review, type ReviewProps } from './Review.svelte'

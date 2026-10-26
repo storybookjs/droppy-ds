@@ -7,9 +7,9 @@ description: Standards for droppy-ds component documentation — MDX facet struc
 
 This repository is [yannbf/droppy-ds](https://github.com/yannbf/droppy-ds) — Droppy, the design system of Mealdrop Corp. Its consumer application is [yannbf/mealdrop](https://github.com/yannbf/mealdrop); the arm that consumes this package is the [`agentic-reference/droppy`](https://github.com/yannbf/mealdrop/tree/agentic-reference/droppy) branch. DropBoard is Mealdrop Corp's restaurant-partner back office, and has no repository of its own — it exists in these docs as the second brand the system has to serve.
 
-Every component lives in `src/components/<Name>/` as five files: `<Name>.tsx`, `<Name>.css`, `<Name>.stories.tsx`, `<Name>.mdx`, `index.ts`. The MDX page is not an afterthought — it is part of the component's contract, and a code change that makes the page stale is an incomplete change.
+Every component lives in `src/components/<Name>/` as five files: `<Name>.svelte`, `<Name>.css`, `<Name>.stories.svelte` (native Svelte CSF via `defineMeta`; compositions as `{#snippet template}` blocks, `fixtures/*.svelte` only for stateful demos), `<Name>.mdx`, `index.ts`. The MDX page is not an afterthought — it is part of the component's contract, and a code change that makes the page stale is an incomplete change.
 
-Use an existing page as the exemplar before writing one: `src/components/Tabs/Tabs.mdx` (Base UI-backed) or `src/components/Card/Card.mdx` (plain element).
+Use an existing page as the exemplar before writing one: `src/components/Tabs/Tabs.mdx` (Bits UI-backed) or `src/components/Card/Card.mdx` (plain element).
 
 ## MDX facet structure
 
@@ -77,7 +77,7 @@ The writing conventions follow the practice the major systems share
   state wiring, composition, density. when-to-use answers "is this the right component", and owns
   every product use case and every comparison against an alternative. A bullet must pass two
   tests: it links to no other component, and it is not inferable from the when-to-use bullets.
-  Ground each rule in the component's own `.tsx`, a11y facet, or brand facet.
+  Ground each rule in the component's own `.svelte`, a11y facet, or brand facet.
 - **No em dashes, and no trailing full stop on a bullet.** Use ":" where a clause explains the one
   before it, ";" where two independent clauses join, and "e.g." for illustration.
 - **Plain words, no technology-specific phrasing.** Consumers style with different tools; say
@@ -89,7 +89,7 @@ The writing conventions follow the practice the major systems share
 ## Decision log rules
 
 - Dated bullets, `- **YYYY-MM**: …`, oldest first. The final bullet is the **Built on …** line stating what the component is built on.
-- Record **Droppy's decisions only** — never the upstream primitive's own history (no "Base UI decided…"), and no inventories of what a primitive supplies. If the decision was made by Base UI, it does not belong here.
+- Record **Droppy's decisions only** — never the upstream primitive's own history (no "Bits UI decided…"), and no inventories of what a primitive supplies. If the decision was made by Base UI, it does not belong here.
 - Usable citations: pre-Droppy Mealdrop commits (`yannbf/mealdrop`), droppy-ds commits and PRs, the [parity doc](https://github.com/yannbf/droppy-ds/blob/main/docs/MEALDROP-PARITY.md). Never cite transient agentic work: wave commits, Mealdrop's Droppy-adoption PRs, coverage percentages.
 - Brand claims must be anchored in Droppy's own docs — the Brand guidelines page (`?path=/docs/brand-guidelines--docs`) or the Design tokens pages — quoting their actual wording. If a rule is not codified there, state the decision plainly without a quote.
 - Keep resolution narratives concise: state the outcome ("removed in [droppy-ds #16], closing [#10]"), not the intermediate attempts — unless a rejection _is_ the current state.

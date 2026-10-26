@@ -1,2 +1,1 @@
-export { TopBanner } from './TopBanner'
-export type { TopBannerProps } from './TopBanner'
+export { default as TopBanner, type TopBannerProps } from './TopBanner.svelte'

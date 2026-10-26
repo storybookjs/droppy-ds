@@ -1,2 +1,5 @@
-export { FooterCard } from './FooterCard'
-export type { FooterCardProps, FooterCardLink } from './FooterCard'
+export {
+  default as FooterCard,
+  type FooterCardProps,
+  type FooterCardLink,
+} from './FooterCard.svelte'

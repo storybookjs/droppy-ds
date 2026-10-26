@@ -1,6 +1,6 @@
 import { Anatomy } from '@component-anatomy/storybook/blocks'
 import { Meta, Canvas, ArgTypes } from '@storybook/addon-docs/blocks'
-import * as PageSectionStories from './PageSection.stories'
+import * as PageSectionStories from './PageSection.stories.svelte'
 
 <Meta of={PageSectionStories} />
 
@@ -11,8 +11,10 @@ import * as PageSectionStories from './PageSection.stories'
 A titled content section — a heading with an optional "view all" action above whatever the
 caller composes below it, like a home page's Categories or Restaurants row.
 
-```tsx
-import { PageSection } from '@droppy/design-system'
+```svelte
+<script lang="ts">
+  import { PageSection } from '@droppy/design-system'
+</script>
 ```
 
 [Button](?path=/docs/actions-button--docs).
@@ -28,7 +30,7 @@ import { PageSection } from '@droppy/design-system'
 - Caps width at 1600px and centers from the 1024px breakpoint up, matching
   [Container](?path=/docs/layout-structure-container--docs)'s desktop bound; below that it fills its
   parent with its own side padding.
-- Merges any incoming `className` with its own `droppy-PageSection` class.
+- Merges any incoming `class` with its own `droppy-PageSection` class.
 
 {/* END: general */}
 
@@ -136,7 +138,7 @@ no keyboard behavior of their own.
 1600px and the 1024px breakpoint are literal values — no token in the current scale matches them
 exactly.
 
-`className` merges with the component's own `droppy-PageSection` class.
+`class` merges with the component's own `droppy-PageSection` class.
 
 {/* END: styling */}
 
@@ -164,7 +166,7 @@ The section body, laid out by the caller.
 
 <Canvas of={PageSectionStories.Children} />
 
-### `className`
+### `class`
 
 Merged onto the root alongside the component's own `droppy-PageSection` class.
 
@@ -176,7 +178,8 @@ Merged onto the root alongside the component's own `droppy-PageSection` class.
 ## Decision log
 
 - **2026-07**: PageSection kept Mealdrop's API unchanged through the Droppy migration — a required `title` rendered as a level-2 heading plus an optional top-right action via `topButtonLabel`/`onTopButtonClick` that renders a clear Button — and was adopted as a drop-in with no parity deltas ([migration commit](https://github.com/yannbf/mealdrop/commit/dea29009cb06ec78eb7e2c52f216da78d913e747)).
-- **Built on [Heading](?path=/docs/typography-heading--docs) and.** Droppy supplies the props, the theme classes, and the copy around it.
+- **Built on [Heading](?path=/docs/typography-heading--docs) and [Button](?path=/docs/actions-button--docs).** Droppy supplies the props, the theme classes, and the copy around it.
+- **2026-10**: Ported to Svelte 5 (runes) on Heading and Button (native elements); stories are native Svelte CSF in `.stories.svelte`, compositions inlined as story templates.
 
 {/* END: history */}
 
@@ -186,9 +189,9 @@ Merged onto the root alongside the component's own `droppy-PageSection` class.
 
 - [#93](https://github.com/yannbf/droppy-ds/issues/93): onTopButtonClick is typed () =&gt; void but is invoked with the click MouseEvent at runtime. **Workaround:** always wrap handlers with parameters (onTopButtonClick=&#123;() =&gt; refetch()&#125;), and use a capture-phase wrapper element when the event itself is needed.
 - [#95](https://github.com/yannbf/droppy-ds/issues/95): the documented "view all" action can only render as a &lt;button&gt; — no href or element escape hatch for navigation. **Workaround** (partial): omit topButtonLabel and render your own &lt;a&gt; via the global classes/relative root, or accept button semantics and navigate in onTopButtonClick.
-- [#97](https://github.com/yannbf/droppy-ds/issues/97): root div forces height: 100%, so stacked sections stretch to full parent height inside definite-height panes. **Workaround:** pass a className and set height: auto in app CSS (style prop is unavailable), or avoid definite-height ancestors.
+- [#97](https://github.com/yannbf/droppy-ds/issues/97): root div forces height: 100%, so stacked sections stretch to full parent height inside definite-height panes. **Workaround:** pass a `class` and set height: auto in app CSS (style prop is unavailable), or avoid definite-height ancestors.
 - [#98](https://github.com/yannbf/droppy-ds/issues/98): no programmatic link between the action button and the section title; closed props make ARIA disambiguation impossible. **Workaround:** make each label self-describing (e.g. "View all sushi restaurants") — no ARIA channel exists.
-- [#100](https://github.com/yannbf/droppy-ds/issues/100): docs claim "side padding" below 1024px, but right padding is 0 — the action button sits flush against the right edge on mobile. **Workaround:** add padding-right: var(--ds-space-xs) below 1024px via a merged className, or give scrolling children trailing padding.
+- [#100](https://github.com/yannbf/droppy-ds/issues/100): docs claim "side padding" below 1024px, but right padding is 0 — the action button sits flush against the right edge on mobile. **Workaround:** add padding-right: var(--ds-space-xs) below 1024px via a merged `class`, or give scrolling children trailing padding.
 - [#101](https://github.com/yannbf/droppy-ds/issues/101): desktop side inset (1.5rem) does not match default Container's (4rem), so composed content edges misalign. **Workaround:** pair PageSection with Container desktopOnly (same 1.5rem inset), or override padding-inline in app CSS.
 - [#103](https://github.com/yannbf/droppy-ds/issues/103): heading level is hardcoded to h2 with no override, so the component cannot fit outlines where another level is correct. **Workaround:** recompose the markup with the global droppy-PageSection classes plus Heading level=&#123;n&#125; size=&#123;2&#125; and Button clear.
 - [#104](https://github.com/yannbf/droppy-ds/issues/104): action button is gated solely on topButtonLabel truthiness — label and handler are unpaired, and an empty-string label removes the button. **Workaround:** always pass label+handler together and use topButtonLabel=&#123;label || undefined&#125; for dynamic strings.

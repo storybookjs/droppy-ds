@@ -1,2 +1,1 @@
-export { ProgressBar } from './ProgressBar'
-export type { ProgressBarProps } from './ProgressBar'
+export { default as ProgressBar, type ProgressBarProps } from './ProgressBar.svelte'

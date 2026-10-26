@@ -1,2 +1,6 @@
-export { Tabs } from './Tabs'
-export type { TabsProps, TabItem } from './Tabs'
+export {
+  default as Tabs,
+  type TabsProps,
+  type TabItem,
+  type TabsChangeDetails,
+} from './Tabs.svelte'

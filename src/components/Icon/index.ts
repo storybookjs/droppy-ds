@@ -1,2 +1,2 @@
-export { Icon, iconNames } from './Icon'
-export type { IconProps, IconName } from './Icon'
+export { default as Icon, type IconProps } from './Icon.svelte'
+export { iconNames, type IconName } from './icons'

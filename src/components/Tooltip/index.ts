@@ -1,2 +1,2 @@
-export { Tooltip, TooltipProvider } from './Tooltip'
-export type { TooltipProps } from './Tooltip'
+export { default as Tooltip, type TooltipProps } from './Tooltip.svelte'
+export { default as TooltipProvider } from './TooltipProvider.svelte'

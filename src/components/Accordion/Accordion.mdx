@@ -1,6 +1,6 @@
 import { Anatomy } from '@component-anatomy/storybook/blocks'
 import { Meta, Canvas, ArgTypes } from '@storybook/addon-docs/blocks'
-import * as AccordionStories from './Accordion.stories'
+import * as AccordionStories from './Accordion.stories.svelte'
 
 <Meta of={AccordionStories} />
 
@@ -11,8 +11,10 @@ import * as AccordionStories from './Accordion.stories'
 A stack of collapsible sections, each labelled by a header — an FAQ list, a set of grouped
 filters, a details panel with several independent parts.
 
-```tsx
-import { Accordion } from '@droppy/design-system'
+```svelte
+<script lang="ts">
+  import { Accordion } from '@droppy/design-system'
+</script>
 ```
 
 <Canvas of={AccordionStories.Default} />
@@ -26,7 +28,7 @@ import { Accordion } from '@droppy/design-system'
   `openMultiple` to allow several panels open at once.
 - **`value`/`defaultValue`/`onValueChange` passthrough**, for a controlled accordion driven by
   state outside the component.
-- **Animated panel height**, driven by Base UI's own measurement — no fixed heights or JS
+- **Animated panel height**, driven by Bits UI's own measurement — no fixed heights or JS
   transitions to maintain.
 - **Renders the theme's plus icon inside each trigger**, which rotates 45° into a cross when its
   panel opens.
@@ -44,7 +46,7 @@ import { Accordion } from '@droppy/design-system'
 
 - For content that should always be visible together, don't collapse it — an accordion trades
   scannability for compactness, and hiding content the user needs constantly just adds clicks.
-- For a single show/hide toggle rather than a list of sections, use Base UI's `Collapsible`
+- For a single show/hide toggle rather than a list of sections, use Bits UI's `Collapsible`
   directly instead — `Accordion` is built for managing several sections' open state together.
 
 {/* END: when-to-use */}
@@ -70,14 +72,14 @@ stops updating itself. One without the other leaves the accordion stuck.
 
 ### Rich titles and content
 
-`title` and `content` take any `ReactNode`, so a header can carry a badge and a panel can hold
+`title` and `content` take a string or a snippet, so a header can carry a badge and a panel can hold
 markup rather than a string.
 
 <Canvas of={AccordionStories.RichContent} />
 
 ### Open/close animation
 
-Base UI measures each panel and writes its height to `--accordion-panel-height`; the theme
+Bits UI measures each panel and the component writes its height to `--accordion-panel-height`; the theme
 transitions `height` on top of that variable, and rotates the trigger's plus icon 45° into a cross
 while `[data-panel-open]` is set. Nothing here needs a fixed height.
 
@@ -170,7 +172,7 @@ Droppy's own stylesheet carries no rules for `Accordion` — the theme layer's `
 `AccordionContent` classes cover the border, spacing, icon rotation, and panel-height animation in
 full.
 
-`className` merges onto the root, so it composes with the theme layer rather than replacing it.
+`class` merges onto the root, so it composes with the theme layer rather than replacing it.
 
 {/* END: styling */}
 
@@ -196,7 +198,7 @@ index — fine for a static list, but give items explicit values if the list can
 
 ### Item `title` and `content`
 
-Both are `ReactNode`. See [Rich titles and content](#rich-titles-and-content) above.
+Both are `string | Snippet`. See [Rich titles and content](#rich-titles-and-content) above.
 
 ### Item `disabled`
 
@@ -221,7 +223,7 @@ The item values open on first render, for an uncontrolled accordion.
 
 The controlled pairing. See [Controlled vs. uncontrolled](#controlled-vs-uncontrolled) above.
 
-### `className`
+### `class`
 
 Merged onto the root alongside the theme's classes.
 
@@ -234,9 +236,11 @@ Merged onto the root alongside the theme's classes.
 ## Decision log
 
 - **2026-07**: Droppy's Accordion took a data-driven `items: {value, title, content}[]` array instead of exposing the underlying compound-component composition, keeping call sites declarative; item values fall back to the item's index ([additional components commit](https://github.com/yannbf/droppy-ds/commit/1fba4ce05fa71da8aa51a56ea60dae6b218c1868)).
-- **Built on Base UI [`Accordion`](https://base-ui.com/react/components/accordion).** The
+- **Built on Bits UI [`Accordion`](https://bits-ui.com/docs/components/accordion)** (the React build used Base UI [`Accordion`](https://base-ui.com/react/components/accordion)). The
   expand/collapse behaviour, the panel measurement, and the ARIA wiring come from there; Droppy
   supplies the `items` shape, the theme classes, and the plus icon.
+
+- **2026-10**: Ported to Svelte 5 (runes) on Bits UI `Accordion` (arrow-key roving cancelled; panel height mirrored into `--accordion-panel-height`); stories are native Svelte CSF in `.stories.svelte`, compositions inlined as story templates.
 
 {/* END: history */}
 
@@ -246,10 +250,10 @@ Merged onto the root alongside the theme's classes.
 
 - [#30](https://github.com/yannbf/droppy-ds/issues/30): theme caps the root at max-width 20rem (320px); undocumented and not liftable via any prop. **Workaround:** pass a className and set max-width: none in app CSS loaded after the DS stylesheet.
 - [#32](https://github.com/yannbf/droppy-ds/issues/32): closed panels unmount their content, destroying all descendant state; keepMounted/hiddenUntilFound are not exposed. **Workaround:** lift content state out of the panel (or use openMultiple to reduce churn); panels cannot be kept mounted through this wrapper.
-- [#35](https://github.com/yannbf/droppy-ds/issues/35): index-fallback item values bind open state and React keys to list position; dynamic lists shift open panels and values can collide. **Workaround:** always pass explicit stable string values per item; avoid mixing the index fallback with stringified-integer explicit values.
+- [#35](https://github.com/yannbf/droppy-ds/issues/35): index-fallback item values bind open state and keyed-each keys to list position; dynamic lists shift open panels and values can collide. **Workaround:** always pass explicit stable string values per item; avoid mixing the index fallback with stringified-integer explicit values.
 - [#38](https://github.com/yannbf/droppy-ds/issues/38): controlled `value` becoming undefined after mount throws a TypeError on the next trigger click; starting undefined locks the accordion uncontrolled. **Workaround:** always pass an array once controlled ([] for all closed), never undefined; reset uncontrolled accordions by remounting with a new key.
 - [#40](https://github.com/yannbf/droppy-ds/issues/40): heading level is hardcoded to &lt;h3&gt; with no way to fit it to the page outline. **Workaround** (structural only): arrange surrounding headings so h3 fits the outline; the level itself cannot be changed.
-- [#111](https://github.com/yannbf/droppy-ds/issues/111): onValueChange is typed with one parameter, hiding Base UI's runtime eventDetails argument and its cancel() veto. **Workaround:** cast the handler in TS (or just declare the second param in JS); the runtime forwards eventDetails unchanged.
+- [#111](https://github.com/yannbf/droppy-ds/issues/111): onValueChange is typed with one parameter, hiding Base UI's runtime eventDetails argument and its cancel() veto. **Workaround:** cast the handler in TS (or just declare the second param in JS); the runtime forwards eventDetails unchanged. _(React build only — does not apply to the Svelte port.)_
 - [#125](https://github.com/yannbf/droppy-ds/issues/125): the prop type is a closed set, so `id`/`data-testid`/`aria-*`/`style`/event handlers never reach the rendered DOM.
 - [#129](https://github.com/yannbf/droppy-ds/issues/129): focus indicators are box-shadow-only with `outline: none`, so they vanish entirely in Windows High Contrast mode.
 - [#133](https://github.com/yannbf/droppy-ds/issues/133): the shared `--ds-shadow-focus` ring is below the 3:1 non-text contrast minimum in light theme.
@@ -261,7 +265,7 @@ Merged onto the root alongside the theme's classes.
 
 ## Related
 
-- For a single independent show/hide section rather than a managed list, reach for Base UI's
+- For a single independent show/hide section rather than a managed list, reach for Bits UI's
   `Collapsible` directly.
 - To group related content into a raised surface without collapse behavior, see
   [Card](?path=/docs/media-content-card--docs).

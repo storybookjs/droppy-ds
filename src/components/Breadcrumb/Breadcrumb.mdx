@@ -1,6 +1,6 @@
 import { Anatomy } from '@component-anatomy/storybook/blocks'
 import { Meta, Canvas, ArgTypes } from '@storybook/addon-docs/blocks'
-import * as BreadcrumbStories from './Breadcrumb.stories'
+import * as BreadcrumbStories from './Breadcrumb.stories.svelte'
 
 <Meta of={BreadcrumbStories} />
 
@@ -11,8 +11,10 @@ import * as BreadcrumbStories from './Breadcrumb.stories'
 A trail of ancestor pages leading to the current one — categories, restaurants, anything with a
 browsable hierarchy above it.
 
-```tsx
-import { Breadcrumb } from '@droppy/design-system'
+```svelte
+<script lang="ts">
+  import { Breadcrumb } from '@droppy/design-system'
+</script>
 ```
 
 <Canvas of={BreadcrumbStories.Default} />
@@ -27,7 +29,7 @@ import { Breadcrumb } from '@droppy/design-system'
 - The last item always carries `aria-current="page"`, whether it renders as a link or as text.
 - A `/` separator sits between crumbs, hidden from assistive tech (`aria-hidden`) since the list
   markup already conveys order.
-- Merges any incoming `className` with its own `droppy-Breadcrumb` class.
+- Merges any incoming `class` with its own `droppy-Breadcrumb` class.
 
 {/* END: general */}
 
@@ -148,7 +150,7 @@ keyboard behaviour applies, no custom handling.
 | `--ds-space-md`             | Vertical margin around the trail           |
 | `--ds-space-2xs`            | Horizontal margin around the `/` separator |
 
-`className` merges with the component's own `droppy-Breadcrumb` class.
+`class` merges with the component's own `droppy-Breadcrumb` class.
 
 {/* END: styling */}
 
@@ -175,7 +177,7 @@ its own destination, so `href` is dropped rather than spread on top of it.
 
 <Canvas of={BreadcrumbStories.ItemRender} />
 
-### `className`
+### `class`
 
 Merged onto the root alongside the component's own `droppy-Breadcrumb` class.
 
@@ -191,6 +193,8 @@ Merged onto the root alongside the component's own `droppy-Breadcrumb` class.
 - **2026-08**: a visual-parity audit found a crumb rendered through `Link` losing Breadcrumb's own styling on compiled-bundle order (two single-class rules tie), and proposed ancestor-qualified rules (`.droppy-Breadcrumb .droppy-Breadcrumb-link`) so specificity decides instead; fixing it by zeroing `Link`'s own specificity with `:where()` was explicitly rejected, since that would let any consumer `* { color }` reset override links everywhere. The PR was closed unmerged, so the defect is tracked as [#12](https://github.com/yannbf/droppy-ds/issues/12) ([droppy-ds #8](https://github.com/yannbf/droppy-ds/pull/8)).
 - **Built on a plain `<nav>` and `<ol>`; each crumb is an `<a>` by default.** Droppy supplies the props, the theme classes, and the copy around it.
 
+- **2026-10**: Ported to Svelte 5 (runes) on plain elements; item `render` is now a snippet receiving the crumb's props; stories are native Svelte CSF in `.stories.svelte`, compositions inlined as story templates.
+
 {/* END: history */}
 
 {/* BEGIN: known-issues */}
@@ -198,7 +202,7 @@ Merged onto the root alongside the component's own `droppy-Breadcrumb` class.
 ## Known issues & open questions
 
 - [#12](https://github.com/yannbf/droppy-ds/issues/12): A crumb rendered through Link loses Breadcrumb's styling on bundle order. **Workaround:** ancestor-qualify the crumb rules in app CSS (`.droppy-Breadcrumb .droppy-Breadcrumb-link`).
-- [#126](https://github.com/yannbf/droppy-ds/issues/126): `render` items are cloned with an explicit `href: undefined` prop that clobbers link components spreading rest-props after their own `href`. **Workaround:** in the custom link component, spread incoming props before setting href (`<a {...rest} href={to} />`) or destructure the incoming `href` away.
+- [#126](https://github.com/yannbf/droppy-ds/issues/126): `render` items are cloned with an explicit `href: undefined` prop that clobbers link components spreading rest-props after their own `href`. **Workaround:** in the custom link component, spread incoming props before setting href (`<a {...rest} href={to} />`) or destructure the incoming `href` away. _(React build only — does not apply to the Svelte port.)_
 - [#130](https://github.com/yannbf/droppy-ds/issues/130): landmark label is hard-coded English `aria-label="breadcrumb"` with no way to localize or override it. **Workaround** (hacky): set the attribute imperatively after mount via a wrapper ref's querySelector('nav').
 - [#135](https://github.com/yannbf/droppy-ds/issues/135): current page gets no visual marking when the last crumb is a link — no `[aria-current]` styling exists anywhere in the package. **Workaround:** app CSS on `.droppy-Breadcrumb-link[aria-current='page']`, or omit href/render on the last item.
 - [#141](https://github.com/yannbf/droppy-ds/issues/141): duplicate `href` values produce duplicate React keys, with no consumer-controllable key. **Workaround:** keep hrefs unique, omit href instead of placeholder values, use root-relative hrefs.

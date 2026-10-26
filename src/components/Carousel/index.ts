@@ -1,2 +1,1 @@
-export { Carousel } from './Carousel'
-export type { CarouselProps, ItemsPerView } from './Carousel'
+export { default as Carousel, type CarouselProps, type ItemsPerView } from './Carousel.svelte'

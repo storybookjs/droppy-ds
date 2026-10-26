@@ -1,2 +1,1 @@
-export { Link } from './Link'
-export type { LinkProps } from './Link'
+export { default as Link, type LinkProps, type LinkRenderProps } from './Link.svelte'

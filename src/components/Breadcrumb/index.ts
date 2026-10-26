@@ -1,2 +1,6 @@
-export { Breadcrumb } from './Breadcrumb'
-export type { BreadcrumbProps, BreadcrumbItem } from './Breadcrumb'
+export {
+  default as Breadcrumb,
+  type BreadcrumbProps,
+  type BreadcrumbItem,
+  type BreadcrumbRenderProps,
+} from './Breadcrumb.svelte'

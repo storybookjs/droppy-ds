@@ -1,6 +1,6 @@
 import { Anatomy } from '@component-anatomy/storybook/blocks'
 import { Meta, Canvas, ArgTypes } from '@storybook/addon-docs/blocks'
-import * as TooltipStories from './Tooltip.stories'
+import * as TooltipStories from './Tooltip.stories.svelte'
 
 <Meta of={TooltipStories} />
 
@@ -10,8 +10,10 @@ import * as TooltipStories from './Tooltip.stories'
 
 A hover and focus hint for a control whose purpose isn't obvious from its face.
 
-```tsx
-import { Tooltip, TooltipProvider } from '@droppy/design-system'
+```svelte
+<script lang="ts">
+  import { Tooltip, TooltipProvider } from '@droppy/design-system'
+</script>
 ```
 
 <Canvas of={TooltipStories.Default} />
@@ -124,7 +126,7 @@ through the exit so the close runs before it leaves the DOM.
 | Hover trigger (mouse)        | closed  | Opens after a short delay                                                                             |
 | Move pointer away            | open    | Closes                                                                                                |
 | Escape                       | open    | Closes                                                                                                |
-| Touch tap on trigger         | any     | Never opens the tip — the trigger's own tap behavior (a button's `onClick`, say) still fires normally |
+| Touch tap on trigger         | any     | Never opens the tip — the trigger's own tap behavior (a button's `onclick`, say) still fires normally |
 
 - **ARIA:** none. The popup carries no role and no `aria-describedby` link to the trigger — it is deliberately visual-only, so it never becomes part of the trigger's accessible name or description.
 - **Screen reader:** announces nothing about the tooltip itself; a screen reader user hears only the trigger's own accessible name.
@@ -153,7 +155,7 @@ Droppy's own stylesheet sets only the popup's stacking order:
 | ------------ | --------------------------------------------------------------- |
 | `z-index: 3` | Keeps the popup above sticky page chrome such as a fixed header |
 
-Colors, padding, and border come from the theme layer's `TooltipPopup` class, layered before Droppy's own rule — the cascade is theme first, component second, consuming app last. `className` merges onto the popup, so it composes with both layers rather than replacing them.
+Colors, padding, and border come from the theme layer's `TooltipPopup` class, layered before Droppy's own rule — the cascade is theme first, component second, consuming app last. `class` merges onto the popup, so it composes with both layers rather than replacing them.
 
 {/* END: styling */}
 
@@ -181,7 +183,7 @@ The gap between the trigger and the tip.
 
 <Canvas of={TooltipStories.SideOffset} />
 
-### `className`
+### `class`
 
 Merged onto the popup alongside the component's own `droppy-Tooltip` class.
 
@@ -196,7 +198,9 @@ Merged onto the popup alongside the component's own `droppy-Tooltip` class.
 - **2026-07**: Mealdrop's Header was excluded from the design system as an application component (routing, cart state, a logo), but its tooltip was judged reusable and extracted as the standalone Tooltip component ([Mealdrop parity doc](https://github.com/yannbf/droppy-ds/blob/main/docs/MEALDROP-PARITY.md), [initial component set](https://github.com/yannbf/droppy-ds/commit/8790c8460335870f6ca26be9850710ff6023cc61)).
 - **2026-07**: Mealdrop had no tooltip pattern to inherit a shadow from, and the dialog/drawer `--ds-shadow-overlay` is far too heavy at tooltip size, so small floaters were mapped to `--ds-shadow-lift` — per the [brand guidelines](?path=/docs/brand-guidelines--docs), "elevation means floating, not importance", and the lift shadow is the one for hover-scale floaters.
 - **2026-07**: the hover interaction story is deliberately skipped under Chromatic's capture because its synthetic pointer events never open the tip; the same interaction is already driven in a real browser by the Vitest story tests, so coverage is not lost ([Chromatic setup](https://github.com/yannbf/droppy-ds/commit/7497b11ac2afc2ce77ea6e3afcdfc2642f9f441b)).
-- **Built on Base UI [`Tooltip`](https://base-ui.com/react/components/tooltip).** Droppy supplies the props, the theme classes, and the copy around it.
+- **Built on Bits UI [`Tooltip`](https://bits-ui.com/docs/components/tooltip).** Droppy supplies the props, the theme classes, and the copy around it.
+
+- **2026-10**: Ported to Svelte 5 (runes) on Bits UI `Tooltip`; `children` is now a snippet that spreads the trigger `props` onto its own element; stories are native Svelte CSF in `.stories.svelte`, compositions inlined as story templates.
 
 {/* END: history */}
 
@@ -204,11 +208,11 @@ Merged onto the popup alongside the component's own `droppy-Tooltip` class.
 
 ## Known issues & open questions
 
-- [#159](https://github.com/yannbf/droppy-ds/issues/159): non-functional under React 18 with Droppy component children — trigger ref never attaches, tip never shows. **Workaround:** on React 18 pass a host element (or your own forwardRef wrapper) as the child, or upgrade to React 19.
+- [#159](https://github.com/yannbf/droppy-ds/issues/159): non-functional under React 18 with Droppy component children — trigger ref never attaches, tip never shows. **Workaround:** on React 18 pass a host element (or your own forwardRef wrapper) as the child, or upgrade to React 19. _(React build only — does not apply to the Svelte port.)_
 - [#163](https://github.com/yannbf/droppy-ds/issues/163): the shipped z-index: 3 rule targets a non-positioned element and does nothing — tips paint behind Droppy's own Modal/Sidebar and any z-indexed page chrome. **Workaround:** global CSS `div:has(> .droppy-Tooltip) { z-index: 100 }` raises the positioner; the className prop and .droppy-Tooltip overrides cannot fix it.
 - [#167](https://github.com/yannbf/droppy-ds/issues/167): never shows on a disabled Button or IconButton trigger, and the focusableWhenDisabled escape hatch is not exposed. **Workaround:** wrap the disabled control in a span with tabIndex=&#123;0&#125; and let the span be the tooltip child.
 - [#170](https://github.com/yannbf/droppy-ds/issues/170): tip is unreachable by keyboard when the child is not focusable — the documented Tab-to-open path silently does not exist. **Workaround:** only use focusable trigger children, or add tabIndex=&#123;0&#125; (plus an accessible name) to the child yourself.
-- [#172](https://github.com/yannbf/droppy-ds/issues/172): A Fragment or a non-prop-spreading component child type-checks but produces a silently dead tooltip. **Workaround:** only pass a single host element or a rest-spreading, ref-forwarding component as the child; never a Fragment.
+- [#172](https://github.com/yannbf/droppy-ds/issues/172): A Fragment or a non-prop-spreading component child type-checks but produces a silently dead tooltip. **Workaround:** only pass a single host element or a rest-spreading, ref-forwarding component as the child; never a Fragment. _(React build only — does not apply to the Svelte port.)_
 - [#175](https://github.com/yannbf/droppy-ds/issues/175): falsy label (undefined, null, false, empty string) still opens a fully styled empty bubble on hover/focus. **Workaround:** conditionally render the Tooltip wrapper only when the label is non-empty.
 - [#178](https://github.com/yannbf/droppy-ds/issues/178): no max-width or wrap rule on the popup — a sentence-length label becomes a viewport-wide strip, an unbroken string overflows the viewport. **Workaround:** pass a className and set max-width (optionally using the inherited --available-width var) plus overflow-wrap yourself.
 - [#182](https://github.com/yannbf/droppy-ds/issues/182): open state is fully encapsulated — no controlled mode, no onOpenChange, no disable, no per-tooltip delay; the TooltipProvider timing props that do exist are undocumented. **Workaround** (partial): TooltipProvider delay/closeDelay for timing, conditional rendering to disable, or compose @base-ui/react/tooltip directly with the shipped global classes for full control.
@@ -223,6 +227,6 @@ Merged onto the popup alongside the component's own `droppy-Tooltip` class.
 
 - For a circular icon-only trigger — the shape most tooltips end up labelling — see [IconButton](?path=/docs/actions-iconbutton--docs). The stories on this page use a plain [Button](?path=/docs/actions-button--docs) instead.
 - To label a form field rather than a floating hint, use [Input](?path=/docs/forms-input-input--docs).
-- For a richer hint that touch and screen reader users also need to reach, use Base UI's `Popover` with `openOnHover` instead of `Tooltip`.
+- For a richer hint that touch and screen reader users also need to reach, use Bits UI's `Popover` with `openOnHover` instead of `Tooltip`.
 
 {/* END: when-to-use */}

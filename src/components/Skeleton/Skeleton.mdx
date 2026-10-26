@@ -1,6 +1,6 @@
 import { Anatomy } from '@component-anatomy/storybook/blocks'
 import { Meta, Canvas, ArgTypes } from '@storybook/addon-docs/blocks'
-import * as SkeletonStories from './Skeleton.stories'
+import * as SkeletonStories from './Skeleton.stories.svelte'
 
 <Meta of={SkeletonStories} />
 
@@ -11,8 +11,10 @@ import * as SkeletonStories from './Skeleton.stories'
 A loading placeholder that stands in for content before it arrives, shaped to match what it will
 become.
 
-```tsx
-import { Skeleton } from '@droppy/design-system'
+```svelte
+<script lang="ts">
+  import { Skeleton } from '@droppy/design-system'
+</script>
 ```
 
 <Canvas of={SkeletonStories.Default} />
@@ -28,7 +30,7 @@ import { Skeleton } from '@droppy/design-system'
 - Shimmers with a CSS gradient animation between the theme's skeleton tokens, and turns static
   under `prefers-reduced-motion: reduce` rather than disabling the sweep with JavaScript.
 - `aria-hidden="true"` always — a placeholder announces nothing on its own.
-- Merges any incoming `className` with its own `droppy-Skeleton` class.
+- Merges any incoming `class` with its own `droppy-Skeleton` class.
 
 {/* END: general */}
 
@@ -174,7 +176,7 @@ matches the text around it.
 
 <Canvas of={SkeletonStories.Height} />
 
-### `className`
+### `class`
 
 Merged onto the root alongside the component's own `droppy-Skeleton` class.
 
@@ -182,7 +184,8 @@ Merged onto the root alongside the component's own `droppy-Skeleton` class.
 
 ### `style`
 
-Merged after the computed width and height, so a shape can carry its own border radius or other
+An inline CSS string (e.g. `style="border-radius: 4px 4px 0 0"`), appended after the computed
+width and height, so a shape can carry its own border radius or other
 overrides on top.
 
 <Canvas of={SkeletonStories.Style} />
@@ -195,6 +198,7 @@ overrides on top.
 - **2026-07**: Skeleton shipped as a dependency-free CSS shimmer reading skeleton tokens directly, replacing the react-loading-skeleton dependency and Mealdrop's `<SkeletonTheme>` provider (which needed an @ts-expect-error for wrong types and manual base/highlight colours per theme); the per-instance `width`/`height` sizing API was kept so loading layouts port over line-for-line ([migration commit](https://github.com/yannbf/mealdrop/commit/dea29009cb06ec78eb7e2c52f216da78d913e747), [Mealdrop parity doc](https://github.com/yannbf/droppy-ds/blob/main/docs/MEALDROP-PARITY.md)).
 - **2026-08**: a visual-parity audit traced the shimmer's choppy double pulse to keyframes travelling two tile periods per cycle over a 200%-wide gradient, and proposed 100%/−100% stops for one evenly-eased sweep per 1.6s cycle. The PR was closed unmerged, so the defect is tracked as [#11](https://github.com/yannbf/droppy-ds/issues/11) ([droppy-ds #8](https://github.com/yannbf/droppy-ds/pull/8)).
 - **2026-08**: `.droppy-Skeleton` now sets `background-color: var(--ds-color-skeleton-base)` under the shimmer gradient and declares `background-repeat: repeat` explicitly, instead of relying on the gradient alone and the browser's default repeat behaviour — a consumer `background-repeat: no-repeat` reset had been enough to make the placeholder flash transparent every cycle ([droppy-ds #289](https://github.com/yannbf/droppy-ds/pull/289), closing [#264](https://github.com/yannbf/droppy-ds/issues/264)).
+- **2026-10**: Ported to Svelte 5 (runes) on a native `<span>`; `style` is now an inline CSS string appended after the computed size; stories are native Svelte CSF in `.stories.svelte`, compositions inlined as story templates.
 - **Built on a plain `<span>`.** Droppy supplies the props, the theme classes, and the copy around it.
 
 {/* END: history */}
@@ -204,7 +208,7 @@ overrides on top.
 ## Known issues & open questions
 
 - [#168](https://github.com/yannbf/droppy-ds/issues/168): no prop forwarding: data-\* and aria-\* attributes type-check but are silently dropped. **Workaround:** put ids, test ids, handlers and refs on a wrapper element you own, and select the placeholder in tests via the stable `.droppy-Skeleton` class.
-- [#171](https://github.com/yannbf/droppy-ds/issues/171): width/height are always emitted as inline styles, so className-based sizing has no effect. **Workaround:** size skeletons with the `width`/`height` props or the `style` prop, or mark stylesheet sizing `!important`.
+- [#171](https://github.com/yannbf/droppy-ds/issues/171): width/height are always emitted as inline styles, so class-based sizing has no effect. **Workaround:** size skeletons with the `width`/`height` props or the `style` prop, or mark stylesheet sizing `!important`.
 - [#11](https://github.com/yannbf/droppy-ds/issues/11): skeleton shimmer completes two uneven passes per cycle. **Workaround:** redeclare the shimmer keyframes with 100%/−100% stops in app CSS.
 - [#174](https://github.com/yannbf/droppy-ds/issues/174): unitless numeric strings and non-finite numbers silently fall back to the default size. **Workaround:** normalize dimensions at the call site — pass finite numbers guarded with `Number.isFinite`, or strings that carry a unit.
 - [#176](https://github.com/yannbf/droppy-ds/issues/176): docs list aria-busy="true" as an alternative to role="status", but it announces nothing. **Workaround:** ignore the `aria-busy` option and use the docs' `role="status"` + `aria-label` container pattern, as the TextBlock story does.

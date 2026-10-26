@@ -9,3 +9,4 @@ storybook-static/
 .env
 .env.*
 !.env.example
+.svelte-kit/
