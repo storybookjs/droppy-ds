@@ -56,6 +56,8 @@
     "svelte": "^5.0.0"
   },
   "dependencies": {
+    "@internationalized/date": "^3.12.4",
+    "bits-ui": "^2.20.2",
     "embla-carousel": "^8.6.0",
     "embla-carousel-wheel-gestures": "^8.1.0"
   },
@@ -81,7 +83,6 @@
     "@unpunnyfuns/swatchbook-core": "^2.0.0",
     "@vitest/browser-playwright": "^4.1.10",
     "@vitest/coverage-v8": "^4.1.10",
-    "bits-ui": "^2.20.0",
     "chromatic": "^18.2.0",
     "eslint": "^9.39.5",
     "eslint-config-prettier": "^10.1.8",
