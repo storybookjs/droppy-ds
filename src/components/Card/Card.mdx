@@ -10,8 +10,10 @@ import * as CardStories from './Card.stories'
 
 A rounded, clipped surface for grouping content: a restaurant tile, a food item, an order summary.
 
-```tsx
-import { Card } from '@droppy/design-system'
+```svelte
+<script lang="ts">
+  import { Card } from '@droppy/design-system'
+</script>
 ```
 
 <Canvas of={CardStories.Default} />
@@ -24,11 +26,11 @@ import { Card } from '@droppy/design-system'
   `box-shadow: var(--ds-shadow-lift)` on hover, the treatment food-item tiles use.
 - `padded` adds `--ds-space-sm` padding on all sides; unset, the shell is bare, since most of the
   components it replaces already own their internal padding.
-- `interactive` adds a pointer cursor and a hover dim — the shell only. It wires no `onClick`;
+- `interactive` adds a pointer cursor and a hover dim — the shell only. It wires no `onclick`;
   callers compose the click handling themselves.
 - `overflow: hidden`, so an edge-to-edge image child clips to the card's own corner radius instead
   of squaring off past it.
-- Merges any incoming `className` with its own `droppy-Card` class.
+- Merges any incoming `class` with its own `droppy-Card` class.
 
 {/* END: general */}
 
@@ -153,7 +155,7 @@ treatment as "elevation means floating, not importance":
 | `--ds-space-sm`                         | Padding, when `padded`                   |
 | `--ds-motion-fast` / `--ds-motion-ease` | Hover-dim transition, when `interactive` |
 
-`className` merges with the component's own `droppy-Card` class.
+`class` merges with the component's own `droppy-Card` class.
 
 {/* END: styling */}
 
@@ -178,12 +180,12 @@ already own their internal padding.
 
 ### `interactive`
 
-Appearance only: a pointer cursor and a hover dim. It wires no `onClick`, `role`, or `tabIndex` —
+Appearance only: a pointer cursor and a hover dim. It wires no `onclick`, `role`, or `tabindex` —
 compose the interactive semantics yourself, or wrap the card in a real control.
 
 <Canvas of={CardStories.Interactive} />
 
-### `className`
+### `class`
 
 Merged onto the root alongside the component's own `droppy-Card` class.
 
@@ -198,6 +200,7 @@ Merged onto the root alongside the component's own `droppy-Card` class.
 - **2026-07**: card corners sit on the `--ds-radius-card` rung of the radius ladder — documented in the [Spacing and layout tokens](?path=/docs/design-tokens-spacing-and-layout--docs) as expressing "floatiness" — "the more elevated or overlay-like a surface, the larger the radius" — and card images take the card's radius on their touching corners only (8/8/0/0 over 0/0/8/8) so image and panel read as complementary halves of one shape.
 - **2026-07**: card hover was unified as an opacity dim (two of Mealdrop's three card components already did this), reserving `--ds-shadow-lift` for the food-card hover pattern while resting cards stay flat, separated by background shifts rather than shadows — the [brand guidelines](?path=/docs/brand-guidelines--docs) codify this as "elevation means floating, not importance".
 - **2026-08**: the brand motion rule "resting cards stay flat" was upheld rather than softened: the [brand guidelines](?path=/docs/brand-guidelines--docs) shipped with the contradiction stated out loud — the rule says flat, `Card.css` applied `--ds-shadow-lift` unconditionally — and a Mealdrop parity audit settled it by showing all three original consumers (FoodItem, RestaurantCard, round Category) were flat at rest, making the resting shadow the defect rather than the rule ([rule resolution](https://github.com/yannbf/droppy-ds/pull/4)). The resting shadow was removed in [droppy-ds #16](https://github.com/yannbf/droppy-ds/pull/16), closing [#10](https://github.com/yannbf/droppy-ds/issues/10).
+- **2026-10**: Ported to Svelte 5 (runes) on a native `<div>`; `children` takes a string or a snippet; stories are plain CSF in `.stories.ts` with `.svelte` fixtures.
 - **Built on a plain `<div>` element.** Droppy supplies the props, the theme classes, and the copy around it.
 
 {/* END: history */}
@@ -210,7 +213,7 @@ Merged onto the root alongside the component's own `droppy-Card` class.
 - [#55](https://github.com/yannbf/droppy-ds/issues/55): `interactive` affordance is mouse-only: no :focus-visible ring or :active state, unlike every other clickable surface in the system. **Workaround:** add app CSS with a :focus-visible rule composing --ds-shadow-focus with --ds-shadow-lift, plus an :active rule for touch feedback.
 - [#57](https://github.com/yannbf/droppy-ds/issues/57): background auto-flips to dark with OS preference, but Card sets no text color — inherited app text becomes illegible in apps that never opted into theming. **Workaround:** pin data-theme='light' on the root, adopt theming fully, or set color: var(--ds-color-text-primary) on the card / use DS text components inside it.
 - [#59](https://github.com/yannbf/droppy-ds/issues/59): overflow:hidden silently truncates long unbroken text (no wrap/ellipsis) and clips edge-flush children's focus rings. **Workaround:** set overflow-wrap on your content nodes, keep focusable children inside padded regions, or override overflow at the cost of image corner clipping.
-- [#122](https://github.com/yannbf/droppy-ds/issues/122): components are plain function components, so `ref` type-checks but never attaches on React 18 (works on React 19 only).
+- [#122](https://github.com/yannbf/droppy-ds/issues/122): components are plain function components, so `ref` type-checks but never attaches on React 18 (works on React 19 only). _(React build only — does not apply to the Svelte port.)_
 - [#129](https://github.com/yannbf/droppy-ds/issues/129): focus indicators are box-shadow-only with `outline: none`, so they vanish entirely in Windows High Contrast mode.
 
 {/* END: known-issues */}

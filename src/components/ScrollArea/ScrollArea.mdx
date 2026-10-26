@@ -10,8 +10,10 @@ import * as ScrollAreaStories from './ScrollArea.stories'
 
 A scrollable panel with a themed scrollbar in place of the platform's own.
 
-```tsx
-import { ScrollArea } from '@droppy/design-system'
+```svelte
+<script lang="ts">
+  import { ScrollArea } from '@droppy/design-system'
+</script>
 ```
 
 <Canvas of={ScrollAreaStories.Default} />
@@ -87,7 +89,7 @@ otherwise intersect.
 
 ### Do
 
-- Give the `ScrollArea` a bounded height through `className`, so it has something to scroll
+- Give the `ScrollArea` a bounded height through `class`, so it has something to scroll
 - Match `orientation` to the axis the content actually overflows on; `both` renders two scrollbars
   and the corner between them
 - Keep focusable content inside the region, e.g. links or controls, so keyboard users can reach
@@ -110,7 +112,7 @@ otherwise intersect.
 | Arrow keys / Page Up / Page Down (viewport focused) | Scrolls the content                                                             |
 | Tab                                                 | Scrollbar thumb is not part of tab order — scroll the viewport directly instead |
 
-- **ARIA:** none of the parts carry a role beyond the plain `<div>` Base UI renders — a scroll area is a layout affordance, not a distinct landmark.
+- **ARIA:** none of the parts carry a role beyond the plain `<div>` Bits UI renders — a scroll area is a layout affordance, not a distinct landmark.
 - **Screen reader:** reads the content inside as it would any other block; the scrollbar itself is not announced.
 
 {/* END: a11y */}
@@ -123,7 +125,7 @@ otherwise intersect.
 
 ## Styling
 
-Colors, track/thumb sizing, and the hover/scroll-gated opacity come entirely from the theme layer's `ScrollArea*` classes. `className` merges onto the root, so it composes with the theme rather than replacing it.
+Colors, track/thumb sizing, and the hover/scroll-gated opacity come entirely from the theme layer's `ScrollArea*` classes. `class` merges onto the root, so it composes with the theme rather than replacing it.
 
 {/* END: styling */}
 
@@ -145,7 +147,7 @@ Picks which axes get a scrollbar.
 
 <Canvas of={ScrollAreaStories.Orientation} />
 
-### `className`
+### `class`
 
 Merged onto the root alongside the component's own `droppy-ScrollArea` class.
 
@@ -157,7 +159,9 @@ Merged onto the root alongside the component's own `droppy-ScrollArea` class.
 ## Decision log
 
 - **2020-10**: dark mode was added to the app and Storybook simultaneously, converting overlay styles to theme variables and adding a Storybook theme switcher; dual light/dark theming has been a requirement for every component since, culminating in Droppy's data-theme token switching ([mealdrop #1](https://github.com/yannbf/mealdrop/pull/1), [dark mode commit](https://github.com/yannbf/mealdrop/commit/ffb87893515e58096e4984e020befc0267b84496)).
-- **Built on Base UI [`ScrollArea`](https://base-ui.com/react/components/scroll-area).** Droppy supplies the props, the theme classes, and the copy around it.
+- **Built on Bits UI [`ScrollArea`](https://bits-ui.com/docs/components/scroll-area).** Droppy supplies the props, the theme classes, and the copy around it.
+
+- **2026-10**: Ported to Svelte 5 (runes) on Bits UI `ScrollArea` (scrollbars force-mounted, faded in via `data-state`); stories are plain CSF in `.stories.ts` with `.svelte` fixtures.
 
 {/* END: history */}
 
@@ -171,7 +175,7 @@ Merged onto the root alongside the component's own `droppy-ScrollArea` class.
 - [#239](https://github.com/yannbf/droppy-ds/issues/239): scrollbar DOM is absent on first paint and never renders in jsdom; keepMounted is not exposed. **Workaround:** assert on scrollbars only in real-browser test envs inside waitFor and target the always-present viewport in jsdom; keepMounted itself is unreachable.
 - [#240](https://github.com/yannbf/droppy-ds/issues/240): root paints an opaque surface-page background, producing a mismatched patch on card surfaces. **Workaround:** override the root background via className/app CSS to transparent or the surrounding surface token.
 - [#241](https://github.com/yannbf/droppy-ds/issues/241): docs claim no part carries a role, but Root/Viewport/Content render role="presentation" and the focusable viewport trips axe. **Workaround:** allowlist axe's presentation-role-conflict rule for the viewport in CI; the rendered attributes themselves cannot be changed.
-- [#242](https://github.com/yannbf/droppy-ds/issues/242): RTL: content clearance uses physical padding while the scrollbar is positioned with logical properties. **Workaround:** swap the content padding sides under [dir='rtl'] in app CSS and wrap the app in Base UI's DirectionProvider.
+- [#242](https://github.com/yannbf/droppy-ds/issues/242): RTL: content clearance uses physical padding while the scrollbar is positioned with logical properties. **Workaround:** swap the content padding sides under [dir='rtl'] in app CSS and wrap the app in Bits UI's DirectionProvider.
 - [#243](https://github.com/yannbf/droppy-ds/issues/243): switching orientation at runtime leaves stale scrollbar geometry. **Workaround:** remount on change with key=&#123;orientation&#125;, at the cost of losing scroll position.
 - [#244](https://github.com/yannbf/droppy-ds/issues/244): theme ships a ScrollAreaViewportFade variant no component can apply. **Workaround:** replicate the fade in app CSS targeting .ScrollAreaViewport, where Base UI sets the overflow variables.
 - [#125](https://github.com/yannbf/droppy-ds/issues/125): the prop type is a closed set, so `id`/`data-testid`/`aria-*`/`style`/event handlers never reach the rendered DOM.

@@ -1,2 +1,1 @@
-export { Accordion } from './Accordion'
-export type { AccordionProps, AccordionItem } from './Accordion'
+export { default as Accordion, type AccordionProps, type AccordionItem } from './Accordion.svelte'

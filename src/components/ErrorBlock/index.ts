@@ -1,2 +1,1 @@
-export { ErrorBlock } from './ErrorBlock'
-export type { ErrorBlockProps } from './ErrorBlock'
+export { default as ErrorBlock, type ErrorBlockProps } from './ErrorBlock.svelte'

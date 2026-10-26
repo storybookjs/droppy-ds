@@ -11,8 +11,10 @@ import * as TopBannerStories from './TopBanner.stories'
 A full-width band at the top of a page, with a centered title over either a theme color or a
 background photo — a category page's header, a restaurant's hero image.
 
-```tsx
-import { TopBanner } from '@droppy/design-system'
+```svelte
+<script lang="ts">
+  import { TopBanner } from '@droppy/design-system'
+</script>
 ```
 
 <Canvas of={TopBannerStories.Default} />
@@ -27,7 +29,7 @@ import { TopBanner } from '@droppy/design-system'
 - `title` renders as a centered [Heading](?path=/docs/typography-heading--docs) at `level`
   (an `h1` by default); its color switches to `--ds-color-text-on-inverse` when a photo is set,
   since the theme's regular text color doesn't reliably read over an arbitrary photo.
-- Merges any incoming `className` with its own `droppy-TopBanner` class.
+- Merges any incoming `class` with its own `droppy-TopBanner` class.
 - Accepts an `onBackClick` prop for call-site parity with the Mealdrop component this replaces,
   but renders no back control of its own — see [Related](#related) for composing one.
 
@@ -68,10 +70,10 @@ against arbitrary imagery rather than trusting the surface token underneath.
 
 <span className="sb-sr-only">
 
-| Part  | `data-part` | Renders | Purpose                                                        |
-| :---- | :---------- | :------ | :------------------------------------------------------------- |
-| Root  | `root`      | `<div>` | The band, carrying the background image when `photoUrl` is set |
-| Title | `title`     | `<h1>`–`<h5>` per `level` | Switched to its on-photo treatment when there is a photo |
+| Part  | `data-part` | Renders                   | Purpose                                                        |
+| :---- | :---------- | :------------------------ | :------------------------------------------------------------- |
+| Root  | `root`      | `<div>`                   | The band, carrying the background image when `photoUrl` is set |
+| Title | `title`     | `<h1>`–`<h5>` per `level` | Switched to its on-photo treatment when there is a photo       |
 
 </span>
 
@@ -150,7 +152,7 @@ so a screen with a `TopBanner` shouldn't add other soft-green accents.
 
 The 240px band height is a literal value — no token in the current scale matches it exactly.
 
-`className` merges with the component's own `droppy-TopBanner` class.
+`class` merges with the component's own `droppy-TopBanner` class.
 
 {/* END: styling */}
 
@@ -186,7 +188,7 @@ in its source. Nothing here renders a control, so the callback never fires.
 
 <Canvas of={TopBannerStories.OnBackClick} />
 
-### `className`
+### `class`
 
 Merged onto the root alongside the component's own `droppy-TopBanner` class.
 
@@ -205,6 +207,8 @@ Merged onto the root alongside the component's own `droppy-TopBanner` class.
   `h1`), leaving pages whose only visible title is the banner with no `h1` at all; the default
   restores the original semantics, closing [#260](https://github.com/yannbf/droppy-ds/issues/260).
 - **Built on [Heading](?path=/docs/typography-heading--docs).** Droppy supplies the props, the theme classes, and the copy around it.
+
+- **2026-10**: Ported to Svelte 5 (runes) on plain elements; stories are plain CSF in `.stories.ts` with `.svelte` fixtures.
 
 {/* END: history */}
 

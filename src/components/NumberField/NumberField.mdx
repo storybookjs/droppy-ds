@@ -11,11 +11,13 @@ import * as NumberFieldStories from './NumberField.stories'
 A typeable numeric input with increment/decrement buttons and pointer scrub, for a quantity or
 amount that also needs a keyboard or direct-entry path.
 
-```tsx
-import { NumberField } from '@droppy/design-system'
+```svelte
+<script lang="ts">
+  import { NumberField } from '@droppy/design-system'
+</script>
 ```
 
-labelled via [`Field`](https://base-ui.com/react/components/field) the same way
+Labelled with a native `<label>` the same way
 [Input](?path=/docs/forms-input-input--docs) is.
 
 <Canvas of={NumberFieldStories.Default} />
@@ -28,9 +30,9 @@ labelled via [`Field`](https://base-ui.com/react/components/field) the same way
   reached rather than wrapping around.
 - **The label doubles as a scrub area.** Dragging it left/right changes the value with the
   pointer, without needing to focus the input first.
-- **`value`/`defaultValue`/`onValueChange` follow Base UI's controlled/uncontrolled pattern** —
+- **`value`/`defaultValue`/`onValueChange` follow the usual controlled/uncontrolled pattern** —
   omit `value` for an uncontrolled field, or pass both `value` and `onValueChange` to control it.
-- Merges any incoming `className` onto the root, alongside the theme layer's own class.
+- Merges any incoming `class` onto the root, alongside the theme layer's own class.
 
 {/* END: general */}
 
@@ -72,16 +74,16 @@ increments.
 
 <span className="sb-sr-only">
 
-| Part       | `data-part` | Renders    | Purpose                                             |
-| :--------- | :---------- | :--------- | :-------------------------------------------------- |
-| Field      | `field`     | `<div>`    | Base UI's `Field.Root`, associating label and input |
-| Root       | `root`      | `<div>`    | Owns the value, the bounds, and the formatting      |
-| Scrub area | `scrub`     | `<span>`   | Wraps the label; dragging it steps the value        |
-| Label      | `label`     | `<label>`  | The visible label and accessible name               |
-| Group      | `group`     | `<div>`    | Holds the buttons and the input                     |
-| Decrement  | `decrement` | `<button>` | Disabled at `min`                                   |
-| Input      | `input`     | `<input>`  | The typeable control                                |
-| Increment  | `increment` | `<button>` | Disabled at `max`                                   |
+| Part       | `data-part` | Renders    | Purpose                                        |
+| :--------- | :---------- | :--------- | :--------------------------------------------- |
+| Field      | `field`     | `<div>`    | The field wrapper, associating label and input |
+| Root       | `root`      | `<div>`    | Owns the value, the bounds, and the formatting |
+| Scrub area | `scrub`     | `<span>`   | Wraps the label; dragging it steps the value   |
+| Label      | `label`     | `<label>`  | The visible label and accessible name          |
+| Group      | `group`     | `<div>`    | Holds the buttons and the input                |
+| Decrement  | `decrement` | `<button>` | Disabled at `min`                              |
+| Input      | `input`     | `<input>`  | The typeable control                           |
+| Increment  | `increment` | `<button>` | Disabled at `max`                              |
 
 </span>
 
@@ -132,7 +134,8 @@ increments.
 | Drag the label                        | any     | Scrubs the value with pointer movement             |
 
 - **ARIA:** the increment and decrement buttons carry their own accessible names ("Increase" /
-  "Decrease") from Base UI; the input is a `textbox` associated with the label through `Field`.
+  "Decrease"); the input is a `spinbutton` (with `aria-valuenow`/`aria-valuemin`/`aria-valuemax`)
+  associated with the label through `for`/`id`.
 - **Screen reader:** the current value is read as the input's own value; the stepper buttons
   announce as disabled once a bound is reached.
 - **You must provide:** `label` — without it the field has no accessible name.
@@ -148,7 +151,7 @@ increments.
 ## Styling
 
 Colors, spacing, and the scrub cursor come entirely from the theme layer's `NumberField*`
-classes — this component adds no styling of its own beyond forwarding `className` to the root.
+classes — this component adds no styling of its own beyond forwarding `class` to the root.
 
 {/* END: styling */}
 
@@ -194,7 +197,7 @@ Dims the input and both buttons together.
 
 <Canvas of={NumberFieldStories.Disabled} />
 
-### `className`
+### `class`
 
 Merged onto the root alongside the component's own `droppy-NumberField` class.
 
@@ -206,7 +209,9 @@ Merged onto the root alongside the component's own `droppy-NumberField` class.
 ## Decision log
 
 - **2026-07**: NumberField was added as the typeable numeric input, wrapped in Field so the label associates with the control the same way Input does it — positioned explicitly against QuantityStepper, which stays a tap-tap bounded stepper; the label sits inside the ScrubArea so dragging it changes the value ([additional components commit](https://github.com/yannbf/droppy-ds/commit/1fba4ce05fa71da8aa51a56ea60dae6b218c1868), [NumberField.tsx](https://github.com/yannbf/droppy-ds/blob/main/src/components/NumberField/NumberField.tsx)).
-- **Built on Base UI [`NumberField`](https://base-ui.com/react/components/number-field),.** Droppy supplies the props, the theme classes, and the copy around it.
+- **Built by hand on native elements** — Bits UI has no number field (the React build used Base UI [`NumberField`](https://base-ui.com/react/components/number-field)). Droppy supplies the props, the theme classes, and the copy around it.
+
+- **2026-10**: Ported to Svelte 5 (runes) on a hand-rolled native implementation (Bits UI has no number field): a `role="spinbutton"` input with arrow/Page/Home/End keys, `min`/`max`/`step`, increment/decrement buttons and a label scrub area; stories are plain CSF in `.stories.ts` with `.svelte` fixtures.
 
 {/* END: history */}
 
@@ -216,12 +221,12 @@ Merged onto the root alongside the component's own `droppy-NumberField` class.
 
 - [#94](https://github.com/yannbf/droppy-ds/issues/94): touch: the label blocks page scrolling entirely, and horizontal swipes on it can change the value. **Workaround:** app CSS `pointer-events: none` on `.NumberFieldScrubArea` restores page scrolling, at the cost of scrub and label-click-to-focus; or omit `label` and label externally via `id`.
 - [#96](https://github.com/yannbf/droppy-ds/issues/96): clicking the label fires onValueCommitted with the unchanged value (reason 'scrub'). **Workaround:** dedupe in the handler — ignore onValueCommitted calls whose value equals the last committed value, or skip reason 'scrub' events with an unchanged value.
-- [#99](https://github.com/yannbf/droppy-ds/issues/99): mouse scrubbing hides the pointer but renders no replacement cursor — the drag is invisible in Chromium/Firefox. **Workaround:** app CSS on the global `.NumberFieldScrubAreaCursor` class — give the span an explicit size and a visible background/glyph.
-- [#102](https://github.com/yannbf/droppy-ds/issues/102): className, style, and ref land on an inner div — not the outermost element — and inputRef targets Base UI's hidden input. **Workaround:** wrap in your own element for layout/ref (or target `.droppy-Field` from app CSS), and reach the visible input via `id` or `querySelector("input[type=\"text\"]")` instead of `inputRef`.
+- [#99](https://github.com/yannbf/droppy-ds/issues/99): mouse scrubbing hides the pointer but renders no replacement cursor — the drag is invisible in Chromium/Firefox. **Workaround:** app CSS on the global `.NumberFieldScrubAreaCursor` class — give the span an explicit size and a visible background/glyph. _(React build only — does not apply to the Svelte port.)_
+- [#102](https://github.com/yannbf/droppy-ds/issues/102): className, style, and ref land on an inner div — not the outermost element — and inputRef targets Base UI's hidden input. **Workaround:** wrap in your own element for layout/ref (or target `.droppy-Field` from app CSS), and reach the visible input via `id` or `querySelector("input[type=\"text\"]")` instead of `inputRef`. _(React build only — does not apply to the Svelte port.)_
 - [#105](https://github.com/yannbf/droppy-ds/issues/105): docs omit that onValueChange fires null and that controlled-empty requires value=&#123;null&#125;, not undefined. **Workaround:** type controlled state as number | null, represent empty as null (never undefined), and null-check before numeric operations.
 - [#107](https://github.com/yannbf/droppy-ds/issues/107): aria-label / aria-labelledby / aria-describedby type-check but are inert — a field without the label prop has no accessible name. **Workaround:** pass `id` and supply your own (optionally visually hidden) external `<label htmlFor>`; descriptions require a post-mount DOM patch on the input.
 - [#110](https://github.com/yannbf/droppy-ds/issues/110): accessible strings "Increase", "Decrease", and "Number field" are hardcoded English with no way to localize them. **Workaround** (fragile): post-mount DOM setAttribute patch of the three ARIA strings from a wrapper ref, or bypass the wrapper and compose Base UI parts directly.
-- [#113](https://github.com/yannbf/droppy-ds/issues/113): no 'use client' directive — passing function props from a React Server Component module throws at the Base UI boundary. **Workaround:** add 'use client' to the consuming module, or create a single client re-export file and import the DS through it in server trees.
+- [#113](https://github.com/yannbf/droppy-ds/issues/113): no 'use client' directive — passing function props from a React Server Component module throws at the Base UI boundary. **Workaround:** add 'use client' to the consuming module, or create a single client re-export file and import the DS through it in server trees. _(React build only — does not apply to the Svelte port.)_
 - [#310](https://github.com/yannbf/droppy-ds/issues/310): `label` is typed optional, but omitting it leaves the field with no accessible name. **Workaround:** pass `label` at every call site.
 - [#129](https://github.com/yannbf/droppy-ds/issues/129): focus indicators are box-shadow-only with `outline: none`, so they vanish entirely in Windows High Contrast mode.
 - [#138](https://github.com/yannbf/droppy-ds/issues/138): theme chrome is bound to unnamespaced global classes (`.Button`, `.Input`, `.FieldRoot`, …) with no cascade layer, so host-app CSS collides in both directions.

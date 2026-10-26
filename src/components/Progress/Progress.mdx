@@ -11,8 +11,10 @@ import * as ProgressStories from './Progress.stories'
 A track-and-fill indicator for progress through a known or unknown-length task — an upload, an
 export, a multi-step process.
 
-```tsx
-import { Progress } from '@droppy/design-system'
+```svelte
+<script lang="ts">
+  import { Progress } from '@droppy/design-system'
+</script>
 ```
 
 <Canvas of={ProgressStories.Default} />
@@ -25,7 +27,7 @@ import { Progress } from '@droppy/design-system'
   formatted percentage of the range, with no extra markup from the caller.
 - **`max` (default `100`) supports arbitrary ranges**; the reported percentage and ARIA
   attributes are always computed against it.
-- Merges any incoming `className` onto the root, alongside the theme layer's own class.
+- Merges any incoming `class` onto the root, alongside the theme layer's own class.
 
 {/* END: general */}
 
@@ -148,7 +150,7 @@ document.
 ## Styling
 
 Colors, track/fill radius, and the indeterminate sweep animation come from the theme layer's
-`Progress*` classes — this component adds no styling of its own beyond forwarding `className` to
+`Progress*` classes — this component adds no styling of its own beyond forwarding `class` to
 the root.
 
 {/* END: styling */}
@@ -183,7 +185,7 @@ Renders the formatted value beside the label.
 
 <Canvas of={ProgressStories.ShowValue} />
 
-### `className`
+### `class`
 
 Merged onto the root alongside the component's own `droppy-Progress` class.
 
@@ -195,7 +197,8 @@ Merged onto the root alongside the component's own `droppy-Progress` class.
 ## Decision log
 
 - **2026-07**: Progress and ProgressBar deliberately coexist: Progress adds Label and formatted Value parts plus an indeterminate mode (`value={null}`) that the plain ProgressBar has no way to express ([additional components commit](https://github.com/yannbf/droppy-ds/commit/1fba4ce05fa71da8aa51a56ea60dae6b218c1868), [Progress.tsx](https://github.com/yannbf/droppy-ds/blob/main/src/components/Progress/Progress.tsx)).
-- **Built on Base UI [`Progress`](https://base-ui.com/react/components/progress).** Droppy supplies the props, the theme classes, and the copy around it.
+- **Built on Bits UI [`Progress`](https://bits-ui.com/docs/components/progress)** for the root; the label, value, track and indicator are hand-rolled, setting Base UI's `data-indeterminate`/`data-complete`/`data-progressing` attributes so the theme CSS is unchanged. Droppy supplies the props, the theme classes, and the copy around it.
+- **2026-10**: Ported to Svelte 5 (runes) on Bits UI `Progress`; stories are plain CSF in `.stories.ts` with `.svelte` fixtures.
 
 {/* END: history */}
 
@@ -207,11 +210,11 @@ Merged onto the root alongside the component's own `droppy-Progress` class.
 - [#228](https://github.com/yannbf/droppy-ds/issues/228): indeterminate sweep ignores prefers-reduced-motion. **Workaround:** add a `@media (prefers-reduced-motion: reduce)` rule in app CSS setting `animation: none` on `.ProgressIndicator[data-indeterminate]`.
 - [#229](https://github.com/yannbf/droppy-ds/issues/229): A long unbroken label widens the grid columns, stretching the track past the component's own width. **Workaround:** override the root to `minmax(0, 1fr)` columns and add wrapping/truncation to `.ProgressLabel` in app CSS, or shorten the label string before passing it.
 - [#230](https://github.com/yannbf/droppy-ds/issues/230): degenerate ranges are not validated: max=&#123;0&#125; reports data-complete, max=&#123;NaN&#125; emits aria-valuenow="NaN". **Workaround:** validate the total in app code — render `value={null}` (or nothing) until the total is known and finite, and pass `max={undefined}` to fall back to the default of 100.
-- [#231](https://github.com/yannbf/droppy-ds/issues/231): showValue text is formatted with the runtime locale, producing SSR hydration mismatches. **Workaround:** pass an explicit `locale` prop (it is forwarded to Base UI's root), or set `showValue={false}` and render the value text yourself.
-- [#232](https://github.com/yannbf/droppy-ds/issues/232): root has a fixed width of 15rem, so the bar does not fill its container. **Workaround:** pass `style={{ width: '100%' }}` (forwarded to the root as an inline style) or a `className` with a width, loaded after the design system stylesheet.
+- [#231](https://github.com/yannbf/droppy-ds/issues/231): showValue text is formatted with the runtime locale, producing SSR hydration mismatches. **Workaround:** pass an explicit `locale` prop (used by the value formatter), or set `showValue={false}` and render the value text yourself.
+- [#232](https://github.com/yannbf/droppy-ds/issues/232): root has a fixed width of 15rem, so the bar does not fill its container. **Workaround:** pass `style="width: 100%"` (forwarded to the root as an inline style) or a `class` with a width, loaded after the design system stylesheet.
 - [#233](https://github.com/yannbf/droppy-ds/issues/233): default value text rounds to whole percent, and `format` formats the raw value rather than the percentage. **Workaround:** express the range as a fraction (`value={done / total} max={1}`) when using `format` for percentages, or floor the value / render your own text.
 - [#234](https://github.com/yannbf/droppy-ds/issues/234): --ds-color-progress-track and --ds-color-progress-fill have no effect on this component. **Workaround:** re-point `.ProgressTrack` / `.ProgressIndicator` at the progress-named tokens in app CSS loaded after the design system stylesheet.
-- [#235](https://github.com/yannbf/droppy-ds/issues/235): JSX children type-check but are silently discarded. **Workaround:** none needed at runtime — use the `label` prop (accepts any ReactNode) or render sibling elements yourself; nothing enforces this at the type level.
+- [#235](https://github.com/yannbf/droppy-ds/issues/235): JSX children type-check but are silently discarded. **Workaround:** none needed at runtime — use the `label` prop (accepts any ReactNode) or render sibling elements yourself; nothing enforces this at the type level. _(React build only — does not apply to the Svelte port.)_
 - [#129](https://github.com/yannbf/droppy-ds/issues/129): focus indicators are box-shadow-only with `outline: none`, so they vanish entirely in Windows High Contrast mode.
 
 {/* END: known-issues */}

@@ -1,2 +1,1 @@
-export { IconButton } from './IconButton'
-export type { IconButtonProps } from './IconButton'
+export { default as IconButton, type IconButtonProps } from './IconButton.svelte'

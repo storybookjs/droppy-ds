@@ -1,6 +1,6 @@
 import { fileURLToPath } from 'node:url'
 
-import type { StorybookConfig } from '@storybook/react-vite'
+import type { StorybookConfig } from '@storybook/svelte-vite'
 import type { Manifests } from 'storybook/internal/types'
 import remarkGfm from 'remark-gfm'
 
@@ -13,18 +13,16 @@ const purgeAllDocgen = readPurgeAllDocgen(
   fileURLToPath(new URL('../experiment.json', import.meta.url))
 )
 
-// The public StorybookConfig type only declares experimental_manifests in its raw (resolved)
-// form, but main.ts is itself a preset, so a function here composes over the framework's
-// generated manifests.
 const config: StorybookConfig & {
+  managerEntries?: (entries?: string[]) => string[]
   experimental_manifests?: (existing: Manifests | undefined) => Manifests | undefined
 } = {
-  stories: ['../src/**/*.mdx', '../src/**/*.stories.tsx'],
+  // Plain Svelte CSF: stories are `.stories.ts` modules whose `render` returns
+  // `{ Component, props }`. Compositions live in sibling `.svelte` fixtures.
+  stories: ['../src/**/*.mdx', '../src/**/*.stories.ts'],
   addons: [
     {
       name: '@storybook/addon-docs',
-      // addon-docs compiles MDX without GitHub-flavored markdown, so the
-      // docs pages' tables need remark-gfm supplied here to render as tables.
       options: {
         mdxPluginOptions: { mdxCompileOptions: { remarkPlugins: [remarkGfm] } },
       },
@@ -33,47 +31,30 @@ const config: StorybookConfig & {
     '@storybook/addon-vitest',
     '@storybook/addon-mcp',
     '@component-anatomy/storybook',
+    // Preset only (token virtual module + toolbar data): the addon's own
+    // preview decorator renders React and can't wrap a Svelte story, so
+    // `.storybook/swatchbook-axes.ts` stands in for it, and the manager
+    // toolbar is registered in `managerEntries` below.
     {
-      name: '@unpunnyfuns/swatchbook-addon',
+      name: '@unpunnyfuns/swatchbook-addon/preset',
       options: { configPath: '../swatchbook.config.ts' },
     },
     'storybook-addon-tag-badges',
-    '@github-ui/storybook-addon-performance-panel',
   ],
-  framework: '@storybook/react-vite',
-  viteFinal: (config) => {
-    // The inherited vite.config.ts runs vite-plugin-dts, whose api-extractor
-    // pass reads dist/index.d.ts — a library-build concern that fails on a
-    // clean checkout (Chromatic CI) and emits nothing Storybook uses.
-    config.plugins = (config.plugins ?? [])
-      .flat(3)
-      .filter((plugin) => !(plugin && 'name' in plugin && plugin.name === 'vite:dts'))
-    return config
+  managerEntries: (entries: string[] = []) => [
+    ...entries,
+    fileURLToPath(import.meta.resolve('@unpunnyfuns/swatchbook-addon/manager')),
+  ],
+  framework: {
+    name: '@storybook/svelte-vite',
+    options: { docgen: !purgeAllDocgen },
   },
   features: {
-    experimentalReview: true,
-    experimentalReactComponentMeta: true,
-    changeDetection: true,
     experimentalSearchDocsHeadings: true,
   },
   tags: {
     anatomy: { defaultFilterSelection: 'exclude' },
   },
-  // reactDocgen: false also strips the __docgenInfo the vite plugin would inline into the
-  // preview bundle, so a purged branch shows no prop tables in the rendered docs either. The
-  // manifest generator keeps its react-component-meta engine regardless (that feature flag
-  // stays on); its output is stripped by experimental_manifests below.
-  typescript: purgeAllDocgen
-    ? { reactDocgen: false }
-    : {
-        reactDocgen: 'react-docgen-typescript',
-        reactDocgenTypescriptOptions: {
-          // Overriding `exclude` replaces the plugin default (stories), so restate it.
-          // The config dir has no component props, and docgen's file discovery can't
-          // descend into dot-directories — left in, every run warns about preview.tsx.
-          exclude: ['**/*.stories.tsx', '.storybook/**'],
-        },
-      },
   ...(purgeAllDocgen
     ? {
         experimental_manifests: (existing: Manifests | undefined) =>

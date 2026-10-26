@@ -1,2 +1,8 @@
-export { ToastProvider, useToast } from './Toast'
-export type { ToastProviderProps } from './Toast'
+export { default as ToastProvider, type ToastProviderProps } from './ToastProvider.svelte'
+export {
+  useToast,
+  ToastManager,
+  type ToastOptions,
+  type ToastObject,
+  type ToastPromiseOptions,
+} from './manager.svelte'

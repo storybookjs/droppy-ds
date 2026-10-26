@@ -11,8 +11,10 @@ import * as ErrorBlockStories from './ErrorBlock.stories'
 A titled message with an optional illustration and a single recovery action — an empty
 category, a 404, a failed request.
 
-```tsx
-import { ErrorBlock } from '@droppy/design-system'
+```svelte
+<script lang="ts">
+  import { ErrorBlock } from '@droppy/design-system'
+</script>
 ```
 
 and [Button](?path=/docs/actions-button--docs) — no Base UI primitive of its own.
@@ -25,7 +27,7 @@ and [Button](?path=/docs/actions-button--docs) — no Base UI primitive of its o
   one action.
 - `illustration` takes any `ReactNode` — an inline SVG, an image, an animation the caller drives
   itself — or nothing at all.
-- `className` merges onto the root element, so wrapping it in `styled()` or adding utility
+- `class` merges onto the root element, so wrapping it in `styled()` or adding utility
   classes composes instead of stripping the design system's styling.
 
 {/* END: general */}
@@ -176,7 +178,7 @@ the slot accepts whatever the caller drives rather than owning an animation itse
 
 <Canvas of={ErrorBlockStories.Illustration} />
 
-### `className`
+### `class`
 
 Merged onto the root alongside the component's own `droppy-ErrorBlock` class.
 
@@ -189,6 +191,8 @@ Merged onto the root alongside the component's own `droppy-ErrorBlock` class.
 
 - **2026-07**: the `image` prop was renamed `illustration` and made optional: the Lottie player and its animation JSON are application assets, so the slot takes any node or nothing rather than baking a player dependency into the package; the rest of the API (title, body, buttonText, onButtonClick) carried over unchanged from Mealdrop, and the inner gap moved from 20px to `--ds-space-sm` (24px) because spacing.m has no exact token and the scale is the source of truth ([migration commit](https://github.com/yannbf/mealdrop/commit/dea29009cb06ec78eb7e2c52f216da78d913e747), [Mealdrop parity doc](https://github.com/yannbf/droppy-ds/blob/main/docs/MEALDROP-PARITY.md)).
 - **Built on [Heading](?path=/docs/typography-heading--docs), [Body](?path=/docs/typography-body--docs),.** Droppy supplies the props, the theme classes, and the copy around it.
+
+- **2026-10**: Ported to Svelte 5 (runes) on plain elements; `illustration` is a snippet; stories are plain CSF in `.stories.ts` with `.svelte` fixtures.
 
 {/* END: history */}
 

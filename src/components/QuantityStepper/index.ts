@@ -1,2 +1,1 @@
-export { QuantityStepper } from './QuantityStepper'
-export type { QuantityStepperProps } from './QuantityStepper'
+export { default as QuantityStepper, type QuantityStepperProps } from './QuantityStepper.svelte'

@@ -11,8 +11,10 @@ import * as FooterCardStories from './FooterCard.stories'
 A titled column of links for a page footer — "Discover us", "Our social media", or any other
 grouped set of footer navigation.
 
-```tsx
-import { FooterCard } from '@droppy/design-system'
+```svelte
+<script lang="ts">
+  import { FooterCard } from '@droppy/design-system'
+</script>
 ```
 
 <Canvas of={FooterCardStories.Default} />
@@ -29,7 +31,7 @@ import { FooterCard } from '@droppy/design-system'
 - FooterCard is designed to live on a dark footer surface, so it owns its own text color —
   `--ds-color-text-on-inverse` on the root, `currentColor` on links — rather than leaving each
   consumer to restate it.
-- Merges any incoming `className` with its own `droppy-FooterCard` class.
+- Merges any incoming `class` with its own `droppy-FooterCard` class.
 
 {/* END: general */}
 
@@ -172,7 +174,7 @@ FooterCard is built for the dark footer surface (`--ds-color-surface-inverse`) a
 text color rather than leaving contrast to each consumer — no wrapper override is needed to make
 its text readable. Links inherit their color from the card via `currentColor`, so overriding
 `--ds-color-text-on-inverse` (or setting `color` on a wrapping element) re-colors both the title
-and the links together. `className` merges with the component's own `droppy-FooterCard` class.
+and the links together. `class` merges with the component's own `droppy-FooterCard` class.
 
 {/* END: styling */}
 
@@ -212,7 +214,7 @@ Rendered below the list — app store badges, a short paragraph, anything a link
 
 <Canvas of={FooterCardStories.Children} />
 
-### `className`
+### `class`
 
 Merged onto the root alongside the component's own `droppy-FooterCard` class.
 
@@ -228,6 +230,8 @@ Merged onto the root alongside the component's own `droppy-FooterCard` class.
 - **2026-08**: ported onto the Heading and Link primitives with links as a `{name, href?, external?, render?}` array; the port initially dropped the title-size override and relied on implicit colour inheritance — the title rendered at heading-2 scale ([#14](https://github.com/yannbf/droppy-ds/issues/14)) and links went invisible under a consumer `* { color }` reset ([#13](https://github.com/yannbf/droppy-ds/issues/13)) — both fixed by pinning the title to `--ds-type-size-lg` and restating `color: inherit` down the list chain with ancestor-qualified selectors ([initial commit](https://github.com/yannbf/droppy-ds/commit/00b19b5a1be01ae266251a71bd074e28ad8cd267), [hardening commit](https://github.com/yannbf/droppy-ds/commit/21cbe802a1e3c6262b4e3fd56baf883f61038bb7)).
 - **2026-08**: the on-dark text color was formalized as an intentional usage principle instead of an implicit default. MealDrop's adoption still had to wrap the component (`styled(DsFooterCard) { color: var(--ds-color-text-on-inverse) }`) to get readable text, even though the component already carried that color — Steve's review of the port called it out: "If a FooterCard only goes in Footer and Footer is always dark, then it's safe to do that directly in Droppy and document it as a brand principle" ([mealdrop#65 review](https://github.com/yannbf/mealdrop/pull/65), [#297](https://github.com/yannbf/droppy-ds/issues/297)). Docs now state the dark-footer assumption directly, and the stories decorator renders against the canonical `--ds-color-surface-inverse` token instead of a hardcoded color, closing [#284](https://github.com/yannbf/droppy-ds/issues/284).
 - **Built on `Heading` (level 2) and `Link` for each item.** Droppy supplies the props, the theme classes, and the copy around it.
+
+- **2026-10**: Ported to Svelte 5 (runes) on plain elements and `Link`; item `render` is now a snippet; stories are plain CSF in `.stories.ts` with `.svelte` fixtures.
 
 {/* END: history */}
 

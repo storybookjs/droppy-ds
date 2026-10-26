@@ -2956,7 +2956,8 @@ html[data-ds-theme='dark'] .PopoverBackdrop {
 }
 
 .ScrollAreaScrollbar[data-hovering],
-.ScrollAreaScrollbar[data-scrolling] {
+.ScrollAreaScrollbar[data-scrolling],
+.ScrollAreaScrollbar[data-state='visible'] {
   opacity: 1;
   pointer-events: auto;
 }

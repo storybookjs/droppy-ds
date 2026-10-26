@@ -11,8 +11,10 @@ import * as ReviewStories from './Review.stories'
 A star-rating and text line — "★ 4.5 Very good" or "No reviews yet" — for a restaurant tile, an
 item card, or an order summary.
 
-```tsx
-import { Review } from '@droppy/design-system'
+```svelte
+<script lang="ts">
+  import { Review } from '@droppy/design-system'
+</script>
 ```
 
 <Canvas of={ReviewStories.Default} />
@@ -25,7 +27,7 @@ import { Review } from '@droppy/design-system'
 - No `rating` (or a falsy one) renders "No reviews yet" instead of a score.
 - Uses the low-contrast `--ds-color-text-review` token by default — a deliberately quiet
   treatment so the rating reads as secondary to the content around it. Pass `color` to override it.
-- Merges any incoming `className` with its own `droppy-Review` class.
+- Merges any incoming `class` with its own `droppy-Review` class.
 
 {/* END: general */}
 
@@ -143,7 +145,7 @@ other text keeps ink colors, with accents as backgrounds.
 | `--ds-color-text-review` | Default text color (low-contrast)     |
 | `--ds-type-size-sm`      | Text size, via `Body`'s `S` size step |
 
-`className` merges with the component's own `droppy-Review` class. `color` overrides the token
+`class` merges with the component's own `droppy-Review` class. `color` overrides the token
 inline.
 
 {/* END: styling */}
@@ -167,7 +169,7 @@ restaurant tiles that wants its own treatment.
 
 <Canvas of={ReviewStories.Color} />
 
-### `className`
+### `class`
 
 Merged onto the root alongside the component's own `droppy-Review` class.
 
@@ -183,6 +185,8 @@ Merged onto the root alongside the component's own `droppy-Review` class.
 - **2026-08**: ported to Droppy on token-driven CSS with a new `color` escape hatch for opting out of the deliberately quiet default ink ([initial commit](https://github.com/yannbf/droppy-ds/commit/00b19b5a1be01ae266251a71bd074e28ad8cd267)).
 - **2026-08**: the review ink implements the brand's pale-blue exception asymmetrically per theme: light theme darkens the accent (`blue-700`) so it works as ink, dark theme uses the brand's pale blue verbatim — per the [brand guidelines](?path=/docs/brand-guidelines--docs), review-star text is one of the two deliberate exceptions to "accents are surfaces, not ink".
 - **Built on `Body`, sized `S` and rendered as a `span`.** Droppy supplies the props, the theme classes, and the copy around it.
+
+- **2026-10**: Ported to Svelte 5 (runes) on plain elements; stories are plain CSF in `.stories.ts` with `.svelte` fixtures.
 
 {/* END: history */}
 

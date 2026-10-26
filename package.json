@@ -1,7 +1,7 @@
 {
   "name": "@droppy-ui/design-system",
   "version": "0.3.1",
-  "description": "Droppy design system — React components built on Base UI and the Droppy theme.",
+  "description": "Droppy design system — Svelte components built on Bits UI and the Droppy theme.",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/yannbf/droppy-ds.git"
@@ -26,14 +26,15 @@
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
+      "svelte": "./dist/index.js",
       "default": "./dist/index.js"
     },
     "./styles.css": "./dist/styles.css",
     "./package.json": "./package.json"
   },
   "scripts": {
-    "build": "terrazzo build && vite build",
-    "check": "tsc --noEmit",
+    "build": "terrazzo build && svelte-package -i src -o dist && node scripts/prune-dist.mjs && vite build",
+    "check": "svelte-check --tsconfig ./tsconfig.json",
     "storybook": "terrazzo build && storybook dev -p 6007",
     "build-storybook": "terrazzo build && storybook build --output-dir build/storybook",
     "test": "terrazzo build && vitest",
@@ -52,59 +53,57 @@
     "prepublishOnly": "pnpm build"
   },
   "peerDependencies": {
-    "react": "^18.0.0 || ^19.0.0",
-    "react-dom": "^18.0.0 || ^19.0.0"
+    "svelte": "^5.0.0"
   },
   "dependencies": {
-    "embla-carousel-react": "^8.6.0",
-    "embla-carousel-wheel-gestures": "^8.1.0",
-    "use-sync-external-store": "^1.6.0"
+    "embla-carousel": "^8.6.0",
+    "embla-carousel-wheel-gestures": "^8.1.0"
   },
   "devDependencies": {
-    "@base-ui/react": "^1.7.0",
     "@biomejs/biome": "^2.5.8",
     "@changesets/cli": "^2.31.1",
     "@clack/prompts": "^1.7.0",
     "@component-anatomy/storybook": "^0.1.0",
     "@eslint/js": "^9.39.5",
-    "@github-ui/storybook-addon-performance-panel": "^1.2.0",
-    "@storybook/addon-a11y": "^10.6.0",
-    "@storybook/addon-docs": "^10.6.0",
-    "@storybook/addon-mcp": "^10.6.0",
-    "@storybook/addon-vitest": "^10.6.0",
-    "@storybook/react-vite": "^10.6.0",
+    "@storybook/addon-a11y": "11.0.0-alpha.8",
+    "@storybook/addon-docs": "11.0.0-alpha.8",
+    "@storybook/addon-mcp": "11.0.0-alpha.8",
+    "@storybook/addon-vitest": "11.0.0-alpha.8",
+    "@storybook/svelte-vite": "11.0.0-alpha.8",
+    "@sveltejs/package": "^2.5.0",
+    "@sveltejs/vite-plugin-svelte": "^7.0.0",
     "@terrazzo/cli": "^2.7.1",
     "@terrazzo/plugin-css": "^2.7.1",
     "@terrazzo/token-tools": "2.7.1",
     "@types/node": "^26.2.0",
-    "@types/react": "^19.2.18",
-    "@types/react-dom": "^19.2.4",
     "@unpunnyfuns/swatchbook-addon": "^2.0.0",
     "@unpunnyfuns/swatchbook-blocks": "^2.0.0",
     "@unpunnyfuns/swatchbook-core": "^2.0.0",
-    "@vitejs/plugin-react": "^6.0.5",
     "@vitest/browser-playwright": "^4.1.10",
     "@vitest/coverage-v8": "^4.1.10",
+    "bits-ui": "^2.20.0",
     "chromatic": "^18.2.0",
     "eslint": "^9.39.5",
     "eslint-config-prettier": "^10.1.8",
-    "eslint-plugin-jsx-a11y": "^6.10.2",
-    "eslint-plugin-react-hooks": "^5.2.0",
-    "eslint-plugin-storybook": "^10.6.0",
+    "eslint-plugin-storybook": "11.0.0-alpha.8",
+    "eslint-plugin-svelte": "^3.12.0",
     "globals": "^16.5.0",
     "globby": "^16.2.3",
     "jsonc-parser": "^3.3.1",
-    "lottie-react": "^3.1.0",
+    "lottie-web": "^5.13.0",
     "magic-string": "^1.2.0",
     "oxc-parser": "^0.144.0",
     "playwright": "^1.62.1",
     "prettier": "^3.9.6",
+    "prettier-plugin-svelte": "^3.5.2",
     "react": "^19.2.8",
     "react-dom": "^19.2.8",
     "remark-gfm": "^4.0.1",
     "simple-git": "^3.36.0",
-    "storybook": "^10.6.0",
+    "storybook": "11.0.0-alpha.8",
     "storybook-addon-tag-badges": "^3.1.0",
+    "svelte": "^5.57.0",
+    "svelte-check": "^4.3.0",
     "tsx": "^4.23.12",
     "typescript": "^5.9.3",
     "typescript-eslint": "^8.67.0",
@@ -118,12 +117,13 @@
   },
   "keywords": [
     "design-system",
-    "react",
-    "base-ui",
+    "svelte",
+    "bits-ui",
     "components",
     "accessibility"
   ],
   "publishConfig": {
     "access": "public"
-  }
+  },
+  "svelte": "./dist/index.js"
 }

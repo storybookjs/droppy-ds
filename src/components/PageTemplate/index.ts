@@ -1,2 +1,1 @@
-export { PageTemplate } from './PageTemplate'
-export type { PageTemplateProps } from './PageTemplate'
+export { default as PageTemplate, type PageTemplateProps } from './PageTemplate.svelte'

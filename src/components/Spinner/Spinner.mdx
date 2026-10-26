@@ -10,8 +10,10 @@ import * as SpinnerStories from './Spinner.stories'
 
 An indeterminate loading indicator — three dots crossing an arc, in the theme's brand colors.
 
-```tsx
-import { Spinner } from '@droppy/design-system'
+```svelte
+<script lang="ts">
+  import { Spinner } from '@droppy/design-system'
+</script>
 ```
 
 <Canvas of={SpinnerStories.Default} />
@@ -28,7 +30,7 @@ import { Spinner } from '@droppy/design-system'
   the arc.
 - Slows to roughly a quarter speed under `prefers-reduced-motion: reduce`, rather than stopping
   outright — motion is what reads as "still loading," so it's tuned down instead of removed.
-- `className` merges onto the root element.
+- `class` merges onto the root element.
 
 {/* END: general */}
 
@@ -161,7 +163,7 @@ it shifts to the lime `brand-dark` ramp. Two rules follow:
 | `--ds-palette-brand-500` | The three dots |
 | `--ds-palette-brand-200` | The arc        |
 
-`className` merges with the component's own `droppy-Spinner` class.
+`class` merges with the component's own `droppy-Spinner` class.
 
 {/* END: styling */}
 
@@ -177,7 +179,7 @@ Becomes the accessible name on the `status` role. Defaults to `Loading`.
 
 <Canvas of={SpinnerStories.Label} />
 
-### `className`
+### `class`
 
 Merged onto the root alongside the component's own `droppy-Spinner` class.
 
@@ -193,6 +195,7 @@ Merged onto the root alongside the component's own `droppy-Spinner` class.
 - **2026-08**: a visual-parity audit found the CSS port had carried the dot/arc motion but dropped the source SVG's SMIL opacity animation, and proposed restoring the mount fade as an opacity-only keyframe (safe to keep at full speed under `prefers-reduced-motion`). The PR was closed unmerged, so the spinner still pops in at full opacity and it is tracked as [#15](https://github.com/yannbf/droppy-ds/issues/15) ([droppy-ds #8](https://github.com/yannbf/droppy-ds/pull/8)).
 - **2026-08**: the base arc's SVG `transform="rotate(90 50 50)"` presentation attribute was replaced by a CSS rotation class, so all three arcs now rotate through the same mechanism — the attribute had compounded with the shared `transform-origin: 50px 50px`, doubling the rotation and pushing the base arc outside the viewBox ([droppy-ds #289](https://github.com/yannbf/droppy-ds/pull/289), closing [#263](https://github.com/yannbf/droppy-ds/issues/263)).
 - **Built on a plain `<div>` wrapping an inline `<svg>` — no Base UI primitive.** Droppy supplies the props, the theme classes, and the copy around it.
+- **2026-10**: Ported to Svelte 5 (runes) on a plain `<div>` wrapping an inline `<svg>`; stories are plain CSF in `.stories.ts` with `.svelte` fixtures.
 
 {/* END: history */}
 
@@ -203,10 +206,10 @@ Merged onto the root alongside the component's own `droppy-Spinner` class.
 - [#179](https://github.com/yannbf/droppy-ds/issues/179): role="status" region has no text content, so the documented "announces label on mount" behaviour is not delivered. **Workaround:** keep your own permanently-mounted visually-hidden live region and write status text into it, treating Spinner as the visual half only.
 - [#183](https://github.com/yannbf/droppy-ds/issues/183): graphic is below the 3:1 non-text contrast minimum in the default light theme. **Workaround:** override the `.droppy-Spinner-dot` / `.droppy-Spinner-arc` fills (or the two brand tokens) with darker values for light mode, or pair the spinner with visible loading text.
 - [#187](https://github.com/yannbf/droppy-ds/issues/187): the hidden attribute has no effect — display: inline-flex on .droppy-Spinner overrides the UA [hidden] rule. **Workaround:** conditionally render instead of using `hidden`, or add `.droppy-Spinner[hidden] { display: none }` to app CSS.
-- [#189](https://github.com/yannbf/droppy-ds/issues/189): graphic is fixed at 100x100px with no size prop, and className targets the wrapper rather than the SVG. **Workaround:** override the internal `.droppy-Spinner-graphic` class in app CSS, scoped through your own className.
+- [#189](https://github.com/yannbf/droppy-ds/issues/189): graphic is fixed at 100x100px with no size prop, and `class` targets the wrapper rather than the SVG. **Workaround:** override the internal `.droppy-Spinner-graphic` class in app CSS, scoped through your own `class`.
 - [#15](https://github.com/yannbf/droppy-ds/issues/15): spinner lost its mount fade-in. **Workaround:** add a one-shot opacity keyframe on `.droppy-Spinner` in app CSS.
 - [#192](https://github.com/yannbf/droppy-ds/issues/192): prefers-reduced-motion rescales animation-duration but not the dots' negative delays, so the three dots bunch together. **Workaround:** rescale the delays to -1.6s / -3.2s inside a `prefers-reduced-motion` block in app CSS.
-- [#195](https://github.com/yannbf/droppy-ds/issues/195): ref is accepted by SpinnerProps but never attached on React 18, which is inside the supported peer range. **Workaround:** on React 18, attach the ref to a wrapper element you own; the passthrough already works on React 19.
+- [#195](https://github.com/yannbf/droppy-ds/issues/195): ref is accepted by SpinnerProps but never attached on React 18, which is inside the supported peer range. **Workaround:** on React 18, attach the ref to a wrapper element you own; the passthrough already works on React 19. _(React build only — does not apply to the Svelte port.)_
 - [#197](https://github.com/yannbf/droppy-ds/issues/197): children are silently discarded and dangerouslySetInnerHTML throws, though both are accepted by SpinnerProps. **Workaround:** pass neither prop — render caption text as a sibling, and your own element for custom artwork.
 - [#199](https://github.com/yannbf/droppy-ds/issues/199): root is a hard-coded &lt;div&gt; with no polymorphic escape hatch, so inline placements produce invalid nesting. **Workaround:** keep Spinner out of `<p>`/`<button>`/`<label>` — render it as a sibling, and pass `aria-hidden` if it must sit inside a button.
 - [#202](https://github.com/yannbf/droppy-ds/issues/202): a passthrough aria-label silently overrides the label prop, and role="status" can be replaced the same way. **Workaround:** set the accessible name only through `label` and never pass `aria-label` or `role` to Spinner.

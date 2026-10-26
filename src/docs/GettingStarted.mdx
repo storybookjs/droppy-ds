@@ -4,16 +4,17 @@ import { Meta } from '@storybook/addon-docs/blocks'
 
 # Getting started
 
-`@droppy/design-system` is the Droppy design language for developers. It provides React
-implementations of Droppy components, and a CSS theme. Base UI is used under the hood, but
-Droppy components are themed rather than headless. Base UI cannot be used interchangeably.
+`@droppy/design-system` is the Droppy design language for developers. It provides Svelte 5
+implementations of Droppy components, and a CSS theme. Bits UI is used under the hood (and is
+bundled into the package), but Droppy components are themed rather than headless. Bits UI cannot
+be used interchangeably.
 
 ## Install
 
-Install through NPM. `@base-ui/react`, `react`, and `react-dom` are peer dependencies, so install them alongside:
+Install through NPM. `svelte` (5.x) is a peer dependency, so install it alongside:
 
 ```bash
-npm install "@droppy/design-system @base-ui/react react react-dom
+npm install @droppy/design-system svelte
 ```
 
 To use a specific commit SHA, install Droppy from [pkg.pr.new](https://pkg.pr.new):
@@ -26,23 +27,25 @@ npm install "@droppy/design-system@https://pkg.pr.new/yannbf/droppy-ds/@droppy/d
 
 Once, in your app entry, import the CSS file. It carries the Droppy tokens and every component's styles.
 
-```tsx
+```ts
 import '@droppy/design-system/styles.css'
 ```
 
 ## Use components
 
-Then import components anywhere. No need for `className` props:
+Then import components anywhere. No need for `class` props:
 
-```tsx
-import { Button, Input, Modal } from '@droppy/design-system'
+```svelte
+<script lang="ts">
+  import { Button, Input, Modal } from '@droppy/design-system'
 
-export const RemoveItem = ({ isOpen, onClose }) => (
-  <Modal isOpen={isOpen} onClose={onClose}>
-    <Input label="Reason" />
-    <Button large>Remove</Button>
-  </Modal>
-)
+  let { isOpen, onClose }: { isOpen: boolean; onClose: () => void } = $props()
+</script>
+
+<Modal {isOpen} {onClose}>
+  <Input label="Reason" />
+  <Button large>Remove</Button>
+</Modal>
 ```
 
 ## Next
