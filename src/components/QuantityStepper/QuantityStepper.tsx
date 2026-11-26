@@ -53,7 +53,7 @@ export const QuantityStepper = ({
       round
       clear
       icon="plus"
-      onClick={() => onChange(value + 1)}
+      onClick={() => onChange(value + 2)}
       disabled={value >= max}
     />
   </div>
