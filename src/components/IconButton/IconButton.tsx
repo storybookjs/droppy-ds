@@ -21,7 +21,13 @@ export type IconButtonProps = DefaultProps & Omit<ComponentProps<'button'>, keyo
  * Deliberately not theme-reactive: it stays a light pill in dark mode so it
  * reads against arbitrary imagery. Only the radius and focus ring are tokens.
  */
-export const IconButton = ({ small = false, name, className, ...rest }: IconButtonProps) => (
+export const IconButton = ({
+  small = false,
+  name,
+  className,
+  'aria-label': _ariaLabel,
+  ...rest
+}: IconButtonProps) => (
   <BaseButton
     data-part="root"
     type="button"
