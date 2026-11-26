@@ -2,6 +2,7 @@
   margin: 0;
   color: var(--ds-color-text-primary);
   font-family: var(--ds-type-family-heading);
+  font-weight: var(--ds-type-weight-black);
   letter-spacing: var(--ds-type-tracking-default);
 }
 
@@ -9,22 +10,28 @@
    section headings and stay at normal tracking. */
 .droppy-Heading--1 {
   font-size: var(--ds-type-size-3xl);
+  line-height: var(--ds-type-style-h1-line-height);
   letter-spacing: var(--ds-type-tracking-display);
 }
 
 .droppy-Heading--2 {
   font-size: var(--ds-type-size-2xl);
+  line-height: var(--ds-type-style-h2-line-height);
   letter-spacing: var(--ds-type-tracking-display);
 }
 
 .droppy-Heading--3 {
   font-size: var(--ds-type-size-xl);
+  line-height: var(--ds-type-style-h3-line-height);
 }
 
 .droppy-Heading--4 {
   font-size: var(--ds-type-size-lg);
+  line-height: var(--ds-type-style-h4-line-height);
 }
 
 .droppy-Heading--5 {
   font-size: var(--ds-type-size-md);
+  /* The brand scale has no h5 style token; reuse the h4 leading. */
+  line-height: var(--ds-type-style-h4-line-height);
 }
