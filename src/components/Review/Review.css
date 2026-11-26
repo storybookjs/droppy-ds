@@ -8,5 +8,5 @@
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  color: var(--ds-color-text-review);
+  color: var(--ds-color-border-subtle);
 }
